@@ -20,6 +20,9 @@ class RouterService extends RootStackRouter {
           page: LoginRoute.page,
           initial: true,
         ),
+        AutoRoute(
+          page: SignUpRoute.page,
+        ),
       ];
 
   @override
