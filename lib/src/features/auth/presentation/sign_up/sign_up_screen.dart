@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/services/router/router_service.dart';
 import '../../../../core/services/router/router_service.gr.dart';
-import '.dart';
 import 'step_guide.dart';
 
 part 'sign_up_agree_policy_step.dart';
