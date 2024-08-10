@@ -2,8 +2,20 @@ import 'package:anipod/src/design_system/orb/orb.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/services/router/router_service.dart';
+import '../../../../core/services/router/router_service.gr.dart';
+import '.dart';
 import 'step_guide.dart';
+
+part 'sign_up_agree_policy_step.dart';
+
+part 'sign_up_verify_phone_number.dart';
+
+part 'sign_up_verify_code.dart';
+
+part 'sign_up_input_info_step.dart';
 
 @RoutePage()
 class SignUpScreen extends StatelessWidget {
@@ -20,53 +32,22 @@ class SignUpScreen extends StatelessWidget {
             title: "회원가입",
             centerTitle: true,
           ),
-          body: StepGuide(
-            steps: [
-              StepView(
-                title: "가입 정보 입력하기",
-                content: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    OrbTextField(
-                      hintText: '닉네임',
-                      textInputAction: TextInputAction.next,
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.only(right: 8),
-                        child: OrbFilledButton(
-                          buttonSize: OrbButtonSize.compact,
-                          buttonTextType: OrbButtonTextType.small,
-                          buttonRadius: OrbButtonRadius.small,
-                          onPressed: () async {},
-                          text: "중복확인",
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    OrbTextField(
-                      hintText: '이메일',
-                      textInputAction: TextInputAction.next,
-                    ),
-                    const SizedBox(height: 16),
-                    OrbTextField(
-                      hintText: '비밀번호',
-                      textInputAction: TextInputAction.next,
-                    ),
-                    const SizedBox(height: 16),
-                    OrbTextField(
-                      hintText: '비밀번호 확인',
-                      textInputAction: TextInputAction.done,
-                    ),
-                    const SizedBox(height: 32),
-                    OrbFilledButton(
-                      onPressed: () {},
-                      text: "다음으로",
-                    ),
-                    const SizedBox(height: 16),
-                  ],
+          body: Consumer(builder: (context, ref, _) {
+            return StepGuide(
+              steps: [
+                signUpAgreePolicyStep(),
+                signUpVerifyPhoneNumber(),
+                signUpVerifyCode(),
+                signUpInputInfoStep(
+                  onTapNextPage: () {
+                    ref
+                        .read(routerServiceProvider)
+                        .replace(const SignUpCompleteRoute());
+                  },
                 ),
-              ),
-            ],
-          ),
+              ],
+            );
+          }),
         );
       },
     );

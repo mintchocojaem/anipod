@@ -23,6 +23,9 @@ class RouterService extends RootStackRouter {
         AutoRoute(
           page: SignUpRoute.page,
         ),
+        AutoRoute(
+          page: SignUpCompleteRoute.page,
+        ),
       ];
 
   @override

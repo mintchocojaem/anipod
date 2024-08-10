@@ -5,10 +5,14 @@ import '../../../../design_system/orb/orb.dart';
 
 class StepView {
   final String title;
+  final String nextButtonTitle;
+  final void Function() onTapNextPage;
   final Widget content;
 
-  StepView({
+  const StepView({
     required this.title,
+    required this.nextButtonTitle,
+    required this.onTapNextPage,
     required this.content,
   });
 }
@@ -64,7 +68,7 @@ class StepGuide extends StatelessWidget {
             Flexible(
               child: PageView.builder(
                 controller: pageController,
-                pageSnapping: false,
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: steps.length,
                 onPageChanged: (index) {
                   currentStep.value = index;
@@ -86,6 +90,21 @@ class StepGuide extends StatelessWidget {
                           child: steps[index].content,
                         ),
                       ),
+                      const SizedBox(height: 8),
+                      OrbFilledButton(
+                        text: steps[index].nextButtonTitle,
+                        onPressed: () {
+                          steps[index].onTapNextPage();
+                          if (index == steps.length - 1) return;
+                          pageController.nextPage(
+                            duration: const Duration(
+                              milliseconds: 250,
+                            ),
+                            curve: Curves.easeIn,
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 8),
                     ],
                   );
                 },
