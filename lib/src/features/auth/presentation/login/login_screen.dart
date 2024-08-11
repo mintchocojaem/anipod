@@ -59,7 +59,9 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   OrbTextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      ref.read(routerServiceProvider).push(const FindIdRoute());
+                    },
                     text: "아이디 찾기",
                   ),
                   const SizedBox(width: 8),
@@ -68,7 +70,11 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   OrbTextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      ref
+                          .read(routerServiceProvider)
+                          .push(const FindPasswordRoute());
+                    },
                     text: "비밀번호 찾기",
                   ),
                   const SizedBox(width: 8),
@@ -78,7 +84,7 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(width: 8),
                   OrbTextButton(
                     onPressed: () {
-                      ref.read(routerServiceProvider).push(SignUpRoute());
+                      ref.read(routerServiceProvider).push(const SignUpRoute());
                     },
                     text: "회원가입",
                   ),

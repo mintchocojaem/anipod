@@ -1,10 +1,14 @@
 part of 'sign_up_screen.dart';
 
-StepView signUpInputInfoStep({required Function() onTapNextPage}) {
+StepView signUpInputInfoStep({
+  required Function() onTapSubmitButton,
+}) {
   return StepView(
     title: "가입 정보 입력하기",
     nextButtonTitle: "다음으로",
-    onTapNextPage: onTapNextPage,
+    onTapSubmitButton: (_) {
+      onTapSubmitButton();
+    },
     content: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

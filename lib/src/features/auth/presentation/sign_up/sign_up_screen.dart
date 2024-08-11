@@ -25,20 +25,17 @@ class SignUpScreen extends StatelessWidget {
     // TODO: implement build'
     return HookBuilder(
       builder: (context) {
-        return OrbScaffold(
-          resizeToAvoidBottomInset: true,
-          appBar: OrbAppBar(
-            title: "회원가입",
-            centerTitle: true,
-          ),
-          body: Consumer(builder: (context, ref, _) {
+        return Consumer(
+          builder: (context, ref, _) {
             return StepGuide(
+              appBarTitle: "회원가입",
+              showPageIndicator: true,
               steps: [
                 signUpAgreePolicyStep(),
                 signUpVerifyPhoneNumber(),
                 signUpVerifyCode(),
                 signUpInputInfoStep(
-                  onTapNextPage: () {
+                  onTapSubmitButton: () {
                     ref
                         .read(routerServiceProvider)
                         .replace(const SignUpCompleteRoute());
@@ -46,7 +43,7 @@ class SignUpScreen extends StatelessWidget {
                 ),
               ],
             );
-          }),
+          },
         );
       },
     );

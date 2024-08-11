@@ -4,7 +4,14 @@ StepView signUpVerifyCode() {
   return StepView(
     title: "인증 코드 입력하기",
     nextButtonTitle: "다음으로",
-    onTapNextPage: () {},
+    onTapSubmitButton: (pageController) {
+      pageController.nextPage(
+        duration: const Duration(
+          milliseconds: 250,
+        ),
+        curve: Curves.easeIn,
+      );
+    },
     content: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
