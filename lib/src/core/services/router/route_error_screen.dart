@@ -44,7 +44,7 @@ class _RouteErrorScreenState extends State<RouteErrorScreen>
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: themeData.colorScheme.background,
+        backgroundColor: themeData.colorScheme.surface,
       ),
       body: Center(
         child: Column(

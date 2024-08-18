@@ -4,17 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/services/router/router_service.dart';
-import '../../../../core/services/router/router_service.gr.dart';
+import '../../../../../core/services/router/router_service.dart';
+import '../../../../../core/services/router/router_service.gr.dart';
 import 'step_guide.dart';
 
 part 'sign_up_agree_policy_step.dart';
-
-part 'sign_up_verify_phone_number.dart';
-
-part 'sign_up_verify_code.dart';
-
 part 'sign_up_input_info_step.dart';
+part 'sign_up_verify_code.dart';
+part 'sign_up_verify_phone_number.dart';
 
 @RoutePage()
 class SignUpScreen extends StatelessWidget {
@@ -30,11 +27,18 @@ class SignUpScreen extends StatelessWidget {
             return StepGuide(
               appBarTitle: "회원가입",
               showPageIndicator: true,
-              steps: [
-                signUpAgreePolicyStep(),
-                signUpVerifyPhoneNumber(),
-                signUpVerifyCode(),
+              steps: (pageController) => [
+                signUpAgreePolicyStep(
+                  pageController: pageController,
+                ),
+                signUpVerifyPhoneNumber(
+                  pageController: pageController,
+                ),
+                signUpVerifyCode(
+                  pageController: pageController,
+                ),
                 signUpInputInfoStep(
+                  pageController: pageController,
                   onTapSubmitButton: () {
                     ref
                         .read(routerServiceProvider)

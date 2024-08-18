@@ -4,19 +4,19 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/services/router/router_service.dart';
-import '../../../../design_system/orb/orb.dart';
+import '../../../../../core/services/router/router_service.dart';
+import '../../../../../design_system/orb/orb.dart';
 
 @RoutePage()
-class FindPasswordCompleteScreen extends StatelessWidget {
-  const FindPasswordCompleteScreen({super.key});
+class FindIdCompleteScreen extends StatelessWidget {
+  const FindIdCompleteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return OrbScaffold(
       body: Column(
         children: [
-          Flexible(
+          const Flexible(
             child: Center(
               child: Icon(
                 Icons.check_circle,

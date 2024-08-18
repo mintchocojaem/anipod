@@ -8,19 +8,19 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:anipod/src/features/auth/presentation/find/find_id_complete_screen.dart'
+import 'package:anipod/src/features/auth/presentation/find/views/find_id_complete_screen.dart'
     as _i1;
-import 'package:anipod/src/features/auth/presentation/find/find_id_screen.dart'
+import 'package:anipod/src/features/auth/presentation/find/views/find_id_screen.dart'
     as _i2;
-import 'package:anipod/src/features/auth/presentation/find/find_password_complete_screen.dart'
+import 'package:anipod/src/features/auth/presentation/find/views/find_password_complete_screen.dart'
     as _i3;
-import 'package:anipod/src/features/auth/presentation/find/find_password_screen.dart'
+import 'package:anipod/src/features/auth/presentation/find/views/find_password_screen.dart'
     as _i4;
-import 'package:anipod/src/features/auth/presentation/login/login_screen.dart'
+import 'package:anipod/src/features/auth/presentation/login/views/login_screen.dart'
     as _i5;
-import 'package:anipod/src/features/auth/presentation/sign_up/sign_up_complete_screen.dart'
+import 'package:anipod/src/features/auth/presentation/sign_up/views/sign_up_complete_screen.dart'
     as _i6;
-import 'package:anipod/src/features/auth/presentation/sign_up/sign_up_screen.dart'
+import 'package:anipod/src/features/auth/presentation/sign_up/views/sign_up_screen.dart'
     as _i7;
 import 'package:auto_route/auto_route.dart' as _i8;
 
