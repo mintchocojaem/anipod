@@ -7,7 +7,7 @@ part of 'login_token_provider.dart';
 // **************************************************************************
 
 String _$loginTokenNotifierHash() =>
-    r'bd318333416c6667420124b4df1b878534e6c47c';
+    r'5f4773d8893917089bc1649529eaf1fa431ebdf5';
 
 /// See also [LoginTokenNotifier].
 @ProviderFor(LoginTokenNotifier)

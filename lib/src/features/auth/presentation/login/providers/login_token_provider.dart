@@ -19,12 +19,16 @@ class LoginTokenNotifier extends _$LoginTokenNotifier {
     required String loginId,
     required String password,
   }) async {
+    state = AsyncData(LoginToken(accessToken: "", refreshToken: ""));
+    /*
     state = await AsyncValue.guard(
           () => ref.read(authUseCasesProvider).login(
         loginId: loginId,
         password: password,
       ),
     );
+
+     */
   }
 
   void logout() {
