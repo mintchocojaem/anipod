@@ -46,9 +46,9 @@ class OrbBottomNavigationBar extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: palette.shadow,
-            spreadRadius: 0,
-            blurRadius: 1,
+            color: palette.surfaceBright,
+            spreadRadius: 5,
+            blurRadius: 5,
           ),
         ],
       ),

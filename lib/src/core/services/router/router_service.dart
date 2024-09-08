@@ -44,16 +44,25 @@ class RouterService extends RootStackRouter {
           page: FindPasswordCompleteRoute.page,
         ),
         AutoRoute(
-          page: MainRoute.page,
           initial: true,
+          page: MainRoute.page,
           children: [
             AutoRoute(
               page: HomeRoute.page,
             ),
             AutoRoute(
-              page: HomeRoute.page,
+              page: VolunteerRoute.page,
+            ),
+            AutoRoute(
+              page: CommunityRoute.page,
+            ),
+            AutoRoute(
+              page: UserProfileRoute.page,
             ),
           ],
+        ),
+        AutoRoute(
+          page: VolunteerDetailRoute.page,
         ),
       ];
 

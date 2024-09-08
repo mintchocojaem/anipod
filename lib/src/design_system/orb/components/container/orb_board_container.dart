@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../orb.dart';
 
 class OrbBoardContainer extends StatelessWidget {
-  final String title;
+  final Widget title;
   final Widget? leading;
   final Widget? trailing;
   final Widget? child;
@@ -31,9 +31,12 @@ class OrbBoardContainer extends StatelessWidget {
       curve: Curves.fastOutSlowIn,
       reverseDuration: const Duration(milliseconds: 500),
       child: Container(
-        color: palette.background,
         padding: const EdgeInsets.symmetric(
           vertical: 16,
+        ),
+        decoration: BoxDecoration(
+          color: palette.background,
+          borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
           children: [
@@ -47,10 +50,7 @@ class OrbBoardContainer extends StatelessWidget {
                       const SizedBox(
                         width: 8,
                       ),
-                      OrbText(
-                        title,
-                        type: OrbTextType.titleSmall,
-                      ),
+                      title,
                       const Spacer(),
                       trailing ?? const SizedBox(),
                     ],
