@@ -9,29 +9,29 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:anipod/src/core/services/router/main_screen.dart' as _i8;
-import 'package:anipod/src/features/auth/presentation/find/views/find_id_complete_screen.dart'
+import 'package:anipod/src/features/auth/presentation/find/screens/find_id_complete_screen.dart'
     as _i2;
-import 'package:anipod/src/features/auth/presentation/find/views/find_id_screen.dart'
+import 'package:anipod/src/features/auth/presentation/find/screens/find_id_screen.dart'
     as _i3;
-import 'package:anipod/src/features/auth/presentation/find/views/find_password_complete_screen.dart'
+import 'package:anipod/src/features/auth/presentation/find/screens/find_password_complete_screen.dart'
     as _i4;
-import 'package:anipod/src/features/auth/presentation/find/views/find_password_screen.dart'
+import 'package:anipod/src/features/auth/presentation/find/screens/find_password_screen.dart'
     as _i5;
-import 'package:anipod/src/features/auth/presentation/login/views/login_screen.dart'
+import 'package:anipod/src/features/auth/presentation/login/screens/login_screen.dart'
     as _i7;
-import 'package:anipod/src/features/auth/presentation/sign_up/views/sign_up_complete_screen.dart'
+import 'package:anipod/src/features/auth/presentation/sign_up/screens/sign_up_complete_screen.dart'
     as _i9;
-import 'package:anipod/src/features/auth/presentation/sign_up/views/sign_up_screen.dart'
+import 'package:anipod/src/features/auth/presentation/sign_up/screens/sign_up_screen.dart'
     as _i10;
 import 'package:anipod/src/features/board/presentation/community/pages/community_screen.dart'
     as _i1;
-import 'package:anipod/src/features/board/presentation/volunteer/pages/volunteer_detail_screen.dart'
+import 'package:anipod/src/features/board/presentation/volunteer/screens/volunteer_detail_screen.dart'
     as _i12;
-import 'package:anipod/src/features/board/presentation/volunteer/pages/volunteer_screen.dart'
+import 'package:anipod/src/features/board/presentation/volunteer/screens/volunteer_screen.dart'
     as _i13;
-import 'package:anipod/src/features/dash_board/presentation/home/pages/home_screen.dart'
+import 'package:anipod/src/features/dash_board/presentation/home/screens/home_screen.dart'
     as _i6;
-import 'package:anipod/src/features/user/presentation/user_profile/pages/user_profile_screen.dart'
+import 'package:anipod/src/features/user/presentation/user_profile/screens/user_profile_screen.dart'
     as _i11;
 import 'package:auto_route/auto_route.dart' as _i14;
 

@@ -1,6 +1,6 @@
 part of 'sign_up_screen.dart';
 
-Widget signUpVerifyCode({
+Widget signUpVerifyCodeStep({
   required PageController pageController,
 }) {
   return Column(

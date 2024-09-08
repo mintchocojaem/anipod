@@ -5,9 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../core/services/router/router_service.dart';
 import '../../../../../core/services/router/router_service.gr.dart';
 import '../../../../../design_system/orb/orb.dart';
-import '../../sign_up/views/step_guide.dart';
 
 part 'find_password_input_info_step.dart';
+
 part 'find_password_reset_step.dart';
 
 @RoutePage()
@@ -18,12 +18,12 @@ class FindPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        return StepGuide(
+        return OrbStepGuide(
           appBarTitle: '비밀번호 찾기',
           showPageIndicator: false,
           steps: (pageController) => [
-            findPasswordInputInfoStep(pageController: pageController),
-            findPasswordResetStep(
+            FindPasswordInputInfoStep(pageController: pageController),
+            FindPasswordResetStep(
               pageController: pageController,
               onTapSubmitButton: () {
                 ref

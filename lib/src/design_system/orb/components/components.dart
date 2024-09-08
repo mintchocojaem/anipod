@@ -28,6 +28,8 @@ export 'indicator/orb_refresh_indicator.dart';
 export 'scaffold/orb_scaffold.dart';
 //searchBar
 export 'search_bar/orb_search_bar.dart';
+//stepGuide
+export 'step_guide/orb_step_guide.dart';
 //shimmer
 export 'shimmer/orb_shimmer_content.dart';
 //snackBar

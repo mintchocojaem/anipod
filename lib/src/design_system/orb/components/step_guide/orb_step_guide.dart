@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../../../../../design_system/orb/orb.dart';
+import '../../orb.dart';
 
-class StepGuide extends StatelessWidget {
+class OrbStepGuide extends StatelessWidget {
   final List<Widget> Function(PageController pageController) steps;
   final String? appBarTitle;
   final bool showPageIndicator;
 
-  const StepGuide({
+  const OrbStepGuide({
     super.key,
     required this.steps,
     this.appBarTitle,

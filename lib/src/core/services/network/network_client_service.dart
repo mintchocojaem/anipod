@@ -1,32 +1,34 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../features/auth/presentation/login/providers/login_token_provider.dart';
 import '../../constants/api_url.dart';
 import '../../utils/app_exception.dart';
 
-final networkClientServiceProvider = Provider<NetworkClientService>((ref) {
-  return NetworkClientService(
-    onRequest: (options) async {
-      await Future.delayed(const Duration(milliseconds: 100));
-      final loginToken = ref.read(loginTokenNotifierProvider).value;
+part 'network_client_service.g.dart';
 
-      if (loginToken != null) {
-        options.headers['Authorization'] = 'Bearer ${loginToken.accessToken}';
-      }
-    },
-    onResponse: (response) async {
-      await Future.delayed(const Duration(milliseconds: 100));
-    },
-    onError: (exception) async {
-      await Future.delayed(const Duration(milliseconds: 100));
-      if (exception.response?.statusCode == 500) {
-        // Token Invalid
-        ref.read(loginTokenNotifierProvider.notifier).logout();
-      }
-    },
-  );
-});
+@riverpod
+NetworkClientService networkClientService(NetworkClientServiceRef ref) =>
+    NetworkClientService(
+      onRequest: (options) async {
+        await Future.delayed(const Duration(milliseconds: 100));
+        final loginToken = ref.read(loginTokenNotifierProvider).value;
+
+        if (loginToken != null) {
+          options.headers['Authorization'] = 'Bearer ${loginToken.accessToken}';
+        }
+      },
+      onResponse: (response) async {
+        await Future.delayed(const Duration(milliseconds: 100));
+      },
+      onError: (exception) async {
+        await Future.delayed(const Duration(milliseconds: 100));
+        if (exception.response?.statusCode == 500) {
+          // Token Invalid
+          ref.read(loginTokenNotifierProvider.notifier).logout();
+        }
+      },
+    );
 
 enum RequestType {
   get("GET"),

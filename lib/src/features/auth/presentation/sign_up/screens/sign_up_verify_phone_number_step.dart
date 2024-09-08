@@ -1,6 +1,6 @@
 part of 'sign_up_screen.dart';
 
-Widget signUpVerifyPhoneNumber({
+Widget signUpVerifyPhoneNumberStep({
   required PageController pageController,
 }) {
   return HookBuilder(builder: (context) {
