@@ -1,10 +1,9 @@
 import 'package:anipod/src/core/utils/extensions.dart';
-import 'package:anipod/src/features/dash_board/presentation/home/widgets/community_card.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../design_system/orb/orb.dart';
-import '../widgets/crew_card.dart';
+import '../widgets/community_card.dart';
 import '../widgets/volunteer_card.dart';
 
 @RoutePage()
@@ -14,6 +13,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OrbScaffold(
+      padding: EdgeInsets.symmetric(horizontal: 16),
       backgroundColor: context.palette.surfaceBright,
       appBar: OrbAppBar(
         title: "Anipod",
@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
               onPageChanged: (int index) {},
             ),
             SizedBox(
-              height: 20,
+              height: 8,
             ),
             OrbBoardContainer(
               title: OrbText(
@@ -70,7 +70,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 16,
+              height: 8,
             ),
             OrbBoardContainer(
               title: OrbText(
@@ -105,7 +105,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 16,
+              height: 8,
             ),
             OrbBoardContainer(
               title: OrbText(
@@ -116,19 +116,53 @@ class HomeScreen extends StatelessWidget {
               trailing: OrbIcon(Icons.chevron_right_outlined),
               child: Column(
                 children: [
-                  CrewCard(
-                    imageUrl: 'http://via.placeholder.com/128x128',
-                    title: '죽전동 새로 생긴 크루 1',
-                    description: '크루 소개글',
-                    location: '죽전동',
-                    participants: 11,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: OrbInfoCard(
+                      imageUrl: 'https://via.placeholder.com/128x128',
+                      title: '죽전동 새로 생긴 크루 1',
+                      description: '크루 소개글',
+                      infoItems: [
+                        OrbInfoItem(
+                          icon: OrbIcon(
+                            Icons.location_on_outlined,
+                            size: OrbIconSize.small,
+                          ),
+                          text: '죽전동',
+                        ),
+                        OrbInfoItem(
+                          icon: OrbIcon(
+                            Icons.person,
+                            size: OrbIconSize.small,
+                          ),
+                          text: '11명',
+                        ),
+                      ],
+                    ),
                   ),
-                  CrewCard(
-                    imageUrl: 'http://via.placeholder.com/128x128',
-                    title: '죽전동 새로 생긴 크루 1',
-                    description: '크루 소개글',
-                    location: '죽전동',
-                    participants: 11,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: OrbInfoCard(
+                      imageUrl: 'https://via.placeholder.com/128x128',
+                      title: '죽전동 새로 생긴 크루 1',
+                      description: '크루 소개글',
+                      infoItems: [
+                        OrbInfoItem(
+                          icon: OrbIcon(
+                            Icons.location_on_outlined,
+                            size: OrbIconSize.small,
+                          ),
+                          text: '죽전동',
+                        ),
+                        OrbInfoItem(
+                          icon: OrbIcon(
+                            Icons.person,
+                            size: OrbIconSize.small,
+                          ),
+                          text: '11명',
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

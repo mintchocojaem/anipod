@@ -108,13 +108,13 @@ class VolunteerCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-          color: context.palette.secondary,
+          color: context.palette.primary,
           borderRadius: BorderRadius.circular(12),
         ),
         child: OrbText(
           'NEW',
           type: OrbTextType.bodySmall,
-          color: context.palette.onSecondary,
+          color: context.palette.onPrimary,
         ),
       ),
     );

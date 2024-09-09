@@ -8,11 +8,8 @@ import '../../../../../core/services/router/router_service.dart';
 import '../../../../../core/services/router/router_service.gr.dart';
 
 part 'sign_up_agree_policy_step.dart';
-
 part 'sign_up_input_info_step.dart';
-
 part 'sign_up_verify_code_step.dart';
-
 part 'sign_up_verify_phone_number_step.dart';
 
 @RoutePage()
@@ -30,16 +27,16 @@ class SignUpScreen extends StatelessWidget {
               appBarTitle: "회원가입",
               showPageIndicator: true,
               steps: (pageController) => [
-                signUpAgreePolicyStep(
+                SignUpAgreePolicyStep(
                   pageController: pageController,
                 ),
-                signUpVerifyPhoneNumberStep(
+                SignUpVerifyPhoneNumberStep(
                   pageController: pageController,
                 ),
-                signUpVerifyCodeStep(
+                SignUpVerifyCodeStep(
                   pageController: pageController,
                 ),
-                signUpInputInfoStep(
+                SignUpInputInfoStep(
                   pageController: pageController,
                   onTapSubmitButton: () {
                     ref

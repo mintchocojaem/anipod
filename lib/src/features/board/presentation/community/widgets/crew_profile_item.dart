@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import '../../../../../design_system/orb/orb.dart';
 
 class CrewProfileItem extends StatelessWidget {
-  final String imageUrl;
+  final String path;
+  final bool isAsset;
   final String title;
 
   const CrewProfileItem({
     super.key,
-    required this.imageUrl,
+    this.isAsset = false,
+    required this.path,
     required this.title,
   });
 
@@ -20,12 +22,19 @@ class CrewProfileItem extends StatelessWidget {
         children: [
           // Circle image part
           ClipOval(
-            child: Image.network(
-              imageUrl,
-              width: 64,
-              height: 64,
-              fit: BoxFit.cover,
-            ),
+            child: isAsset
+                ? Image.asset(
+                    path,
+                    width: 64,
+                    height: 64,
+                    fit: BoxFit.cover,
+                  )
+                : Image.network(
+                    path,
+                    width: 64,
+                    height: 64,
+                    fit: BoxFit.cover,
+                  ),
           ),
           const SizedBox(height: 8),
           // Title text

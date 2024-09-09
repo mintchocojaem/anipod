@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../design_system/orb/orb.dart';
 
-class CommunityListItem extends StatelessWidget {
+class CommunityPostCard extends StatelessWidget {
   final String title;
   final List<String> tags;
   final String content;
@@ -12,7 +12,7 @@ class CommunityListItem extends StatelessWidget {
   final int commentCount;
   final String imageUrl;
 
-  const CommunityListItem({
+  const CommunityPostCard({
     super.key,
     required this.title,
     required this.tags,
@@ -26,7 +26,7 @@ class CommunityListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -44,13 +44,13 @@ class CommunityListItem extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 6, vertical: 2),
                               decoration: BoxDecoration(
-                                color:
-                                    context.palette.secondary.withOpacity(0.1),
+                                color: context.palette.secondary,
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: OrbText(
                                 tag,
                                 type: OrbTextType.bodySmall,
+                                color: context.palette.primary,
                               ),
                             ),
                           ))
@@ -64,10 +64,15 @@ class CommunityListItem extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 // Content
-                OrbText(
-                  content,
+                SizedBox(
+                  height: 40,
+                  child: OrbText(
+                    content,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 12),
                 // Time, like count, and comment count
                 Row(
                   children: [

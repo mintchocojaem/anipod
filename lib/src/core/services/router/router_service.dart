@@ -64,6 +64,15 @@ class RouterService extends RootStackRouter {
         AutoRoute(
           page: VolunteerDetailRoute.page,
         ),
+        AutoRoute(
+          page: VolunteerApplyRoute.page,
+        ),
+        AutoRoute(
+          page: VolunteerApplyCompleteRoute.page,
+        ),
+        AutoRoute(
+          page: FindCrewRoute.page,
+        ),
       ];
 
   @override

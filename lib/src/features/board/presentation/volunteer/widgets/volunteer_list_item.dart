@@ -35,7 +35,7 @@ class VolunteerListItem extends StatelessWidget {
           color: context.palette.background,
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           child: Row(
             children: [
               Container(

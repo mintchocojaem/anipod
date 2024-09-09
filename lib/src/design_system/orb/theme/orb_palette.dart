@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 
-abstract class OrbPalette{
+abstract class OrbPalette {
   final Color primary;
   final Color onPrimary;
   final Color secondary;
@@ -39,17 +39,16 @@ abstract class OrbPalette{
 
 @immutable
 class OrbLightPalette implements OrbPalette {
-
   static const OrbLightPalette _instance = OrbLightPalette._();
   factory OrbLightPalette() => _instance;
   const OrbLightPalette._();
 
   @override
-  final Color primary = const Color(0xFF5062E2);
+  final Color primary = const Color(0xFF5498FF);
   @override
   final Color onPrimary = const Color(0xFFFFFFFF);
   @override
-  final Color secondary = const Color(0xFF7280E8);
+  final Color secondary = const Color(0xFFE2EDFF);
   @override
   final Color onSecondary = const Color(0xFFFFFFFF);
   @override
@@ -78,7 +77,6 @@ class OrbLightPalette implements OrbPalette {
 
 @immutable
 class OrbDarkPalette implements OrbPalette {
-
   static const OrbDarkPalette _instance = OrbDarkPalette._();
   factory OrbDarkPalette() => _instance;
   const OrbDarkPalette._();

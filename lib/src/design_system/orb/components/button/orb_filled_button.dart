@@ -101,8 +101,8 @@ class OrbFilledButtonState extends State<OrbFilledButton> {
           horizontal: 12,
         ),
       OrbButtonSize.fit => const EdgeInsets.symmetric(
-          vertical: 16,
-          horizontal: 16,
+          vertical: 14,
+          horizontal: 14,
         ),
       OrbButtonSize.wide => const EdgeInsets.symmetric(
           vertical: 20,
@@ -120,18 +120,14 @@ class OrbFilledButtonState extends State<OrbFilledButton> {
 
     //background
     final backgroundColor = switch (widget.buttonType) {
-      OrbButtonType.primary =>
-        widget.backgroundColor ?? palette.primary,
-      OrbButtonType.secondary =>
-        widget.backgroundColor ?? palette.secondary,
+      OrbButtonType.primary => widget.backgroundColor ?? palette.primary,
+      OrbButtonType.secondary => widget.backgroundColor ?? palette.secondary,
     };
 
     //foreground
     final foregroundColor = switch (widget.buttonType) {
-      OrbButtonType.primary =>
-        widget.foregroundColor ?? palette.onPrimary,
-      OrbButtonType.secondary =>
-        widget.foregroundColor ?? palette.onSecondary,
+      OrbButtonType.primary => widget.foregroundColor ?? palette.onPrimary,
+      OrbButtonType.secondary => widget.foregroundColor ?? palette.onSecondary,
     };
 
     final button = FilledButton(
@@ -165,7 +161,7 @@ class OrbFilledButtonState extends State<OrbFilledButton> {
                   });
                 } else {
                   await widget.onPressed();
-                  if(!mounted) return;
+                  if (!mounted) return;
                   setState(() {
                     isLoading = false;
                     isPressed = false;
@@ -176,14 +172,10 @@ class OrbFilledButtonState extends State<OrbFilledButton> {
       style: ButtonStyle(
         splashFactory: NoSplash.splashFactory,
         backgroundColor: WidgetStateProperty.all(
-          widget.disabled
-              ? palette.outline
-              : backgroundColor,
+          widget.disabled ? palette.outline : backgroundColor,
         ),
         foregroundColor: WidgetStateProperty.all(
-          widget.disabled
-              ? palette.surfaceDim
-              : foregroundColor,
+          widget.disabled ? palette.surfaceDim : foregroundColor,
         ),
         minimumSize: WidgetStateProperty.all(
           minimumSize,

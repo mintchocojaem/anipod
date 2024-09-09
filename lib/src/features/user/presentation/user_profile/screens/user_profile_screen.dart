@@ -13,7 +13,6 @@ class UserProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return OrbScaffold(
       padding: EdgeInsets.zero,
-      backgroundColor: context.palette.surfaceBright,
       appBar: OrbAppBar(
         title: '마이페이지',
         centerTitle: true,
@@ -23,13 +22,9 @@ class UserProfileScreen extends StatelessWidget {
           children: [
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
+              padding: const EdgeInsets.only(left: 24, right: 24),
               decoration: BoxDecoration(
                 color: context.palette.background,
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(16),
-                  bottomRight: Radius.circular(16),
-                ),
               ),
               child: Column(
                 children: [
@@ -84,20 +79,48 @@ class UserProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 8,
+            Stack(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 56,
+                  color: context.palette.surfaceBright,
+                ),
+                Positioned.fill(
+                  top: 0,
+                  bottom: 32,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: context.palette.background,
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(24),
+                        bottomLeft: Radius.circular(24),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned.fill(
+                  top: 32,
+                  bottom: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: context.palette.background,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Container(
               width: double.infinity,
               decoration: BoxDecoration(
                 color: context.palette.background,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
-                ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -107,7 +130,7 @@ class UserProfileScreen extends StatelessWidget {
                       fontWeight: OrbFontWeight.medium,
                     ),
                     const SizedBox(
-                      height: 32,
+                      height: 24,
                     ),
                     OrbText(
                       '내정보',

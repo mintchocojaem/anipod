@@ -27,7 +27,6 @@ class OrbTextTheme {
     required this.bodyMedium,
     required this.bodySmall,
   });
-
 }
 
 final class OrbDefaultTextTheme implements OrbTextTheme {
@@ -86,7 +85,6 @@ final class OrbDefaultTextTheme implements OrbTextTheme {
       bodySmall: bodySmall,
     );
   }
-
 }
 
 final class OrbDefaultLightTextTheme extends OrbDefaultTextTheme {
@@ -94,25 +92,20 @@ final class OrbDefaultLightTextTheme extends OrbDefaultTextTheme {
 
   @override
   // TODO: implement titleLarge
-  get titleLarge =>
-      super.titleLarge.copyWith(color: Colors.black);
+  get titleLarge => super.titleLarge.copyWith(color: Colors.black);
 
   @override
-  get titleMedium =>
-      super.titleMedium.copyWith(color: Colors.black);
+  get titleMedium => super.titleMedium.copyWith(color: Colors.black);
 
   @override
-  get titleSmall =>
-      super.titleSmall.copyWith(color: Colors.black);
+  get titleSmall => super.titleSmall.copyWith(color: Colors.black);
 
   @override
-  get bodyLarge =>
-      super.bodyLarge.copyWith(color: Colors.grey[900]);
+  get bodyLarge => super.bodyLarge.copyWith(color: Colors.grey[900]);
 
   @override
-  get bodyMedium =>
-      super.bodyMedium.copyWith(color: Colors.grey[800]);
+  get bodyMedium => super.bodyMedium.copyWith(color: Colors.grey[800]);
 
   @override
-  get bodySmall => super.bodySmall.copyWith(color: Colors.grey[700]);
+  get bodySmall => super.bodySmall.copyWith(color: Colors.grey[800]);
 }

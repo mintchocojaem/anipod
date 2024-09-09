@@ -7,12 +7,14 @@ class OrbCategoryBar extends StatefulWidget {
   final int currentIndex;
   final List<String> categoryList;
   final void Function(int index) onIndexChanged;
+  final double horizontalPadding;
 
   const OrbCategoryBar({
     super.key,
     required this.currentIndex,
     required this.categoryList,
     required this.onIndexChanged,
+    this.horizontalPadding = 24,
   });
 
   @override
@@ -30,7 +32,7 @@ class _OrbCategoryBarState extends State<OrbCategoryBar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const SizedBox(width: 16),
+          SizedBox(width: widget.horizontalPadding),
           for (int i = 0; i < widget.categoryList.length; i++)
             InkWell(
               onTap: () {
@@ -60,7 +62,7 @@ class _OrbCategoryBarState extends State<OrbCategoryBar> {
                 ),
               ),
             ),
-          const SizedBox(width: 16),
+          SizedBox(width: widget.horizontalPadding),
         ],
       ),
     );
