@@ -20,18 +20,15 @@ class _VolunteerApplyCheckNoticeState extends State<VolunteerApplyCheckNotice> {
   @override
   Widget build(BuildContext context) {
     return OrbModalBottomSheet(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 8),
-            _buildNoticeItems(),
-            const SizedBox(height: 16),
-            _buildActionButtons(),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 8),
+          _buildNoticeItems(),
+          const SizedBox(height: 16),
+          _buildActionButtons(),
+        ],
       ),
     );
   }

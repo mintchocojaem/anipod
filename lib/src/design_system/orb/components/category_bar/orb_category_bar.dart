@@ -1,4 +1,3 @@
-import 'package:anipod/src/core/utils/extensions.dart';
 import 'package:flutter/material.dart';
 
 import '../../orb.dart';
@@ -8,6 +7,10 @@ class OrbCategoryBar extends StatefulWidget {
   final List<String> categoryList;
   final void Function(int index) onIndexChanged;
   final double horizontalPadding;
+  final Color? backgroundColor;
+  final Color? selectedBackgroundColor;
+  final Color? foregroundColor;
+  final Color? selectedForegroundColor;
 
   const OrbCategoryBar({
     super.key,
@@ -15,6 +18,10 @@ class OrbCategoryBar extends StatefulWidget {
     required this.categoryList,
     required this.onIndexChanged,
     this.horizontalPadding = 24,
+    this.backgroundColor,
+    this.selectedBackgroundColor,
+    this.foregroundColor,
+    this.selectedForegroundColor,
   });
 
   @override
@@ -26,6 +33,16 @@ class _OrbCategoryBarState extends State<OrbCategoryBar> {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = OrbThemeData.of(context);
+    final palette = themeData.palette;
+
+    final backgroundColor = widget.backgroundColor ?? palette.surfaceBright;
+    final selectedBackgroundColor =
+        widget.selectedBackgroundColor ?? palette.primary;
+    final foregroundColor = widget.foregroundColor ?? palette.surface;
+    final selectedForegroundColor =
+        widget.selectedForegroundColor ?? palette.onPrimary;
+
     selectedIndex = widget.currentIndex;
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -34,7 +51,7 @@ class _OrbCategoryBarState extends State<OrbCategoryBar> {
         children: [
           SizedBox(width: widget.horizontalPadding),
           for (int i = 0; i < widget.categoryList.length; i++)
-            InkWell(
+            GestureDetector(
               onTap: () {
                 if (selectedIndex != i) {
                   setState(() {
@@ -46,19 +63,20 @@ class _OrbCategoryBarState extends State<OrbCategoryBar> {
               child: Container(
                 margin: const EdgeInsets.only(right: 8),
                 padding: const EdgeInsets.only(
-                    left: 16, right: 16, top: 8, bottom: 8),
+                    left: 12, right: 12, top: 4, bottom: 4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: selectedIndex == i
-                      ? context.palette.primary
-                      : context.palette.surfaceBright,
+                      ? selectedBackgroundColor
+                      : backgroundColor,
                 ),
                 child: OrbText(
                   widget.categoryList[i],
                   type: OrbTextType.bodyMedium,
+                  fontWeight: OrbFontWeight.medium,
                   color: selectedIndex == i
-                      ? context.palette.onPrimary
-                      : context.palette.surface,
+                      ? selectedForegroundColor
+                      : foregroundColor,
                 ),
               ),
             ),

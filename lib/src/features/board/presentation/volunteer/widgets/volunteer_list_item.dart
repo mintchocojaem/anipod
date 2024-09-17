@@ -38,19 +38,35 @@ class VolunteerListItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           child: Row(
             children: [
-              Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: context.palette.surfaceBright,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Center(
-                  child: OrbText(
-                    '+${photos.length}',
-                    type: OrbTextType.bodySmall,
+              Stack(
+                children: [
+                  Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: context.palette.surfaceBright,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
-                ),
+                  Positioned(
+                    bottom: 8,
+                    right: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: context.palette.surface,
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: OrbText(
+                        '+${photos.length}',
+                        fontWeight: OrbFontWeight.medium,
+                        color: context.palette.onSurface,
+                        type: OrbTextType.bodySmall,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(width: 16),
               // Text content section
@@ -127,19 +143,20 @@ class VolunteerListItem extends StatelessWidget {
                         ? context.palette.error
                         : context.palette.surface,
                   ),
-                  const SizedBox(height: 42),
+                  Spacer(),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: context.palette.secondary,
+                        color: context.palette.primary,
                       ),
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: OrbText(
                       duration,
                       type: OrbTextType.bodySmall,
-                      color: context.palette.secondary,
+                      color: context.palette.primary,
                     ),
                   ),
                 ],

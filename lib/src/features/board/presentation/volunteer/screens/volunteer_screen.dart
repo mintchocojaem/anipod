@@ -26,9 +26,11 @@ class VolunteerScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              const SizedBox(
+                height: 16,
+              ),
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 16),
                 decoration: BoxDecoration(
                   color: context.palette.background,
                 ),
@@ -97,41 +99,7 @@ class VolunteerScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Stack(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: 56,
-                    color: context.palette.surfaceBright,
-                  ),
-                  Positioned.fill(
-                    top: 0,
-                    bottom: 32,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: context.palette.background,
-                        borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(24),
-                          bottomLeft: Radius.circular(24),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned.fill(
-                    top: 32,
-                    bottom: 0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: context.palette.background,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(24),
-                          topRight: Radius.circular(24),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              const OrbRoundedContainerDivider(),
               Container(
                 decoration: BoxDecoration(
                   color: context.palette.background,
@@ -141,11 +109,11 @@ class VolunteerScreen extends StatelessWidget {
                   children: [
                     OrbCategoryBar(
                       currentIndex: 0,
-                      categoryList: const ['전체', '최신순', '인기순'],
+                      categoryList: const ['전체', '최신', '인기'],
                       onIndexChanged: (index) {},
                     ),
                     const SizedBox(
-                      height: 16,
+                      height: 24,
                     ),
                     const OrbDivider(),
                     ListView.builder(

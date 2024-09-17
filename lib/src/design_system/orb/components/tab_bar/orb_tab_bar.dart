@@ -6,12 +6,20 @@ class OrbTabBar extends StatelessWidget {
   final List<Tab> tabs;
   final TabController? controller;
   final Function(int)? onTabChange;
+  final TabAlignment tabAlignment;
+  final bool isScrollable;
+  final TabBarIndicatorSize indicatorSize;
+  final double indicatorWeight;
 
   const OrbTabBar({
     super.key,
     required this.tabs,
     this.controller,
     this.onTabChange,
+    this.tabAlignment = TabAlignment.start,
+    this.isScrollable = false,
+    this.indicatorSize = TabBarIndicatorSize.label,
+    this.indicatorWeight = 2.0,
   });
 
   @override
@@ -24,9 +32,11 @@ class OrbTabBar extends StatelessWidget {
       child: TabBar(
         tabs: tabs,
         controller: controller,
-        isScrollable: true,
-        tabAlignment: TabAlignment.start,
+        isScrollable: isScrollable,
+        tabAlignment: tabAlignment,
         indicatorColor: palette.primary,
+        indicatorSize: indicatorSize,
+        indicatorWeight: indicatorWeight,
         labelColor: palette.primary,
         onTap: onTabChange,
         overlayColor: WidgetStateProperty.all(Colors.transparent),

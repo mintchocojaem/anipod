@@ -73,6 +73,51 @@ class RouterService extends RootStackRouter {
         AutoRoute(
           page: FindCrewRoute.page,
         ),
+        AutoRoute(
+          page: AddCrewRoute.page,
+        ),
+        AutoRoute(
+          page: AddCrewCompleteRoute.page,
+        ),
+        AutoRoute(
+          page: CrewProfileRoute.page,
+        ),
+        AutoRoute(
+          page: CrewEditRoute.page,
+        ),
+        AutoRoute(
+          page: PostDetailRoute.page,
+        ),
+        AutoRoute(
+          page: PostCreateRoute.page,
+        ),
+        AutoRoute(
+          page: UserRankRoute.page,
+        ),
+        AutoRoute(
+          page: UserProfileEditRoute.page,
+        ),
+        AutoRoute(
+          page: NoticeRoute.page,
+        ),
+        AutoRoute(
+          page: UserVolunteerRoute.page,
+        ),
+        AutoRoute(
+          page: UserVolunteerDetailRoute.page,
+        ),
+        AutoRoute(
+          page: NotificationRoute.page,
+        ),
+        AutoRoute(
+          page: UserBackingRoute.page,
+        ),
+        AutoRoute(
+          page: BackingRoute.page,
+        ),
+        AutoRoute(
+          page: BackingDetailRoute.page,
+        ),
       ];
 
   @override

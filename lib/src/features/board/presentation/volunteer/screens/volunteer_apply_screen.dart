@@ -8,7 +8,6 @@ import '../../../../../core/services/router/router_service.dart';
 import '../../../../../core/services/router/router_service.gr.dart';
 import '../../../../../design_system/orb/orb.dart';
 import '../widgets/volunteer_apply_check_notice.dart';
-import '../widgets/volunteer_apply_date_picker.dart';
 import '../widgets/volunteer_apply_time_picker.dart';
 
 @RoutePage()
@@ -208,7 +207,7 @@ class VolunteerApplyScreen extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 8),
           OrbTextField(
             hintText: '전화번호를 입력해주세요',
           ),
@@ -258,10 +257,14 @@ class VolunteerApplyScreen extends StatelessWidget {
       onTap: () {
         showOrbModalBottomSheet(
           context,
-          VolunteerApplyDatePicker(
+          OrbDatePicker(
             onDateSelected: (date) {
               selectedDate.value = date;
             },
+            messages: [
+              '실제 상담일은 기관과 상담 후 변경될 수 있어요',
+              '실제 상담일은 기관과 상담 후 변경될 수 있어요',
+            ],
           ),
         );
       },

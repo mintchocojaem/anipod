@@ -17,11 +17,17 @@ class OrbStepGuide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = OrbThemeData.of(context);
+    final palette = themeData.palette;
     return HookBuilder(
       builder: (context) {
         final pageController = usePageController();
         final currentStep = useState(0);
         final lastStep = steps(pageController).length;
+
+        pageController.addListener(() {
+          FocusScope.of(context).unfocus();
+        });
         return OrbScaffold(
           resizeToAvoidBottomInset: true,
           appBar: appBarTitle != null
@@ -43,11 +49,11 @@ class OrbStepGuide extends StatelessWidget {
                     const SizedBox(
                       width: 8,
                     ),
-                    const OrbText(
+                    OrbText(
                       "/",
                       type: OrbTextType.bodyLarge,
                       fontWeight: OrbFontWeight.medium,
-                      color: Colors.grey,
+                      color: palette.surface,
                     ),
                     const SizedBox(
                       width: 8,
@@ -56,7 +62,7 @@ class OrbStepGuide extends StatelessWidget {
                       "$lastStep",
                       type: OrbTextType.bodyLarge,
                       fontWeight: OrbFontWeight.medium,
-                      color: Colors.grey,
+                      color: palette.surface,
                     ),
                   ],
                 ),
@@ -68,7 +74,8 @@ class OrbStepGuide extends StatelessWidget {
                   controller: pageController,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: lastStep,
-                  onPageChanged: (index) {
+                  onPageChanged: (index) async {
+                    //hide keyboard
                     currentStep.value = index;
                   },
                   itemBuilder: (context, index) {

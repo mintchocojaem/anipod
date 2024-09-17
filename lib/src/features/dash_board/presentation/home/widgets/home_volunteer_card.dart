@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../design_system/orb/orb.dart';
 
-class VolunteerCard extends StatelessWidget {
+class HomeVolunteerCard extends StatelessWidget {
   final String title;
   final String organizationName;
   final String region;
@@ -11,7 +11,7 @@ class VolunteerCard extends StatelessWidget {
   final String imagePlaceholder;
   final String duration;
 
-  const VolunteerCard({
+  const HomeVolunteerCard({
     super.key,
     required this.title,
     required this.organizationName,

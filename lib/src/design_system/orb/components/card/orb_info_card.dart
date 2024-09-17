@@ -1,9 +1,6 @@
-import 'package:anipod/src/core/utils/extensions.dart';
 import 'package:flutter/material.dart';
 
 import '../../orb.dart';
-
-//todo location participants 범용적으로 컴포넌트화
 
 class OrbInfoItem {
   Widget icon;
@@ -31,6 +28,8 @@ class OrbInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = OrbThemeData.of(context);
+    final palette = themeData.palette;
     return Row(
       children: [
         CircleAvatar(
@@ -49,7 +48,7 @@ class OrbInfoCard extends StatelessWidget {
             ),
             OrbText(
               description,
-              color: context.palette.surfaceDim,
+              color: palette.surfaceDim,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
@@ -67,7 +66,7 @@ class OrbInfoCard extends StatelessWidget {
                         const SizedBox(width: 4),
                         OrbText(
                           item.text,
-                          color: context.palette.surface,
+                          color: palette.surface,
                           type: OrbTextType.bodySmall,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,

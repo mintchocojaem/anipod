@@ -24,7 +24,7 @@ class FindIdInputInfoStep extends StatelessWidget {
             fontWeight: OrbFontWeight.medium,
           ),
           const SizedBox(
-            height: 16,
+            height: 8,
           ),
           Flexible(
             child: SingleChildScrollView(

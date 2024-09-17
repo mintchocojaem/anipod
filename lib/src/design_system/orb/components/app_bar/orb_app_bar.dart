@@ -11,6 +11,8 @@ class OrbAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color? backgroundColor;
   final bool isLoading;
   final Color? titleColor;
+  final double elevation;
+  final double opacity;
 
   final Function()? onAutoImplyLeadingPressed;
 
@@ -24,55 +26,62 @@ class OrbAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.backgroundColor,
     this.titleColor,
     this.onAutoImplyLeadingPressed,
+    this.elevation = 0,
+    this.opacity = 1,
   });
 
   @override
   Widget build(BuildContext context) {
     final themeData = OrbThemeData.of(context);
     final palette = themeData.palette;
-    return AppBar(
-      automaticallyImplyLeading: false,
-      backgroundColor: backgroundColor ?? palette.background,
-      elevation: 0,
-      scrolledUnderElevation: 0,
-      leading: leading ??
-          (Navigator.of(context).canPop()
-              ? IconButton(
-                  icon: const OrbIcon(
-                    Icons.arrow_back_ios,
-                  ),
-                  onPressed: onAutoImplyLeadingPressed ??
-                      () {
-                        Navigator.of(context).pop();
-                      },
-                )
-              : null),
-      centerTitle: centerTitle,
-      title: OrbText(
-        title,
-        type: OrbTextType.titleMedium,
-        color: titleColor,
-      ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: trailing ?? const SizedBox(),
+    return Opacity(
+      opacity: opacity,
+      child: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: backgroundColor ?? palette.background,
+        elevation: elevation,
+        scrolledUnderElevation: 0,
+        leading: leading ??
+            (Navigator.of(context).canPop()
+                ? IconButton(
+                    padding: const EdgeInsets.only(left: 8),
+                    icon: const OrbIcon(
+                      Icons.arrow_back_ios,
+                    ),
+                    onPressed: onAutoImplyLeadingPressed ??
+                        () {
+                          Navigator.of(context).pop();
+                        },
+                  )
+                : null),
+        centerTitle: centerTitle,
+        title: OrbText(
+          title,
+          type: OrbTextType.titleSmall,
+          fontWeight: OrbFontWeight.medium,
+          color: titleColor,
         ),
-      ],
-      bottom: isLoading
-          ? PreferredSize(
-              preferredSize: const Size.fromHeight(2),
-              child: Shimmer.fromColors(
-                baseColor: palette.onPrimary,
-                highlightColor: palette.primary,
-                child: LinearProgressIndicator(
-                  minHeight: 2,
-                  value: 1,
-                  color: palette.primary,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: trailing ?? const SizedBox(),
+          ),
+        ],
+        bottom: isLoading
+            ? PreferredSize(
+                preferredSize: const Size.fromHeight(2),
+                child: Shimmer.fromColors(
+                  baseColor: palette.onPrimary,
+                  highlightColor: palette.primary,
+                  child: LinearProgressIndicator(
+                    minHeight: 2,
+                    value: 1,
+                    color: palette.primary,
+                  ),
                 ),
-              ),
-            )
-          : null,
+              )
+            : null,
+      ),
     );
   }
 

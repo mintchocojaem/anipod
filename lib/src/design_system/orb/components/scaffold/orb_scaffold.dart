@@ -7,7 +7,7 @@ class OrbScaffold extends StatelessWidget {
   final Widget body;
   final Widget? bottomNavigationBar;
   final bool resizeToAvoidBottomInset;
-  final FloatingActionButton? floatingActionButton;
+  final Widget? floatingActionButton;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final EdgeInsets padding;
   final bool disableSafeAreaBottom;
@@ -24,7 +24,7 @@ class OrbScaffold extends StatelessWidget {
     this.resizeToAvoidBottomInset = false,
     this.floatingActionButton,
     this.disableSafeAreaBottom = false,
-    this.padding = const EdgeInsets.symmetric(horizontal: 16),
+    this.padding = const EdgeInsets.symmetric(horizontal: 24),
     this.floatingActionButtonLocation,
     this.backgroundColor,
     this.extendBodyBehindAppBar = false,

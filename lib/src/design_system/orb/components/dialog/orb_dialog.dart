@@ -7,8 +7,8 @@ class OrbDialog extends StatelessWidget {
   final Widget content;
   final String? rightButtonText;
   final String? leftButtonText;
-  final Color?  rightButtonColor;
-  final Color?  leftButtonColor;
+  final Color? rightButtonColor;
+  final Color? leftButtonColor;
   final Future<bool> Function() onRightButtonPressed;
   final Future<bool> Function() onLeftButtonPressed;
 
@@ -47,7 +47,7 @@ class OrbDialog extends StatelessWidget {
       insetPadding: const EdgeInsets.all(32),
       title: Text(
         title,
-        style: themeData.textTheme.titleMedium,
+        style: themeData.textTheme.titleSmall,
       ),
       content: content,
       actions: [
@@ -61,6 +61,8 @@ class OrbDialog extends StatelessWidget {
                   width: double.infinity,
                   child: OrbFilledButton(
                     buttonSize: OrbButtonSize.fit,
+                    buttonRadius: OrbButtonRadius.small,
+                    buttonTextType: OrbButtonTextType.medium,
                     backgroundColor: leftButtonColor ?? palette.surface,
                     onPressed: () async {
                       if (disableButtonAction) return;
@@ -85,6 +87,8 @@ class OrbDialog extends StatelessWidget {
                   width: double.infinity,
                   child: OrbFilledButton(
                     buttonSize: OrbButtonSize.fit,
+                    buttonRadius: OrbButtonRadius.small,
+                    buttonTextType: OrbButtonTextType.medium,
                     backgroundColor: rightButtonColor,
                     onPressed: () async {
                       if (disableButtonAction) return;

@@ -19,30 +19,27 @@ class _VolunteerApplyTimePickerState extends State<VolunteerApplyTimePicker> {
   @override
   Widget build(BuildContext context) {
     return OrbModalBottomSheet(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            const SizedBox(height: 16),
-            _buildTimeGrid(),
-            const SizedBox(height: 16),
-            OrbDivider(),
-            const SizedBox(height: 16),
-            OrbText(
-              "• 선택한 봉사시간에 맞춰 도착해야 합니다.",
-              type: OrbTextType.bodySmall,
-            ),
-            const SizedBox(height: 8),
-            OrbText(
-              "• 선택한 봉사시간에 맞춰 도착해야 합니다.",
-              type: OrbTextType.bodySmall,
-            ),
-            const SizedBox(height: 16),
-            _buildActionButtons(),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildHeader(),
+          const SizedBox(height: 16),
+          _buildTimeGrid(),
+          const SizedBox(height: 16),
+          OrbDivider(),
+          const SizedBox(height: 16),
+          OrbText(
+            "• 선택한 봉사시간에 맞춰 도착해야 합니다.",
+            type: OrbTextType.bodySmall,
+          ),
+          const SizedBox(height: 8),
+          OrbText(
+            "• 선택한 봉사시간에 맞춰 도착해야 합니다.",
+            type: OrbTextType.bodySmall,
+          ),
+          const SizedBox(height: 16),
+          _buildActionButtons(),
+        ],
       ),
     );
   }
@@ -109,6 +106,8 @@ class _VolunteerApplyTimePickerState extends State<VolunteerApplyTimePicker> {
       children: [
         Flexible(
           child: OrbFilledButton(
+            backgroundColor: context.palette.secondary,
+            foregroundColor: context.palette.primary,
             text: '취소',
             onPressed: () {
               Navigator.of(context).pop();

@@ -3,8 +3,8 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../design_system/orb/orb.dart';
-import '../widgets/community_card.dart';
-import '../widgets/volunteer_card.dart';
+import '../widgets/home_community_card.dart';
+import '../widgets/home_volunteer_card.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(right: 8),
-                      child: VolunteerCard(
+                      child: HomeVolunteerCard(
                         title: '산책 봉사활동 모집...',
                         organizationName: '서울 유기견 보호센터',
                         region: '강원 홍천',
@@ -56,7 +56,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 8),
-                      child: VolunteerCard(
+                      child: HomeVolunteerCard(
                         title: '산책 봉사활동 모집...',
                         organizationName: '서울 유기견 보호센터',
                         region: '강원 홍천',
@@ -81,7 +81,7 @@ class HomeScreen extends StatelessWidget {
               trailing: OrbIcon(Icons.chevron_right_outlined),
               child: Column(
                 children: [
-                  CommunityCard(
+                  HomeCommunityCard(
                     title: "웰시코기",
                     content:
                         "집 근처에서 작은 아기 고양이가 있었는데 부모가 없는 것 같더라구요ㅜㅜ 혼자 있길래 일단 먹이 사와..",
@@ -93,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 16),
                     child: OrbDivider(),
                   ),
-                  CommunityCard(
+                  HomeCommunityCard(
                     title: "웰시코기",
                     content:
                         "집 근처에서 작은 아기 고양이가 있었는데 부모가 없는 것 같더라구요ㅜㅜ 혼자 있길래 일단 먹이 사와..",

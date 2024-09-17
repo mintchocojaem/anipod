@@ -46,14 +46,9 @@ class OrbModalBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = OrbThemeData.of(context);
     return SafeArea(
       child: Container(
-        padding: const EdgeInsets.only(
-          left: 16,
-          right: 16,
-          bottom: 16,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 24),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(15),
@@ -77,9 +72,10 @@ class OrbModalBottomSheet extends StatelessWidget {
                         alignment: centerTitle || leading != null
                             ? Alignment.center
                             : Alignment.centerLeft,
-                        child: Text(
+                        child: OrbText(
                           titleText!,
-                          style: theme.textTheme.titleMedium,
+                          type: OrbTextType.titleSmall,
+                          fontWeight: OrbFontWeight.medium,
                         ),
                       )
                     : const SizedBox(),

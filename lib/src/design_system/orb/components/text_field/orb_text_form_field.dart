@@ -7,6 +7,7 @@ class OrbTextField extends StatefulWidget {
   final bool obscureText;
   final String? hintText;
   final String? helperText;
+  final bool? showCounterText;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final bool autocorrect;
@@ -24,6 +25,7 @@ class OrbTextField extends StatefulWidget {
   final Color? fillColor;
   final Color? boarderColor;
   final OrbTextType? style;
+  final EdgeInsets? contentPadding;
 
   const OrbTextField({
     super.key,
@@ -31,6 +33,7 @@ class OrbTextField extends StatefulWidget {
     this.obscureText = false,
     this.hintText,
     this.helperText,
+    this.showCounterText = false,
     this.keyboardType,
     this.textInputAction,
     this.autocorrect = false,
@@ -48,6 +51,10 @@ class OrbTextField extends StatefulWidget {
     this.fillColor,
     this.boarderColor,
     this.style = OrbTextType.bodyMedium,
+    this.contentPadding = const EdgeInsets.symmetric(
+      horizontal: 24,
+      vertical: 16,
+    ),
   });
 
   @override
@@ -100,34 +107,33 @@ class _OrbTextFieldState extends State<OrbTextField> {
       focusNode: widget.focusNode,
       onFieldSubmitted: widget.onSubmitted,
       decoration: InputDecoration(
-        counterText: '',
+        counterText: widget.showCounterText == true ? null : '',
         floatingLabelBehavior: FloatingLabelBehavior.never,
         hintText: widget.hintText,
         helperText: widget.helperText,
         helperStyle: themeData.textTheme.bodySmall,
-        hintMaxLines: 10,
         hintStyle: switch (widget.style) {
           OrbTextType.titleLarge => themeData.textTheme.titleLarge.copyWith(
-              color: palette.surfaceDim,
+              color: palette.surface,
             ),
           OrbTextType.titleMedium => themeData.textTheme.titleMedium.copyWith(
-            color: palette.surfaceDim,
-          ),
+              color: palette.surface,
+            ),
           OrbTextType.titleSmall => themeData.textTheme.titleSmall.copyWith(
-            color: palette.surfaceDim,
-          ),
+              color: palette.surface,
+            ),
           OrbTextType.bodyLarge => themeData.textTheme.bodyLarge.copyWith(
-            color: palette.surfaceDim,
-          ),
+              color: palette.surface,
+            ),
           OrbTextType.bodyMedium => themeData.textTheme.bodyMedium.copyWith(
-            color: palette.surfaceDim,
-          ),
+              color: palette.surface,
+            ),
           OrbTextType.bodySmall => themeData.textTheme.bodySmall.copyWith(
-            color: palette.surfaceDim,
-          ),
+              color: palette.surface,
+            ),
           _ => themeData.textTheme.bodyMedium.copyWith(
-            color: palette.surfaceDim,
-          ),
+              color: palette.surface,
+            ),
         },
         errorStyle: themeData.textTheme.bodySmall.copyWith(
           color: palette.error,
@@ -144,7 +150,7 @@ class _OrbTextFieldState extends State<OrbTextField> {
             color: palette.error,
           ),
         ),
-        contentPadding: const EdgeInsets.all(16),
+        contentPadding: widget.contentPadding,
         filled: true,
         fillColor: widget.fillColor ?? palette.surfaceBright,
         enabledBorder: OutlineInputBorder(

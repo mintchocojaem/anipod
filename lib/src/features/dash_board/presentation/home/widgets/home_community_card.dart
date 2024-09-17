@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 import '../../../../../design_system/orb/orb.dart';
 
-class CommunityCard extends StatelessWidget {
+class HomeCommunityCard extends StatelessWidget {
   final String title;
   final String content;
   final String imageUrl;
   final int likes;
   final int comments;
 
-  const CommunityCard({
+  const HomeCommunityCard({
     super.key,
     required this.title,
     required this.content,
