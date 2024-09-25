@@ -108,7 +108,7 @@ base class NetworkClientService {
             final int statusCode = exception.response?.statusCode ?? 500;
 
             debugPrint(
-                'NetworkClientService > (Error) : code = $statusCode, message = $messages');
+                'NetworkClientService > (Error) : error = ${exception.error}, code = $statusCode, message = $messages');
           }
           handler.next(exception);
         },
