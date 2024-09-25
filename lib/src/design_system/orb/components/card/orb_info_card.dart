@@ -31,12 +31,14 @@ class OrbInfoCard extends StatelessWidget {
     final themeData = OrbThemeData.of(context);
     final palette = themeData.palette;
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         CircleAvatar(
+          backgroundColor: palette.surfaceBright,
           backgroundImage: NetworkImage(imageUrl),
-          radius: 36,
+          radius: 32,
         ),
-        const SizedBox(width: 16),
+        const SizedBox(width: 24),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -45,21 +47,21 @@ class OrbInfoCard extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               type: OrbTextType.bodyLarge,
+              fontWeight: OrbFontWeight.medium,
             ),
             OrbText(
               description,
               color: palette.surfaceDim,
               maxLines: 1,
+              type: OrbTextType.bodyMedium,
               overflow: TextOverflow.ellipsis,
             ),
-            const SizedBox(
-              height: 4,
-            ),
+            const SizedBox(height: 4),
             Row(
               children: [
                 ...infoItems.map(
                   (item) => Padding(
-                    padding: const EdgeInsets.only(right: 8),
+                    padding: const EdgeInsets.only(right: 16),
                     child: Row(
                       children: [
                         item.icon,

@@ -1,15 +1,15 @@
 import '../constants/regex.dart';
 
 mixin class AuthValidator {
-  String? validateStudentId({
-    String? studentId,
+  String? validateEmail({
+    String? email,
     bool checkRegex = true,
   }) {
-    if (studentId == null || studentId.isEmpty) {
-      return '학번을 입력해주세요';
+    if (email == null || email.isEmpty) {
+      return '이메일을 입력해주세요';
     }
-    if (checkRegex && !RegExp(studentIdRegex).hasMatch(studentId)) {
-      return '학번은 8자리의 숫자로 이루어져요';
+    if (checkRegex && !RegExp(emailRegex).hasMatch(email)) {
+      return '이메일 형식이 아닙니다';
     }
     return null;
   }
@@ -45,7 +45,7 @@ mixin class AuthValidator {
       return '휴대폰 번호를 입력해주세요';
     }
     if (!RegExp(phoneNumberRegex).hasMatch(phoneNumber)) {
-      return '휴대폰 번호는 010으로 시작하는 11자리의 숫자로 이루어져요';
+      return '010으로 시작하는 11자리의 숫자를 입력해주세요';
     }
     return null;
   }

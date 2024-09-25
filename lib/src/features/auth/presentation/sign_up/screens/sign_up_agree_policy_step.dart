@@ -24,7 +24,7 @@ class SignUpAgreePolicyStep extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          Flexible(
+          Expanded(
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,11 +35,19 @@ class SignUpAgreePolicyStep extends StatelessWidget {
                       horizontal: 16,
                     ),
                     onTap: () {
-                      agreeService.value = !agreeService.value;
-                      agreePrivacy.value = !agreePrivacy.value;
+                      if (agreeService.value && agreePrivacy.value) {
+                        agreeService.value = false;
+                        agreePrivacy.value = false;
+                      } else {
+                        agreeService.value = true;
+                        agreePrivacy.value = true;
+                      }
                     },
                     leading: agreePrivacy.value && agreeService.value
-                        ? OrbIcon(Icons.check_box)
+                        ? OrbIcon(
+                            Icons.check_box,
+                            color: context.palette.primary,
+                          )
                         : OrbIcon(Icons.check_box_outline_blank_rounded),
                     title: const OrbText(
                       '전체 동의(필수)',
@@ -57,7 +65,10 @@ class SignUpAgreePolicyStep extends StatelessWidget {
                       agreeService.value = !agreeService.value;
                     },
                     leading: agreeService.value
-                        ? OrbIcon(Icons.check_box)
+                        ? OrbIcon(
+                            Icons.check_box,
+                            color: context.palette.primary,
+                          )
                         : OrbIcon(Icons.check_box_outline_blank_rounded),
                     title: const OrbText('서비스 이용약관(필수)'),
                     trailing: OrbIcon(
@@ -73,7 +84,10 @@ class SignUpAgreePolicyStep extends StatelessWidget {
                       agreePrivacy.value = !agreePrivacy.value;
                     },
                     leading: agreePrivacy.value
-                        ? OrbIcon(Icons.check_box)
+                        ? OrbIcon(
+                            Icons.check_box,
+                            color: context.palette.primary,
+                          )
                         : OrbIcon(Icons.check_box_outline_blank_rounded),
                     title: const OrbText('개인정보 수집 및 이용 동의(필수)'),
                     trailing: OrbIcon(

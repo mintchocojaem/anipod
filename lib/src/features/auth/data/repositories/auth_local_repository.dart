@@ -21,7 +21,7 @@ class AuthLocalRepository extends LocalRepository {
   });
 
   void saveLoginToken({
-    required LoginToken token,
+    required LoginTokenModel token,
   }) {
     final jsonString = jsonEncode(token.toJson());
     storage.write(
@@ -30,10 +30,10 @@ class AuthLocalRepository extends LocalRepository {
     );
   }
 
-  LoginToken? getLoginToken() {
+  LoginTokenModel? getLoginToken() {
     final jsonString = storage.read('loginToken');
     final json = jsonString != null ? jsonDecode(jsonString) : null;
-    return json != null ? LoginToken.fromJson(json) : null;
+    return json != null ? LoginTokenModel.fromJson(json) : null;
   }
 
   String? getRefreshToken() {

@@ -19,12 +19,36 @@ class VolunteerDetailScreen extends StatelessWidget {
       'https://picsum.photos/1024/1024',
       'https://picsum.photos/1024/1024',
     ];
+
+    Widget buildVolunteerDetailRow(
+        {required String label, required String value}) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 100,
+              child: OrbText(
+                label,
+                color: context.palette.surfaceDim,
+                fontWeight: OrbFontWeight.medium,
+              ),
+            ),
+            OrbText(
+              value,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
+      );
+    }
+
     return Consumer(builder: (context, ref, child) {
       return OrbScaffold(
         padding: EdgeInsets.zero,
-        extendBodyBehindTitle: true,
         extendBodyBehindAppBar: true,
-        appBar: const OrbAppBar(
+        appBar: OrbAppBar(
           backgroundColor: Colors.transparent,
         ),
         body: Column(
@@ -65,54 +89,57 @@ class VolunteerDetailScreen extends StatelessWidget {
                                   fontWeight: OrbFontWeight.medium,
                                 ),
                                 const Spacer(),
-                                OrbIcon(
-                                  Icons.favorite_rounded,
-                                  color: context.palette.surface,
+                                InkWell(
+                                  onTap: () {},
+                                  child: OrbIcon(
+                                    Icons.favorite_rounded,
+                                    color: context.palette.surface,
+                                  ),
                                 ),
                               ],
                             ),
                             const SizedBox(height: 16),
-                            VolunteerDetailRow(
+                            buildVolunteerDetailRow(
                               label: '봉사기간',
                               value: '2021.09.01 ~ 2021.09.30',
                             ),
                             const OrbDivider(),
-                            VolunteerDetailRow(
+                            buildVolunteerDetailRow(
                               label: '모집기간',
                               value: '2021.09.01 ~ 2021.09.30',
                             ),
                             const OrbDivider(),
-                            VolunteerDetailRow(
+                            buildVolunteerDetailRow(
                               label: '모집인원',
                               value: '10명 / 일',
                             ),
                             const OrbDivider(),
-                            VolunteerDetailRow(
+                            buildVolunteerDetailRow(
                               label: '모집기관',
                               value: '서울동물복지센터',
                             ),
                             const OrbDivider(),
-                            VolunteerDetailRow(
+                            buildVolunteerDetailRow(
                               label: '봉사장소',
                               value: '서울특별시 강남구 역삼동 123-456',
                             ),
                             const OrbDivider(),
-                            VolunteerDetailRow(
+                            buildVolunteerDetailRow(
                               label: '봉사시간',
                               value: '오전 10:00 ~ 오후 5:00',
                             ),
                             const OrbDivider(),
-                            VolunteerDetailRow(
+                            buildVolunteerDetailRow(
                               label: '활동요일',
                               value: '월, 화, 수, 목, 금',
                             ),
                             const OrbDivider(),
-                            VolunteerDetailRow(
+                            buildVolunteerDetailRow(
                               label: '신청인원',
                               value: '10명 / 100명',
                             ),
                             const OrbDivider(),
-                            VolunteerDetailRow(
+                            buildVolunteerDetailRow(
                               label: '봉사자유형',
                               value: '성인',
                             ),
@@ -144,40 +171,5 @@ class VolunteerDetailScreen extends StatelessWidget {
         ),
       );
     });
-  }
-}
-
-class VolunteerDetailRow extends StatelessWidget {
-  final String label;
-  final String value;
-
-  const VolunteerDetailRow({
-    Key? key,
-    required this.label,
-    required this.value,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 100,
-            child: OrbText(
-              label,
-              color: context.palette.surfaceDim,
-              fontWeight: OrbFontWeight.medium,
-            ),
-          ),
-          OrbText(
-            value,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
-      ),
-    );
   }
 }

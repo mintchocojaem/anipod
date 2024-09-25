@@ -17,116 +17,112 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return HookBuilder(
-      builder: (context) {
-        final idController = useTextEditingController();
-        final passwordController = useTextEditingController();
+    return Consumer(builder: (context, ref, child) {
+      ref.listen(
+        loginTokenProvider,
+        (_, next) {
+          if (!next.isLoading && next.hasError) {
+            final error = next.error;
+            if (error is! AppException) return;
+            context.showErrorSnackBar(
+              error: error,
+            );
+          } else if (next.hasValue && next.value != null) {
+            ref.read(routerServiceProvider).replace(const HomeRoute());
+          }
+        },
+      );
 
-        final isLoginButtonEnabled = useState(false);
+      return HookBuilder(
+        builder: (context) {
+          final idController = useTextEditingController();
+          final passwordController = useTextEditingController();
 
-        return OrbScaffold(
-          appBar: const OrbAppBar(),
-          body: Consumer(
-            builder: (context, ref, _) {
-              ref.listen(
-                loginTokenNotifierProvider,
-                (_, next) {
-                  if (next.isLoading) {
-                    return;
-                  } else if (next.hasError) {
-                    final error = next.error;
-                    if (error is! AppException) return;
-                    context.showErrorSnackBar(
-                      error: error,
-                    );
-                  } else if (next.hasValue) {
-                    //ref.read(routerServiceProvider).pushNamed()
-                  }
-                },
-              );
+          final isLoginButtonEnabled = useState(false);
 
-              return Column(
-                children: [
-                  const SizedBox(height: 32),
-                  Image.asset('assets/icons/anipod_logo.png'),
-                  const SizedBox(height: 32),
-                  OrbTextField(
-                    controller: idController,
-                    hintText: 'Email',
-                    textInputAction: TextInputAction.next,
-                    onChanged: (value) {
-                      isLoginButtonEnabled.value = value.isNotEmpty &&
-                          passwordController.text.isNotEmpty;
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  OrbTextField(
-                    controller: passwordController,
-                    obscureText: true,
-                    hintText: 'Password',
-                    textInputAction: TextInputAction.done,
-                    onChanged: (value) {
-                      isLoginButtonEnabled.value =
-                          value.isNotEmpty && idController.text.isNotEmpty;
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  OrbFilledButton(
-                    disabled: !isLoginButtonEnabled.value,
-                    onPressed: () async {
-                      await ref.read(loginTokenNotifierProvider.notifier).login(
-                            loginId: idController.text,
-                            password: passwordController.text,
-                          );
-                    },
-                    text: "로그인",
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      OrbTextButton(
-                        onPressed: () {
-                          ref
-                              .read(routerServiceProvider)
-                              .push(const FindIdRoute());
-                        },
-                        text: "아이디 찾기",
-                      ),
-                      const SizedBox(width: 8),
-                      const OrbText(
-                        "|",
-                      ),
-                      const SizedBox(width: 8),
-                      OrbTextButton(
-                        onPressed: () {
-                          ref
-                              .read(routerServiceProvider)
-                              .push(const FindPasswordRoute());
-                        },
-                        text: "비밀번호 찾기",
-                      ),
-                      const SizedBox(width: 8),
-                      const OrbText(
-                        "|",
-                      ),
-                      const SizedBox(width: 8),
-                      OrbTextButton(
-                        onPressed: () {
-                          ref
-                              .read(routerServiceProvider)
-                              .push(const SignUpRoute());
-                        },
-                        text: "회원가입",
-                      ),
-                    ],
-                  ),
-                ],
-              );
-            },
-          ),
-        );
-      },
-    );
+          return OrbScaffold(
+            appBar: const OrbAppBar(),
+            body: Column(
+              children: [
+                const SizedBox(height: 32),
+                Image.asset('assets/icons/anipod_logo.png'),
+                const SizedBox(height: 32),
+                OrbTextField(
+                  controller: idController,
+                  hintText: 'Email',
+                  textInputAction: TextInputAction.next,
+                  onChanged: (value) {
+                    isLoginButtonEnabled.value =
+                        value.isNotEmpty && passwordController.text.isNotEmpty;
+                  },
+                ),
+                const SizedBox(height: 16),
+                OrbTextField(
+                  controller: passwordController,
+                  obscureText: true,
+                  hintText: 'Password',
+                  textInputAction: TextInputAction.done,
+                  onChanged: (value) {
+                    isLoginButtonEnabled.value =
+                        value.isNotEmpty && idController.text.isNotEmpty;
+                  },
+                ),
+                const SizedBox(height: 16),
+                OrbFilledButton(
+                  disabled: !isLoginButtonEnabled.value,
+                  onPressed: () async {
+                    await ref.read(loginTokenProvider.notifier).login(
+                          loginId: idController.text,
+                          password: passwordController.text,
+                        );
+                  },
+                  text: "로그인",
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    OrbTextButton(
+                      onPressed: () {
+                        ref
+                            .read(routerServiceProvider)
+                            .push(const FindIdRoute());
+                      },
+                      text: "아이디 찾기",
+                    ),
+                    const SizedBox(width: 8),
+                    const OrbText(
+                      "|",
+                    ),
+                    const SizedBox(width: 8),
+                    OrbTextButton(
+                      onPressed: () {
+                        ref
+                            .read(routerServiceProvider)
+                            .push(const FindPasswordRoute());
+                      },
+                      text: "비밀번호 찾기",
+                    ),
+                    const SizedBox(width: 8),
+                    const OrbText(
+                      "|",
+                    ),
+                    const SizedBox(width: 8),
+                    OrbTextButton(
+                      onPressed: () {
+                        ref
+                            .read(routerServiceProvider)
+                            .push(const SignUpRoute());
+                      },
+                      text: "회원가입",
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        },
+      );
+    });
   }
 }

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import '../../../features/auth/presentation/login/providers/login_token_provider.dart';
 import '../../constants/api_url.dart';
 import '../../utils/app_exception.dart';
@@ -12,7 +13,7 @@ NetworkClientService networkClientService(NetworkClientServiceRef ref) =>
     NetworkClientService(
       onRequest: (options) async {
         await Future.delayed(const Duration(milliseconds: 100));
-        final loginToken = ref.read(loginTokenNotifierProvider).value;
+        final loginToken = ref.read(loginTokenProvider).value;
 
         if (loginToken != null) {
           options.headers['Authorization'] = 'Bearer ${loginToken.accessToken}';
@@ -25,7 +26,7 @@ NetworkClientService networkClientService(NetworkClientServiceRef ref) =>
         await Future.delayed(const Duration(milliseconds: 100));
         if (exception.response?.statusCode == 500) {
           // Token Invalid
-          ref.read(loginTokenNotifierProvider.notifier).logout();
+          ref.read(loginTokenProvider.notifier).logout();
         }
       },
     );

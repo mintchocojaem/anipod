@@ -12,6 +12,7 @@ class VolunteerListItem extends StatelessWidget {
   final bool isLiked;
   final String duration;
   final Function()? onTap;
+  final Function(bool isLiked)? onTapLike;
 
   const VolunteerListItem({
     super.key,
@@ -23,6 +24,7 @@ class VolunteerListItem extends StatelessWidget {
     required this.isLiked,
     required this.duration,
     this.onTap,
+    this.onTapLike,
   });
 
   @override
@@ -46,6 +48,10 @@ class VolunteerListItem extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: context.palette.surfaceBright,
                       borderRadius: BorderRadius.circular(8),
+                      image: DecorationImage(
+                        image: NetworkImage(photos.first),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   Positioned(
@@ -137,11 +143,14 @@ class VolunteerListItem extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  OrbIcon(
-                    Icons.favorite,
-                    color: isLiked
-                        ? context.palette.error
-                        : context.palette.surface,
+                  InkWell(
+                    onTap: () => onTapLike?.call(!isLiked),
+                    child: OrbIcon(
+                      Icons.favorite,
+                      color: isLiked
+                          ? context.palette.error
+                          : context.palette.surface,
+                    ),
                   ),
                   Spacer(),
                   Container(

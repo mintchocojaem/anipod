@@ -23,7 +23,7 @@ class AuthUseCases {
     required this.authLocalRepository,
   });
 
-  Future<LoginToken> login({
+  Future<LoginTokenModel> login({
     required String loginId,
     required String password,
   }) async {
@@ -40,5 +40,37 @@ class AuthUseCases {
 
   void deleteSavedLoginToken() {
     authLocalRepository.deleteLoginToken();
+  }
+
+  Future<bool> sendVerificationCode({
+    required String phoneNumber,
+  }) async {
+    return await authRemoteRepository.sendVerificationCode(
+      phoneNumber: phoneNumber,
+    );
+  }
+
+  Future<bool> checkVerificationCode({
+    required String phoneNumber,
+    required String code,
+  }) async {
+    return await authRemoteRepository.checkVerificationCode(
+      phoneNumber: phoneNumber,
+      code: code,
+    );
+  }
+
+  Future<bool> signUp({
+    required String email,
+    required String phoneNumber,
+    required String nickname,
+    required String password,
+  }) async {
+    return await authRemoteRepository.signUp(
+      phoneNumber: phoneNumber,
+      nickname: nickname,
+      email: email,
+      password: password,
+    );
   }
 }

@@ -8,7 +8,7 @@ class HomeVolunteerCard extends StatelessWidget {
   final String organizationName;
   final String region;
   final String registrationDate;
-  final String imagePlaceholder;
+  final String imageUrl;
   final String duration;
 
   const HomeVolunteerCard({
@@ -17,7 +17,7 @@ class HomeVolunteerCard extends StatelessWidget {
     required this.organizationName,
     required this.region,
     required this.registrationDate,
-    required this.imagePlaceholder,
+    required this.imageUrl,
     required this.duration,
   });
 
@@ -25,24 +25,24 @@ class HomeVolunteerCard extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          height: 120,
+          width: 156,
+          height: 128,
           decoration: BoxDecoration(
             color: context.palette.surfaceBright,
             borderRadius: BorderRadius.circular(12),
+            image: imageUrl.isNotEmpty
+                ? DecorationImage(
+                    image: NetworkImage(imageUrl),
+                    fit: BoxFit.cover,
+                  )
+                : null,
           ),
-          child: imagePlaceholder.isNotEmpty
-              ? Image.network(imagePlaceholder, fit: BoxFit.cover)
-              : Center(
-                  child: OrbIcon(
-                    Icons.image,
-                  ),
-                ),
         ),
         Positioned(
           bottom: 8,
           right: 8,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             decoration: BoxDecoration(
               color: context.palette.surfaceDim,
               borderRadius: BorderRadius.circular(12),
@@ -51,6 +51,7 @@ class HomeVolunteerCard extends StatelessWidget {
               duration,
               type: OrbTextType.bodySmall,
               color: context.palette.onSurface,
+              fontWeight: OrbFontWeight.medium,
             ),
           ),
         ),
@@ -114,6 +115,7 @@ class HomeVolunteerCard extends StatelessWidget {
         child: OrbText(
           'NEW',
           type: OrbTextType.bodySmall,
+          fontWeight: OrbFontWeight.medium,
           color: context.palette.onPrimary,
         ),
       ),

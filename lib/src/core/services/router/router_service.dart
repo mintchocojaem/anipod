@@ -7,7 +7,7 @@ import 'router_service.gr.dart';
 
 part 'router_service.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 RouterService routerService(RouterServiceRef ref) => RouterService(ref);
 
 @AutoRouterConfig(replaceInRouteName: 'Screen|Page,Route')
@@ -24,6 +24,7 @@ class RouterService extends RootStackRouter {
   List<AutoRoute> get routes => [
         AutoRoute(
           page: LoginRoute.page,
+          initial: true,
         ),
         AutoRoute(
           page: SignUpRoute.page,
@@ -44,7 +45,7 @@ class RouterService extends RootStackRouter {
           page: FindPasswordCompleteRoute.page,
         ),
         AutoRoute(
-          initial: true,
+          //initial: true,
           page: MainRoute.page,
           children: [
             AutoRoute(
@@ -124,7 +125,7 @@ class RouterService extends RootStackRouter {
   List<AutoRouteGuard> get guards => [
         AutoRouteGuard.simple(
           (resolver, router) {
-            final loginToken = ref.watch(loginTokenNotifierProvider);
+            final loginToken = ref.read(loginTokenProvider);
             final isAuthenticated = loginToken.hasValue;
             if (isAuthenticated || resolver.routeName == LoginRoute.name) {
               // we continue navigation

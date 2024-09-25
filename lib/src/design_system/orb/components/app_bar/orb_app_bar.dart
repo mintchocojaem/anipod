@@ -45,8 +45,9 @@ class OrbAppBar extends StatelessWidget implements PreferredSizeWidget {
             (Navigator.of(context).canPop()
                 ? IconButton(
                     padding: const EdgeInsets.only(left: 8),
-                    icon: const OrbIcon(
+                    icon: OrbIcon(
                       Icons.arrow_back_ios,
+                      color: palette.surface,
                     ),
                     onPressed: onAutoImplyLeadingPressed ??
                         () {

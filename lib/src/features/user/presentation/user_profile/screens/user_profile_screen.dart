@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../core/services/router/router_service.dart';
 import '../../../../../core/services/router/router_service.gr.dart';
+import '../providers/user_profile_provider.dart';
 import '../widgets/user_activity_card.dart';
 
 @RoutePage()
@@ -22,14 +23,19 @@ class UserProfileScreen extends StatelessWidget {
             title: '마이페이지',
             centerTitle: true,
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                _buildProfileSection(context, ref),
-                const OrbRoundedContainerDivider(),
-                _buildSettingsSection(context, ref),
-                const SizedBox(height: 24),
-              ],
+          body: OrbRefreshIndicator(
+            onRefresh: () async {
+              ref.invalidate(userProfileProvider);
+            },
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _buildProfileSection(context, ref),
+                  const OrbRoundedContainerDivider(),
+                  _buildSettingsSection(context, ref),
+                  const SizedBox(height: 24),
+                ],
+              ),
             ),
           ),
         );
@@ -38,54 +44,72 @@ class UserProfileScreen extends StatelessWidget {
   }
 
   Widget _buildProfileSection(BuildContext context, WidgetRef ref) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      decoration: BoxDecoration(
-        color: context.palette.background,
-      ),
-      child: Column(
-        children: [
-          ClipOval(
-            child: Image.network(
-              'https://picsum.photos/200',
-              width: 80,
-              height: 80,
-              fit: BoxFit.cover,
-            ),
+    final userProfile = ref.watch(userProfileProvider);
+    return userProfile.when(
+      data: (userProfile) {
+        return Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          decoration: BoxDecoration(
+            color: context.palette.background,
           ),
-          const SizedBox(height: 8),
-          _buildProfileText('이름', OrbTextType.bodyLarge, context),
-          const SizedBox(height: 4),
-          _buildProfileText(
-              'example@gmail.com', OrbTextType.bodySmall, context),
-          const SizedBox(height: 16),
-          UserActivityCard(
-            items: [
-              UserActivityItem(title: '봉사시간', content: '100시간'),
-              UserActivityItem(title: '봉사횟수', content: '3'),
-              UserActivityItem(
-                  title: '후원',
-                  content: '1회',
-                  onTap: () {
-                    ref.read(routerServiceProvider).push(UserBackingRoute());
-                  }),
+          child: Column(
+            children: [
+              ClipOval(
+                child: Image.network(
+                  userProfile.imageUrl,
+                  width: 80,
+                  height: 80,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(height: 8),
+              OrbText(
+                userProfile.name,
+                type: OrbTextType.bodyLarge,
+                fontWeight: OrbFontWeight.medium,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 4),
+              OrbText(
+                userProfile.email,
+                type: OrbTextType.bodySmall,
+                color: context.palette.surfaceDim,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              UserActivityCard(
+                items: [
+                  UserActivityItem(
+                    title: '봉사시간',
+                    content: '${userProfile.volunteerHours}시간',
+                  ),
+                  UserActivityItem(
+                    title: '봉사횟수',
+                    content: '${userProfile.volunteerCount}회',
+                  ),
+                  UserActivityItem(
+                      title: '후원',
+                      content: '${userProfile.backingCount}건',
+                      onTap: () {
+                        ref
+                            .read(routerServiceProvider)
+                            .push(UserBackingRoute());
+                      }),
+                ],
+              ),
             ],
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildProfileText(
-      String text, OrbTextType type, BuildContext context) {
-    return OrbText(
-      text,
-      type: type,
-      fontWeight: OrbFontWeight.medium,
-      textAlign: TextAlign.center,
-      maxLines: 2,
-      overflow: TextOverflow.ellipsis,
+        );
+      },
+      loading: () {
+        return OrbShimmerContent();
+      },
+      error: (error, stackTrace) {
+        return OrbShimmerContent();
+      },
     );
   }
 
@@ -181,7 +205,7 @@ class UserProfileScreen extends StatelessWidget {
   Future<void> _showLogoutDialog(BuildContext context) {
     return OrbDialog(
       title: '로그아웃',
-      content: OrbText('로그아웃 하시겠습니까?', type: OrbTextType.bodyMedium),
+      content: const OrbText('로그아웃 하시겠습니까?', type: OrbTextType.bodyMedium),
       leftButtonText: '취소',
       onLeftButtonPressed: () async => true,
       rightButtonText: '로그아웃',

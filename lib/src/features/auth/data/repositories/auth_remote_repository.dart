@@ -18,10 +18,10 @@ class AuthRemoteRepository extends RemoteRepository {
     required super.client,
   });
 
-  Future<LoginToken> login({
+  Future<LoginTokenModel> login({
     required String loginId,
     required String password,
-}) async {
+  }) async {
     final response = await client.request(
       path: '/user/login',
       method: RequestType.post,
@@ -30,6 +30,58 @@ class AuthRemoteRepository extends RemoteRepository {
         'password': password,
       },
     );
-    return LoginToken.fromJson(response.data);
+    return LoginTokenModel.fromJson(response.data);
+  }
+
+  Future<bool> sendVerificationCode({
+    required String phoneNumber,
+  }) async {
+    final response = await client.request(
+      method: RequestType.post,
+      path: '/sms/code',
+      data: {
+        'phone': phoneNumber,
+        'smsType': 'SIGN_UP',
+      },
+    );
+    return response.statusCode == 200;
+  }
+
+  Future<bool> checkVerificationCode({
+    required String phoneNumber,
+    required String code,
+  }) async {
+    final response = await client.request(
+      method: RequestType.post,
+      path: '/sms/verify',
+      data: {
+        'phone': phoneNumber,
+        'code': code,
+        'smsType': 'SIGN_UP',
+      },
+    );
+    return response.statusCode == 200;
+  }
+
+  Future<bool> signUp({
+    required String nickname,
+    required String email,
+    required String password,
+    required String phoneNumber,
+  }) async {
+    final response = await client.request(
+      method: RequestType.post,
+      path: '/user/signup',
+      data: {
+        'loginId': email,
+        "birthDate": "1990-01-01",
+        "gender": "MALE",
+        'nickname': nickname,
+        'email': email,
+        'password': password,
+        'phone': phoneNumber,
+      },
+    );
+    return response.statusCode == 200;
   }
 }

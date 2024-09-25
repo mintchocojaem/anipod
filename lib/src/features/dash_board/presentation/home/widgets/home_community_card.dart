@@ -31,6 +31,7 @@ class HomeCommunityCard extends StatelessWidget {
           Row(
             children: [
               CircleAvatar(
+                backgroundColor: context.palette.surfaceBright,
                 backgroundImage: NetworkImage(imageUrl),
                 radius: 16,
               ),
@@ -44,43 +45,43 @@ class HomeCommunityCard extends StatelessWidget {
                   type: OrbTextType.bodyLarge,
                 ),
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    width: 60,
-                    child: OrbText(
-                      '좋아요 $likes',
-                      color: context.palette.surface,
-                      type: OrbTextType.bodySmall,
-                      fontWeight: OrbFontWeight.medium,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+              SizedBox(
+                width: 52,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    OrbIcon(
+                      Icons.favorite_rounded,
+                      color: context.palette.error,
+                      size: OrbIconSize.small,
                     ),
-                  ),
-                  SizedBox(
-                    width: 60,
-                    child: OrbText(
-                      '댓글 $comments',
-                      color: context.palette.surface,
-                      type: OrbTextType.bodySmall,
-                      fontWeight: OrbFontWeight.medium,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    const SizedBox(width: 4),
+                    Expanded(
+                      child: OrbText(
+                        '$likes',
+                        color: context.palette.surface,
+                        type: OrbTextType.bodySmall,
+                        fontWeight: OrbFontWeight.medium,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
-          const SizedBox(height: 16),
-          OrbText(
-            content,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-            type: OrbTextType.bodyLarge,
-            fontWeight: OrbFontWeight.regular,
-            color: context.palette.surfaceDim,
+          const SizedBox(height: 8),
+          SizedBox(
+            height: 48,
+            child: OrbText(
+              content,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              type: OrbTextType.bodyMedium,
+              fontWeight: OrbFontWeight.regular,
+              color: context.palette.surfaceDim,
+            ),
           ),
         ],
       ),

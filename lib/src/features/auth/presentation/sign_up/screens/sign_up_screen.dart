@@ -1,3 +1,6 @@
+import 'package:anipod/src/core/services/router/router_service.gr.dart';
+import 'package:anipod/src/core/utils/auth_validator.dart';
+import 'package:anipod/src/core/utils/extensions.dart';
 import 'package:anipod/src/design_system/orb/orb.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -5,12 +8,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../core/services/router/router_service.dart';
-import '../../../../../core/services/router/router_service.gr.dart';
+import '../../../../../core/utils/app_exception.dart';
+import '../providers/sign_up_provider.dart';
 
 part 'sign_up_agree_policy_step.dart';
 part 'sign_up_input_info_step.dart';
+part 'sign_up_send_code_step.dart';
 part 'sign_up_verify_code_step.dart';
-part 'sign_up_verify_phone_number_step.dart';
 
 @RoutePage()
 class SignUpScreen extends StatelessWidget {
@@ -30,7 +34,7 @@ class SignUpScreen extends StatelessWidget {
                 SignUpAgreePolicyStep(
                   pageController: pageController,
                 ),
-                SignUpVerifyPhoneNumberStep(
+                SignUpSendCodeStep(
                   pageController: pageController,
                 ),
                 SignUpVerifyCodeStep(
@@ -38,11 +42,6 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 SignUpInputInfoStep(
                   pageController: pageController,
-                  onTapSubmitButton: () {
-                    ref
-                        .read(routerServiceProvider)
-                        .replace(const SignUpCompleteRoute());
-                  },
                 ),
               ],
             );

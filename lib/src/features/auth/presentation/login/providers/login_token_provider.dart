@@ -8,9 +8,9 @@ import '../../../domain/use_cases/auth_use_cases.dart';
 part 'login_token_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-class LoginTokenNotifier extends _$LoginTokenNotifier {
+class LoginToken extends _$LoginToken {
   @override
-  FutureOr<LoginToken?> build() {
+  FutureOr<LoginTokenModel?> build() {
     // TODO: implement build
     return null;
   }
@@ -19,16 +19,12 @@ class LoginTokenNotifier extends _$LoginTokenNotifier {
     required String loginId,
     required String password,
   }) async {
-    state = AsyncData(LoginToken(accessToken: "", refreshToken: ""));
-    /*
     state = await AsyncValue.guard(
-          () => ref.read(authUseCasesProvider).login(
-        loginId: loginId,
-        password: password,
-      ),
+      () => ref.read(authUseCasesProvider).login(
+            loginId: loginId,
+            password: password,
+          ),
     );
-
-     */
   }
 
   void logout() {

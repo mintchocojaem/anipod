@@ -62,8 +62,10 @@ class _OrbCategoryBarState extends State<OrbCategoryBar> {
               },
               child: Container(
                 margin: const EdgeInsets.only(right: 8),
-                padding: const EdgeInsets.only(
-                    left: 12, right: 12, top: 4, bottom: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 18,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: selectedIndex == i
@@ -72,7 +74,6 @@ class _OrbCategoryBarState extends State<OrbCategoryBar> {
                 ),
                 child: OrbText(
                   widget.categoryList[i],
-                  type: OrbTextType.bodyMedium,
                   fontWeight: OrbFontWeight.medium,
                   color: selectedIndex == i
                       ? selectedForegroundColor

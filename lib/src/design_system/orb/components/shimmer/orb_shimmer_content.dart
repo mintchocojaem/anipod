@@ -28,7 +28,7 @@ class OrbShimmerContent extends StatelessWidget {
       padding: padding ?? const EdgeInsets.all(16),
       child: Shimmer.fromColors(
         baseColor: palette.outline,
-        highlightColor: palette.surface,
+        highlightColor: palette.surfaceBright,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

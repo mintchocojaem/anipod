@@ -28,12 +28,14 @@ class GuideCard extends StatelessWidget {
             width: 100,
             child: OrbText(
               content,
-              type: OrbTextType.bodyMedium,
+              type: OrbTextType.bodySmall,
               fontWeight: OrbFontWeight.medium,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           const SizedBox(
-            width: 4,
+            width: 8,
           ),
           Align(
             alignment: Alignment.bottomRight,

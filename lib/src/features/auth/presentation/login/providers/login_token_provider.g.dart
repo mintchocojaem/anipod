@@ -6,22 +6,20 @@ part of 'login_token_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$loginTokenNotifierHash() =>
-    r'8450eb21fb2bcd43179e51ed5adb7877cc41836b';
+String _$loginTokenHash() => r'4ba4ef684011a2f6e863e8e22cb30f3852e1470e';
 
-/// See also [LoginTokenNotifier].
-@ProviderFor(LoginTokenNotifier)
-final loginTokenNotifierProvider =
-    AsyncNotifierProvider<LoginTokenNotifier, LoginToken?>.internal(
-  LoginTokenNotifier.new,
-  name: r'loginTokenNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$loginTokenNotifierHash,
+/// See also [LoginToken].
+@ProviderFor(LoginToken)
+final loginTokenProvider =
+    AsyncNotifierProvider<LoginToken, LoginTokenModel?>.internal(
+  LoginToken.new,
+  name: r'loginTokenProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$loginTokenHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$LoginTokenNotifier = AsyncNotifier<LoginToken?>;
+typedef _$LoginToken = AsyncNotifier<LoginTokenModel?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

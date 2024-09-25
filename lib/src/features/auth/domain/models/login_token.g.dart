@@ -6,12 +6,13 @@ part of 'login_token.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-LoginToken _$LoginTokenFromJson(Map<String, dynamic> json) => LoginToken(
+LoginTokenModel _$LoginTokenModelFromJson(Map<String, dynamic> json) =>
+    LoginTokenModel(
       accessToken: json['accessToken'] as String,
       refreshToken: json['refreshToken'] as String,
     );
 
-Map<String, dynamic> _$LoginTokenToJson(LoginToken instance) =>
+Map<String, dynamic> _$LoginTokenModelToJson(LoginTokenModel instance) =>
     <String, dynamic>{
       'accessToken': instance.accessToken,
       'refreshToken': instance.refreshToken,
