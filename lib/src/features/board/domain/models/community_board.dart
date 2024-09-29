@@ -1,43 +1,25 @@
-class CrewProfileModel {
-  final String imageUrl;
-  final String name;
+import 'package:json_annotation/json_annotation.dart';
 
-  CrewProfileModel({
-    required this.imageUrl,
-    required this.name,
-  });
-}
+import 'community_post.dart';
 
-class CommunityPostModel {
-  final String name;
-  final String title;
-  final String content;
-  final int commentCount;
-  final int likeCount;
-  final String imageUrl;
-  final String time;
+part 'community_board.g.dart';
 
-  CommunityPostModel({
-    required this.name,
-    required this.title,
-    required this.content,
-    required this.commentCount,
-    required this.likeCount,
-    required this.imageUrl,
-    required this.time,
-  });
-}
-
+@JsonSerializable()
 class CommunityBoardModel {
-  final List<CommunityPostModel> posts;
-  final int currentPage;
+  final List<CommunityPostModel> content;
   final int totalPages;
+  final int totalElements;
   final bool hasNext;
 
   CommunityBoardModel({
-    required this.posts,
-    required this.currentPage,
+    required this.content,
     required this.totalPages,
+    required this.totalElements,
     required this.hasNext,
   });
+
+  factory CommunityBoardModel.fromJson(Map<String, dynamic> json) =>
+      _$CommunityBoardModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CommunityBoardModelToJson(this);
 }

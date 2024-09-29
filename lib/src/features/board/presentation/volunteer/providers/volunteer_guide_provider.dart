@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../domain/models/volunteer_board.dart';
+import '../../../domain/models/community_guide.dart';
 import '../../../domain/use_cases/volunteer_usecases.dart';
 
 part 'volunteer_guide_provider.g.dart';

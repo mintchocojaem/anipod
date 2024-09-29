@@ -1,17 +1,16 @@
+import 'package:anipod/src/core/utils/extensions.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../design_system/orb/orb.dart';
 
 class CrewProfileItem extends StatelessWidget {
-  final String path;
-  final bool isAsset;
+  final String? imageUrl;
   final String title;
   final VoidCallback? onTap;
 
   const CrewProfileItem({
     super.key,
-    this.isAsset = false,
-    required this.path,
+    this.imageUrl,
     required this.title,
     this.onTap,
   });
@@ -25,20 +24,31 @@ class CrewProfileItem extends StatelessWidget {
         child: Column(
           children: [
             // Circle image part
-            ClipOval(
-              child: isAsset
-                  ? Image.asset(
-                      path,
-                      width: 64,
-                      height: 64,
-                      fit: BoxFit.cover,
+            Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: context.palette.surfaceBright,
+                image: imageUrl != null
+                    ? DecorationImage(
+                        image: NetworkImage(imageUrl!),
+                        fit: BoxFit.cover,
+                        onError: (exception, stackTrace) {
+                          print('Image Loading Error: $exception');
+                        },
+                      )
+                    : null,
+              ),
+              child: imageUrl == null
+                  ? Center(
+                      child: OrbIcon(
+                        Icons.people,
+                        color: context.palette.surface,
+                        size: OrbIconSize.medium,
+                      ),
                     )
-                  : Image.network(
-                      path,
-                      width: 64,
-                      height: 64,
-                      fit: BoxFit.cover,
-                    ),
+                  : null,
             ),
             const SizedBox(height: 8),
             // Title text

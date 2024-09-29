@@ -16,7 +16,9 @@ NetworkClientService networkClientService(NetworkClientServiceRef ref) =>
         final loginToken = ref.read(loginTokenProvider).value;
 
         if (loginToken != null) {
-          options.headers['Authorization'] = 'Bearer ${loginToken.accessToken}';
+          final accessToken = 'anipod-access=${loginToken.accessToken}';
+          final refreshToken = 'anipod-refresh=${loginToken.refreshToken}';
+          options.headers['Cookie'] = '$accessToken; $refreshToken';
         }
       },
       onResponse: (response) async {
@@ -89,20 +91,27 @@ base class NetworkClientService {
             debugPrint(
                 'NetworkClientService > (Canceled) : ${exception.requestOptions.uri}');
           } else {
-            final List<dynamic>? messages = exception.response?.data['message'];
+            List<String> messages = [
+              '서버 연결 중 오류가 발생했어요.',
+            ];
 
-            String message = '서버 연결 중 오류가 발생했어요.';
+            try {
+              final List<dynamic>? response =
+                  exception.response?.data['message'];
+              dynamic firstMessage = response?.firstOrNull;
 
-            dynamic firstMessage = messages?.firstOrNull;
-
-            if (firstMessage != null && firstMessage is Map<String, dynamic>) {
-              message = firstMessage['error'];
-            } else if (firstMessage is String) {
-              message = firstMessage;
+              if (firstMessage != null &&
+                  firstMessage is Map<String, dynamic>) {
+                messages.add(firstMessage['error']);
+              } else if (firstMessage is String) {
+                messages.add(firstMessage);
+              }
+            } catch (e) {
+              debugPrint('NetworkClientService > (Error) : $e');
             }
 
             exception = exception.copyWith(
-              message: message,
+              message: messages.firstOrNull,
             );
 
             final int statusCode = exception.response?.statusCode ?? 500;

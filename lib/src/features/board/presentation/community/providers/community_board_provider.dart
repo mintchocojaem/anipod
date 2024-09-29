@@ -1,8 +1,9 @@
+import 'package:anipod/src/features/board/domain/models/community_category.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../domain/models/community_board.dart';
-import '../../../domain/models/community_category.dart';
 import '../../../domain/use_cases/community_usecases.dart';
+import 'community_category_provider.dart';
 
 part 'community_board_provider.g.dart';
 
@@ -12,11 +13,12 @@ class CommunityBoard extends _$CommunityBoard {
 
   @override
   Future<CommunityBoardModel> build() async {
-    return _fetch();
+    final category = ref.watch(communityCategoryProvider);
+    return _fetch(category: category);
   }
 
   Future<CommunityBoardModel> _fetch({
-    CommunityCategory category = CommunityCategory.all, // 기본값은 모든 카테고리
+    required CommunityCategoryModel category,
   }) async {
     final communityBoardData = await ref
         .read(communityUseCasesProvider)
@@ -24,12 +26,12 @@ class CommunityBoard extends _$CommunityBoard {
     return communityBoardData;
   }
 
-  Future<void> fetchBoard({
-    CommunityCategory category = CommunityCategory.all, // 기본값은 모든 카테고리
-  }) async {
+  Future<void> fetchBoard() async {
     _page = 0; // 페이지를 초기화
     state = await AsyncValue.guard(() async {
-      return _fetch(category: category);
+      return _fetch(
+        category: ref.read(communityCategoryProvider),
+      );
     });
   }
 
@@ -37,12 +39,18 @@ class CommunityBoard extends _$CommunityBoard {
     if (state.value?.hasNext == true) {
       _page++; // 페이지를 증가시킴
       state = await AsyncValue.guard(() async {
-        final newBoardData = await _fetch();
-        final currentPosts = state.value?.posts ?? [];
+        final category = ref.read(communityCategoryProvider);
+        final newBoardData = await _fetch(
+          category: category,
+        );
+        final currentPosts = state.value?.content ?? [];
         return CommunityBoardModel(
-          posts: [...currentPosts, ...newBoardData.posts], // 기존 게시물에 새 게시물 추가
-          currentPage: newBoardData.currentPage,
+          content: [
+            ...currentPosts,
+            ...newBoardData.content
+          ], // 기존 게시물에 새 게시물 추가
           totalPages: newBoardData.totalPages,
+          totalElements: newBoardData.totalElements,
           hasNext: newBoardData.hasNext,
         );
       });

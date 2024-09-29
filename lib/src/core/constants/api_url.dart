@@ -1,2 +1,2 @@
-const String developmentBaseUrl = 'https://danvery.com/api';
-const String productionBaseUrl = 'https://danvery.com/api';
+const String developmentBaseUrl = 'https://dev.anipod.co.kr/api';
+const String productionBaseUrl = 'https://anipod.co.kr/api';

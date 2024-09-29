@@ -72,9 +72,7 @@ class LoginScreen extends StatelessWidget {
                   disabled: !isLoginButtonEnabled.value,
                   onPressed: () async {
                     await ref.read(loginTokenProvider.notifier).login(
-                          loginId: idController.text,
-                          password: passwordController.text,
-                        );
+                        loginId: 'anipod@gmail.com', password: '*Lee865050*');
                   },
                   text: "로그인",
                 ),

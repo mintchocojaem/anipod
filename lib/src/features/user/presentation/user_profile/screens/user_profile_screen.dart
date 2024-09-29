@@ -55,17 +55,30 @@ class UserProfileScreen extends StatelessWidget {
           ),
           child: Column(
             children: [
-              ClipOval(
-                child: Image.network(
-                  userProfile.imageUrl,
-                  width: 80,
-                  height: 80,
-                  fit: BoxFit.cover,
+              Container(
+                width: 80,
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 24),
+                decoration: BoxDecoration(
+                  color: context.palette.surfaceBright,
+                  shape: BoxShape.circle,
+                  image: userProfile.profileImageUrl != null
+                      ? DecorationImage(
+                          image: NetworkImage(userProfile.profileImageUrl!))
+                      : null,
                 ),
+                child: userProfile.profileImageUrl == null
+                    ? Center(
+                        child: OrbIcon(
+                          Icons.person,
+                          color: context.palette.surface,
+                        ),
+                      )
+                    : null,
               ),
               const SizedBox(height: 8),
               OrbText(
-                userProfile.name,
+                userProfile.nickname,
                 type: OrbTextType.bodyLarge,
                 fontWeight: OrbFontWeight.medium,
                 textAlign: TextAlign.center,
@@ -84,7 +97,7 @@ class UserProfileScreen extends StatelessWidget {
                 items: [
                   UserActivityItem(
                     title: '봉사시간',
-                    content: '${userProfile.volunteerHours}시간',
+                    content: '${userProfile.totalVolunteerTime}시간',
                   ),
                   UserActivityItem(
                     title: '봉사횟수',
@@ -92,7 +105,7 @@ class UserProfileScreen extends StatelessWidget {
                   ),
                   UserActivityItem(
                       title: '후원',
-                      content: '${userProfile.backingCount}건',
+                      content: '${userProfile.donationCount}건',
                       onTap: () {
                         ref
                             .read(routerServiceProvider)

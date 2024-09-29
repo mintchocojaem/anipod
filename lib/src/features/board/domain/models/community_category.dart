@@ -1,14 +1,17 @@
-enum CommunityCategory {
-  all(displayName: '전체', value: 'all'),
-  recent(displayName: '최신', value: 'recent'),
-  volunteer(displayName: '봉사', value: 'volunteer'),
-  review(displayName: '리뷰', value: 'review'),
-  popular(displayName: '생활', value: 'popular');
+import 'package:json_annotation/json_annotation.dart';
+
+@JsonEnum()
+enum CommunityCategoryModel {
+  all(displayName: '전체', value: 'ALL'),
+  volunteer(displayName: '봉사', value: 'VOLUNTEER'),
+  review(displayName: '리뷰', value: 'REVIEW'),
+  life(displayName: '생활', value: 'LIFE'),
+  question(displayName: '질문', value: 'QUESTION');
 
   final String displayName;
   final String value;
 
-  const CommunityCategory({
+  const CommunityCategoryModel({
     required this.displayName,
     required this.value,
   });

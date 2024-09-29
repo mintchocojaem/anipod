@@ -1,9 +1,10 @@
 import 'package:anipod/src/core/utils/extensions.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/utils/date_time_formatter.dart';
 import '../../../../../design_system/orb/orb.dart';
 
-class CrewBoardCard extends StatelessWidget {
+class CrewBoardCard extends StatelessWidget with DateTimeFormatter {
   final String name;
   final String time;
   final String title;
@@ -51,7 +52,7 @@ class CrewBoardCard extends StatelessWidget {
                       fontWeight: OrbFontWeight.medium,
                     ),
                     OrbText(
-                      time,
+                      dateFormatToRelative(time),
                       type: OrbTextType.bodySmall,
                     ),
                   ],

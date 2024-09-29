@@ -1,15 +1,15 @@
+import 'package:anipod/src/core/utils/date_time_formatter.dart';
 import 'package:anipod/src/core/utils/extensions.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../design_system/orb/orb.dart';
 
-class VolunteerListItem extends StatelessWidget {
+class VolunteerListItem extends StatelessWidget with DateTimeFormatter {
   final String title;
   final String organization;
   final List<String> photos;
   final String region;
   final String registrationDate;
-  final bool isLiked;
   final String duration;
   final Function()? onTap;
   final Function(bool isLiked)? onTapLike;
@@ -21,7 +21,6 @@ class VolunteerListItem extends StatelessWidget {
     required this.photos,
     required this.region,
     required this.registrationDate,
-    required this.isLiked,
     required this.duration,
     this.onTap,
     this.onTapLike,
@@ -88,70 +87,80 @@ class VolunteerListItem extends StatelessWidget {
                     const SizedBox(height: 4),
                     Row(
                       children: [
-                        OrbText(
-                          '단체명',
-                          type: OrbTextType.bodySmall,
+                        SizedBox(
+                          width: 36,
+                          child: OrbText(
+                            '단체명',
+                            type: OrbTextType.bodySmall,
+                            color: context.palette.surfaceDim,
+                          ),
                         ),
                         const SizedBox(width: 8),
-                        OrbText(
-                          organization,
-                          type: OrbTextType.bodySmall,
-                          color: context.palette.shadow,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        Expanded(
+                          child: OrbText(
+                            organization,
+                            type: OrbTextType.bodySmall,
+                            color: context.palette.shadow,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 4),
                     Row(
                       children: [
-                        OrbText(
-                          '지역',
-                          type: OrbTextType.bodySmall,
+                        SizedBox(
+                          width: 36,
+                          child: OrbText(
+                            '지역',
+                            type: OrbTextType.bodySmall,
+                            color: context.palette.surfaceDim,
+                          ),
                         ),
                         const SizedBox(width: 8),
-                        OrbText(
-                          region,
-                          type: OrbTextType.bodySmall,
-                          color: context.palette.shadow,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        Expanded(
+                          child: OrbText(
+                            region,
+                            type: OrbTextType.bodySmall,
+                            color: context.palette.shadow,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 4),
                     Row(
                       children: [
-                        OrbText(
-                          '등록일',
-                          type: OrbTextType.bodySmall,
+                        SizedBox(
+                          width: 36,
+                          child: OrbText(
+                            '등록일',
+                            type: OrbTextType.bodySmall,
+                            color: context.palette.surfaceDim,
+                          ),
                         ),
                         const SizedBox(width: 8),
-                        OrbText(
-                          registrationDate,
-                          type: OrbTextType.bodySmall,
-                          color: context.palette.shadow,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        Expanded(
+                          child: OrbText(
+                            dateFormatToCompact(registrationDate),
+                            type: OrbTextType.bodySmall,
+                            color: context.palette.shadow,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ],
                     ),
                   ],
                 ),
               ),
+              const SizedBox(width: 16),
               // Like button and D-day section
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  InkWell(
-                    onTap: () => onTapLike?.call(!isLiked),
-                    child: OrbIcon(
-                      Icons.favorite,
-                      color: isLiked
-                          ? context.palette.error
-                          : context.palette.surface,
-                    ),
-                  ),
                   Spacer(),
                   Container(
                     padding:

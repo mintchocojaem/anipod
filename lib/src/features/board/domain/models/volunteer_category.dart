@@ -1,4 +1,7 @@
-enum VolunteerCategory {
+import 'package:json_annotation/json_annotation.dart';
+
+@JsonEnum()
+enum VolunteerCategoryModel {
   all(displayName: '전체', value: 'all'),
   recent(displayName: '최신', value: 'recent'),
   popular(displayName: '인기', value: 'popular');
@@ -6,7 +9,7 @@ enum VolunteerCategory {
   final String displayName;
   final String value;
 
-  const VolunteerCategory({
+  const VolunteerCategoryModel({
     required this.displayName,
     required this.value,
   });

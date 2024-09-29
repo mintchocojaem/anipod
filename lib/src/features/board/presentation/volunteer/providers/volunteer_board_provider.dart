@@ -17,7 +17,7 @@ class VolunteerBoard extends _$VolunteerBoard {
   }
 
   Future<VolunteerBoardModel> _fetch({
-    VolunteerCategory category = VolunteerCategory.all,
+    VolunteerCategoryModel category = VolunteerCategoryModel.all,
   }) async {
     final volunteerBoardData = await ref
         .read(volunteerUseCasesProvider)
@@ -26,7 +26,7 @@ class VolunteerBoard extends _$VolunteerBoard {
   }
 
   Future<void> fetchBoard({
-    VolunteerCategory category = VolunteerCategory.all,
+    VolunteerCategoryModel category = VolunteerCategoryModel.all,
   }) async {
     _page = 0; // 페이지 초기화
     state = await AsyncValue.guard(() async {
@@ -39,9 +39,9 @@ class VolunteerBoard extends _$VolunteerBoard {
       _page++; // 페이지 증가
       state = await AsyncValue.guard(() async {
         final newBoardData = await _fetch();
-        final currentPosts = state.value?.contents ?? [];
+        final currentPosts = state.value?.content ?? [];
         return VolunteerBoardModel(
-          contents: [...currentPosts, ...newBoardData.contents],
+          content: [...currentPosts, ...newBoardData.content],
           page: newBoardData.page,
           size: newBoardData.size,
           totalPages: newBoardData.totalPages,
@@ -51,19 +51,4 @@ class VolunteerBoard extends _$VolunteerBoard {
       });
     }
   }
-}
-
-@riverpod
-Future<bool> likeVolunteerPost(
-  LikeVolunteerPostRef ref, {
-  required int postId,
-  required bool isLiked,
-  CancelToken? cancelToken,
-}) async {
-  final userUseCases = ref.read(volunteerUseCasesProvider);
-  return userUseCases.likeVolunteerPost(
-    postId: postId,
-    isLiked: isLiked,
-    cancelToken: cancelToken,
-  );
 }

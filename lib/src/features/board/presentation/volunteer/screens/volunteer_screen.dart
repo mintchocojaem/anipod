@@ -23,7 +23,7 @@ class VolunteerScreen extends StatelessWidget {
       final volunteerBoard = ref.watch(volunteerBoardProvider);
       final volunteerGuide = ref.watch(volunteerGuideProvider);
       return HookBuilder(builder: (context) {
-        const category = VolunteerCategory.values;
+        const category = VolunteerCategoryModel.values;
         final categoryIndex = useState(0);
 
         final scrollController = useScrollController();
@@ -119,6 +119,7 @@ class VolunteerScreen extends StatelessWidget {
                                       content: guide.content,
                                       icon: OrbIcon(
                                         Icons.gpp_good_outlined,
+                                        color: context.palette.primary,
                                       ),
                                     ),
                                   ),
@@ -157,48 +158,61 @@ class VolunteerScreen extends StatelessWidget {
                         volunteerBoard.when(
                           skipLoadingOnRefresh: false,
                           data: (board) {
-                            return ListView.builder(
-                              itemCount: board.contents.length,
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                final volunteerPost = board.contents[index];
-                                return Column(
-                                  children: [
-                                    VolunteerListItem(
-                                      title: volunteerPost.title,
-                                      organization: volunteerPost.organization,
-                                      region: volunteerPost.region,
-                                      registrationDate:
-                                          volunteerPost.registrationDate,
-                                      photos: [volunteerPost.imageUrl],
-                                      isLiked: volunteerPost.isLiked,
-                                      duration: volunteerPost.duration,
-                                      onTap: () {
-                                        ref.read(routerServiceProvider).push(
-                                              VolunteerDetailRoute(),
-                                            );
-                                      },
-                                      onTapLike: (isLiked) {
-                                        ref.read(likeVolunteerPostProvider(
-                                          postId: volunteerPost.id,
-                                          isLiked: isLiked,
-                                        ));
-                                      },
-                                    ),
-                                    const OrbDivider(),
-                                    if (index == board.contents.length - 1 &&
-                                        board.hasNext)
-                                      const Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: 24,
-                                        ),
-                                        child: OrbCircularProgressIndicator(),
+                            return board.content.isEmpty
+                                ? const SizedBox(
+                                    height: 300,
+                                    child: Center(
+                                      child: OrbText(
+                                        '게시글이 존재하지 않아요.',
+                                        type: OrbTextType.bodyLarge,
                                       ),
-                                  ],
-                                );
-                              },
-                            );
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    itemCount: board.content.length,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      final volunteerPost =
+                                          board.content[index];
+                                      return Column(
+                                        children: [
+                                          VolunteerListItem(
+                                            title: volunteerPost.title,
+                                            organization:
+                                                volunteerPost.recruitmentAgency,
+                                            region:
+                                                volunteerPost.volunteerPlace,
+                                            registrationDate:
+                                                volunteerPost.createdAt,
+                                            photos: volunteerPost.images
+                                                .map((e) => e.url)
+                                                .toList(),
+                                            duration: volunteerPost.deadline,
+                                            onTap: () {
+                                              ref
+                                                  .read(routerServiceProvider)
+                                                  .push(
+                                                    VolunteerDetailRoute(),
+                                                  );
+                                            },
+                                          ),
+                                          const OrbDivider(),
+                                          if (index ==
+                                                  board.content.length - 1 &&
+                                              board.hasNext)
+                                            const Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 24,
+                                              ),
+                                              child:
+                                                  OrbCircularProgressIndicator(),
+                                            ),
+                                        ],
+                                      );
+                                    },
+                                  );
                           },
                           loading: () {
                             return ListView.builder(

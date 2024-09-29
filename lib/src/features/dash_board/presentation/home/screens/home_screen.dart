@@ -52,6 +52,7 @@ class HomeScreen extends ConsumerWidget {
               ),
               homeBoard.when(data: (homeBoard) {
                 return OrbBoardContainer(
+                  isHorizontalScrollable: true,
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -73,7 +74,7 @@ class HomeScreen extends ConsumerWidget {
                             width: 4,
                           ),
                           OrbText(
-                            homeBoard.volunteers.location,
+                            '위치 정보',
                             type: OrbTextType.bodySmall,
                             color: context.palette.surfaceDim,
                           ),
@@ -82,7 +83,7 @@ class HomeScreen extends ConsumerWidget {
                     ],
                   ),
                   trailing: OrbIcon(Icons.chevron_right_outlined),
-                  child: homeBoard.volunteers.volunteers.isEmpty
+                  child: homeBoard.volunteers.isEmpty
                       ? const Center(
                           child: Padding(
                             padding: EdgeInsets.symmetric(
@@ -96,26 +97,29 @@ class HomeScreen extends ConsumerWidget {
                         )
                       : SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              ...homeBoard.volunteers.volunteers.map(
-                                (volunteer) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(right: 16),
-                                    child: HomeVolunteerCard(
-                                      title: volunteer.title,
-                                      organizationName:
-                                          volunteer.organizationName,
-                                      region: volunteer.region,
-                                      registrationDate:
-                                          volunteer.registrationDate,
-                                      imageUrl: volunteer.imageUrl,
-                                      duration: volunteer.duration,
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 16),
+                            child: Row(
+                              children: [
+                                ...homeBoard.volunteers.map(
+                                  (volunteer) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(right: 16),
+                                      child: HomeVolunteerCard(
+                                        title: volunteer.title,
+                                        organizationName:
+                                            volunteer.recruitmentAgency,
+                                        region: volunteer.volunteerPlace,
+                                        registrationDate: volunteer.createdAt,
+                                        imageUrl:
+                                            volunteer.images.firstOrNull?.url,
+                                        duration: volunteer.deadline,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                 );
@@ -152,7 +156,7 @@ class HomeScreen extends ConsumerWidget {
                 trailing: OrbIcon(Icons.chevron_right_outlined),
                 child: homeBoard.when(
                   data: (homeBoard) {
-                    final communities = homeBoard.communities;
+                    final communities = homeBoard.posts;
                     return communities.isEmpty
                         ? const Center(
                             child: Padding(
@@ -169,15 +173,23 @@ class HomeScreen extends ConsumerWidget {
                             children: [
                               ...communities.map(
                                 (community) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(bottom: 8),
-                                    child: HomeCommunityCard(
-                                      title: community.title,
-                                      content: community.content,
-                                      imageUrl: community.imageUrl,
-                                      likes: community.likes,
-                                      comments: community.comments,
-                                    ),
+                                  return Column(
+                                    children: [
+                                      HomeCommunityCard(
+                                        title: community.title,
+                                        content: community.body,
+                                        imageUrl: community.images.firstOrNull,
+                                        likes: community.likes,
+                                        comments: community.comments,
+                                      ),
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      OrbDivider(),
+                                      const SizedBox(
+                                        height: 16,
+                                      ),
+                                    ],
                                   );
                                 },
                               ),
@@ -191,51 +203,62 @@ class HomeScreen extends ConsumerWidget {
               SizedBox(
                 height: 8,
               ),
-              homeBoard.when(
-                data: (homeBoard) {
-                  final crewBoard = homeBoard.crews;
-                  return crewBoard.crews.isEmpty
-                      ? const SizedBox()
-                      : OrbBoardContainer(
-                          title: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+              OrbBoardContainer(
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    OrbText(
+                      '내 주변 크루',
+                      type: OrbTextType.titleSmall,
+                      fontWeight: OrbFontWeight.medium,
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Row(
+                      children: [
+                        OrbIcon(
+                          Icons.location_on_outlined,
+                          size: OrbIconSize.small,
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        OrbText(
+                          '위치 정보',
+                          type: OrbTextType.bodySmall,
+                          color: context.palette.surfaceDim,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                trailing: OrbIcon(Icons.chevron_right_outlined),
+                child: homeBoard.when(
+                  data: (homeBoard) {
+                    final crewBoard = homeBoard.crews;
+                    return crewBoard.isEmpty
+                        ? const Center(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 64,
+                              ),
+                              child: OrbText(
+                                '새로운 크루가 존재하지 않아요.',
+                                type: OrbTextType.bodyLarge,
+                              ),
+                            ),
+                          )
+                        : Column(
                             children: [
-                              OrbText(
-                                '내 주변 크루',
-                                type: OrbTextType.titleSmall,
-                                fontWeight: OrbFontWeight.medium,
-                              ),
-                              SizedBox(
-                                height: 4,
-                              ),
-                              Row(
-                                children: [
-                                  OrbIcon(
-                                    Icons.location_on_outlined,
-                                    size: OrbIconSize.small,
-                                  ),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                  OrbText(
-                                    crewBoard.location,
-                                    type: OrbTextType.bodySmall,
-                                    color: context.palette.surfaceDim,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          trailing: OrbIcon(Icons.chevron_right_outlined),
-                          child: Column(
-                            children: [
-                              ...crewBoard.crews.map(
+                              ...crewBoard.map(
                                 (crew) {
                                   return Padding(
                                     padding: const EdgeInsets.only(bottom: 16),
                                     child: OrbInfoCard(
-                                      imageUrl: crew.imageUrl,
-                                      title: crew.title,
+                                      imageUrl: null,
+                                      fallbackIcon: Icons.people,
+                                      title: crew.name,
                                       description: crew.description,
                                       infoItems: [
                                         OrbInfoItem(
@@ -243,14 +266,14 @@ class HomeScreen extends ConsumerWidget {
                                             Icons.location_on_outlined,
                                             size: OrbIconSize.small,
                                           ),
-                                          text: crew.location,
+                                          text: crew.neighborhood,
                                         ),
                                         OrbInfoItem(
                                           icon: OrbIcon(
                                             Icons.person,
                                             size: OrbIconSize.small,
                                           ),
-                                          text: "${crew.membersCount}명",
+                                          text: "${crew.memberCount}명",
                                         ),
                                       ],
                                     ),
@@ -258,26 +281,26 @@ class HomeScreen extends ConsumerWidget {
                                 },
                               ),
                             ],
-                          ),
-                        );
-                },
-                loading: () => OrbBoardContainer(
-                  title: OrbText(
-                    '내 주변 크루',
-                    type: OrbTextType.titleSmall,
-                    fontWeight: OrbFontWeight.medium,
+                          );
+                  },
+                  loading: () => OrbBoardContainer(
+                    title: OrbText(
+                      '내 주변 크루',
+                      type: OrbTextType.titleSmall,
+                      fontWeight: OrbFontWeight.medium,
+                    ),
+                    trailing: OrbIcon(Icons.chevron_right_outlined),
+                    child: OrbShimmerContent(),
                   ),
-                  trailing: OrbIcon(Icons.chevron_right_outlined),
-                  child: OrbShimmerContent(),
-                ),
-                error: (error, stackTrace) => OrbBoardContainer(
-                  title: OrbText(
-                    '내 주변 크루',
-                    type: OrbTextType.titleSmall,
-                    fontWeight: OrbFontWeight.medium,
+                  error: (error, stackTrace) => OrbBoardContainer(
+                    title: OrbText(
+                      '내 주변 크루',
+                      type: OrbTextType.titleSmall,
+                      fontWeight: OrbFontWeight.medium,
+                    ),
+                    trailing: OrbIcon(Icons.chevron_right_outlined),
+                    child: OrbShimmerContent(),
                   ),
-                  trailing: OrbIcon(Icons.chevron_right_outlined),
-                  child: OrbShimmerContent(),
                 ),
               ),
               SizedBox(

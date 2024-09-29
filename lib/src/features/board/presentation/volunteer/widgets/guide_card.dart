@@ -28,9 +28,9 @@ class GuideCard extends StatelessWidget {
             width: 100,
             child: OrbText(
               content,
-              type: OrbTextType.bodySmall,
+              type: OrbTextType.bodyMedium,
               fontWeight: OrbFontWeight.medium,
-              maxLines: 3,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
           ),

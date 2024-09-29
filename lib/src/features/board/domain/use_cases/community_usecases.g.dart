@@ -6,13 +6,13 @@ part of 'community_usecases.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$communityUseCasesHash() => r'e1c1398e58eca79ea2e26d4fadd7871cef77599e';
+String _$communityUseCasesHash() => r'084697574a436352b6b9569ea0cd03ab4c3db3dc';
 
-/// See also [CommunityUseCases].
-@ProviderFor(CommunityUseCases)
+/// See also [communityUseCases].
+@ProviderFor(communityUseCases)
 final communityUseCasesProvider =
-    AutoDisposeNotifierProvider<CommunityUseCases, CommunityUseCases>.internal(
-  CommunityUseCases.new,
+    AutoDisposeProvider<CommunityUseCases>.internal(
+  communityUseCases,
   name: r'communityUseCasesProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
@@ -21,6 +21,6 @@ final communityUseCasesProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$CommunityUseCases = AutoDisposeNotifier<CommunityUseCases>;
+typedef CommunityUseCasesRef = AutoDisposeProviderRef<CommunityUseCases>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

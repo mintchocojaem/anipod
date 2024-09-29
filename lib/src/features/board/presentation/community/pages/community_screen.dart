@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../core/services/router/router_service.gr.dart';
 import '../../../domain/models/community_category.dart';
 import '../providers/community_board_provider.dart';
+import '../providers/community_category_provider.dart';
 import '../providers/crew_profile_provider.dart';
 import '../widgets/crew_board_card.dart';
 import '../widgets/crew_profile_item.dart';
@@ -24,7 +25,7 @@ class CommunityScreen extends StatelessWidget {
           ref.watch(crewProfileProvider); // CrewProfileProvider에서 데이터를 가져옴
 
       final communityBoard = ref.watch(communityBoardProvider); // 게시판 데이터
-      const categories = CommunityCategory.values; // 커뮤니티 카테고리
+      const categories = CommunityCategoryModel.values; // 커뮤니티 카테고리
 
       return HookBuilder(builder: (context) {
         final categoryIndex = useState(0); // 카테고리 인덱스 관리
@@ -50,15 +51,6 @@ class CommunityScreen extends StatelessWidget {
             scrollController.removeListener(listener);
           };
         }, []);
-
-        // 카테고리 변경 시 데이터를 새로 로드
-        useEffect(() {
-          ref.read(communityBoardProvider.notifier).fetchBoard(
-                category: categories[categoryIndex.value],
-              );
-          ref.invalidate(communityBoardProvider);
-          return null;
-        }, [categoryIndex.value]);
 
         return OrbScaffold(
           padding: EdgeInsets.zero,
@@ -168,14 +160,18 @@ class CommunityScreen extends StatelessWidget {
                                   children: [
                                     const SizedBox(width: 24),
                                     ...profiles.map(
-                                      (profile) => CrewProfileItem(
-                                        path: profile.imageUrl,
-                                        title: profile.name,
-                                        onTap: () {
-                                          ref
-                                              .read(routerServiceProvider)
-                                              .push(CrewProfileRoute());
-                                        },
+                                      (profile) => Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 16),
+                                        child: CrewProfileItem(
+                                          imageUrl: null,
+                                          title: profile.name,
+                                          onTap: () {
+                                            ref
+                                                .read(routerServiceProvider)
+                                                .push(CrewProfileRoute());
+                                          },
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -206,6 +202,10 @@ class CommunityScreen extends StatelessWidget {
                               .toList(), // 카테고리 이름 리스트
                           onIndexChanged: (index) {
                             categoryIndex.value = index; // 카테고리 변경 시 인덱스 업데이트
+                            ref
+                                .read(communityCategoryProvider.notifier)
+                                .selectCategory(
+                                    categories[categoryIndex.value]);
                           },
                         ),
                         const SizedBox(height: 24),
@@ -214,41 +214,56 @@ class CommunityScreen extends StatelessWidget {
                         communityBoard.when(
                           skipLoadingOnRefresh: false,
                           data: (board) {
-                            return ListView.builder(
-                              itemCount: board.posts.length,
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                final post = board.posts[index];
-                                return Column(
-                                  children: [
-                                    CrewBoardCard(
-                                      name: post.name,
-                                      title: post.title,
-                                      content: post.content,
-                                      commentCount: post.commentCount,
-                                      likeCount: post.likeCount,
-                                      imageUrl: post.imageUrl,
-                                      time: post.time,
-                                      onTap: () {
-                                        ref
-                                            .read(routerServiceProvider)
-                                            .push(const PostDetailRoute());
-                                      },
-                                    ),
-                                    const OrbDivider(),
-                                    if (index == board.posts.length - 1 &&
-                                        board.hasNext)
-                                      const Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: 24,
-                                        ),
-                                        child: OrbCircularProgressIndicator(),
+                            return board.content.isEmpty
+                                ? const SizedBox(
+                                    height: 300,
+                                    child: Center(
+                                      child: OrbText(
+                                        '게시글이 존재하지 않아요.',
+                                        type: OrbTextType.bodyLarge,
                                       ),
-                                  ],
-                                );
-                              },
-                            );
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    itemCount: board.content.length,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      final post = board.content[index];
+                                      return Column(
+                                        children: [
+                                          CrewBoardCard(
+                                            name: post.author,
+                                            title: post.title,
+                                            content: post.body,
+                                            commentCount: post.comments,
+                                            likeCount: post.likes,
+                                            imageUrl:
+                                                post.images.firstOrNull?.url,
+                                            time: post.createdAt,
+                                            onTap: () {
+                                              ref
+                                                  .read(routerServiceProvider)
+                                                  .push(
+                                                      const PostDetailRoute());
+                                            },
+                                          ),
+                                          const OrbDivider(),
+                                          if (index ==
+                                                  board.content.length - 1 &&
+                                              board.hasNext)
+                                            const Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 24,
+                                              ),
+                                              child:
+                                                  OrbCircularProgressIndicator(),
+                                            ),
+                                        ],
+                                      );
+                                    },
+                                  );
                           },
                           loading: () {
                             return ListView.builder(

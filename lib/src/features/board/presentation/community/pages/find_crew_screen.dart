@@ -69,6 +69,7 @@ class FindCrewScreen extends StatelessWidget {
                           padding: EdgeInsets.only(bottom: index == 2 ? 0 : 24),
                           child: OrbInfoCard(
                             imageUrl: 'https://via.placeholder.com/1080x540',
+                            fallbackIcon: Icons.person,
                             title: '산책 봉사활동 모집...123',
                             description: '서울 유기견 보호센터',
                             infoItems: [
@@ -132,6 +133,7 @@ class FindCrewScreen extends StatelessWidget {
                           padding: const EdgeInsets.only(bottom: 24),
                           child: OrbInfoCard(
                             imageUrl: 'https://via.placeholder.com/1080x540',
+                            fallbackIcon: Icons.person,
                             title: '산책 봉사활동 모집...123',
                             description: '서울 유기견 보호센터',
                             infoItems: [

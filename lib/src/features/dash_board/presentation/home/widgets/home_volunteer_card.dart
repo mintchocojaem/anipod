@@ -8,7 +8,7 @@ class HomeVolunteerCard extends StatelessWidget {
   final String organizationName;
   final String region;
   final String registrationDate;
-  final String imageUrl;
+  final String? imageUrl;
   final String duration;
 
   const HomeVolunteerCard({
@@ -30,13 +30,26 @@ class HomeVolunteerCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: context.palette.surfaceBright,
             borderRadius: BorderRadius.circular(12),
-            image: imageUrl.isNotEmpty
+            image: imageUrl != null
                 ? DecorationImage(
-                    image: NetworkImage(imageUrl),
+                    image: NetworkImage(
+                      imageUrl!,
+                    ),
                     fit: BoxFit.cover,
+                    onError: (exception, stackTrace) {
+                      print('Image loading error: $exception');
+                    },
                   )
                 : null,
           ),
+          child: imageUrl == null
+              ? Center(
+                  child: Icon(
+                    Icons.volunteer_activism,
+                    color: context.palette.surfaceDim,
+                  ),
+                )
+              : null,
         ),
         Positioned(
           bottom: 8,

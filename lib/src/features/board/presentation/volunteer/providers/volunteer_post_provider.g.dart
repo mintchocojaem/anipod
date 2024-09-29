@@ -6,7 +6,7 @@ part of 'volunteer_post_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getVolunteerPostHash() => r'd3ebc5d1597c083f884bfb7c65e0291b9bdd6d98';
+String _$getVolunteerPostHash() => r'a98970aa0e0d969a654d4ab07a1ed39751112054';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -40,7 +40,7 @@ class GetVolunteerPostFamily extends Family<AsyncValue<VolunteerPostModel>> {
 
   /// See also [getVolunteerPost].
   GetVolunteerPostProvider call({
-    required int id,
+    required String id,
   }) {
     return GetVolunteerPostProvider(
       id: id,
@@ -76,7 +76,7 @@ class GetVolunteerPostProvider
     extends AutoDisposeFutureProvider<VolunteerPostModel> {
   /// See also [getVolunteerPost].
   GetVolunteerPostProvider({
-    required int id,
+    required String id,
   }) : this._internal(
           (ref) => getVolunteerPost(
             ref as GetVolunteerPostRef,
@@ -104,7 +104,7 @@ class GetVolunteerPostProvider
     required this.id,
   }) : super.internal();
 
-  final int id;
+  final String id;
 
   @override
   Override overrideWith(
@@ -145,7 +145,7 @@ class GetVolunteerPostProvider
 
 mixin GetVolunteerPostRef on AutoDisposeFutureProviderRef<VolunteerPostModel> {
   /// The parameter `id` of this provider.
-  int get id;
+  String get id;
 }
 
 class _GetVolunteerPostProviderElement
@@ -154,7 +154,7 @@ class _GetVolunteerPostProviderElement
   _GetVolunteerPostProviderElement(super.provider);
 
   @override
-  int get id => (origin as GetVolunteerPostProvider).id;
+  String get id => (origin as GetVolunteerPostProvider).id;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

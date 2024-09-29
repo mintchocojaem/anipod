@@ -1,35 +1,12 @@
-class VolunteerGuideModel {
-  final String content;
+import 'package:json_annotation/json_annotation.dart';
 
-  VolunteerGuideModel({
-    required this.content,
-  });
-}
+import 'volunteer_post.dart';
 
-class VolunteerPostModel {
-  final int id;
-  final String title;
-  final String organization;
-  final String region;
-  final String registrationDate;
-  final String imageUrl;
-  final bool isLiked;
-  final String duration;
+part 'volunteer_board.g.dart';
 
-  VolunteerPostModel({
-    required this.id,
-    required this.title,
-    required this.organization,
-    required this.region,
-    required this.registrationDate,
-    required this.imageUrl,
-    required this.isLiked,
-    required this.duration,
-  });
-}
-
+@JsonSerializable()
 class VolunteerBoardModel {
-  final List<VolunteerPostModel> contents;
+  final List<VolunteerPostModel> content;
   final int page;
   final int size;
   final int totalPages;
@@ -37,11 +14,16 @@ class VolunteerBoardModel {
   final bool hasNext;
 
   VolunteerBoardModel({
-    required this.contents,
+    required this.content,
     required this.page,
     required this.size,
     required this.totalPages,
     required this.totalElements,
     required this.hasNext,
   });
+
+  factory VolunteerBoardModel.fromJson(Map<String, dynamic> json) =>
+      _$VolunteerBoardModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$VolunteerBoardModelToJson(this);
 }
