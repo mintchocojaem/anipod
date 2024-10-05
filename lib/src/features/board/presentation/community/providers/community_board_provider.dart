@@ -18,7 +18,7 @@ class CommunityBoard extends _$CommunityBoard {
   }
 
   Future<CommunityBoardModel> _fetch({
-    required CommunityCategoryModel category,
+    CommunityCategoryModel? category,
   }) async {
     final communityBoardData = await ref
         .read(communityUseCasesProvider)
@@ -26,7 +26,7 @@ class CommunityBoard extends _$CommunityBoard {
     return communityBoardData;
   }
 
-  Future<void> fetchBoard() async {
+  Future<void> fetch() async {
     _page = 0; // 페이지를 초기화
     state = await AsyncValue.guard(() async {
       return _fetch(
@@ -35,7 +35,7 @@ class CommunityBoard extends _$CommunityBoard {
     });
   }
 
-  Future<void> fetchNextBoard() async {
+  Future<void> fetchNext() async {
     if (state.value?.hasNext == true) {
       _page++; // 페이지를 증가시킴
       state = await AsyncValue.guard(() async {

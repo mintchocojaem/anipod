@@ -8,7 +8,7 @@ class PostComment {
   final String authorName;
   final String content;
   final String timeAgo;
-  final int likes;
+  final int? likes;
   final List<PostComment> replies;
 
   PostComment({
@@ -16,7 +16,7 @@ class PostComment {
     required this.authorName,
     required this.content,
     required this.timeAgo,
-    required this.likes,
+    this.likes,
     this.replies = const [],
   });
 }
@@ -69,7 +69,7 @@ class CommunityPostCommentCard extends StatelessWidget {
                     : OrbTextType.bodyMedium,
               ),
             ),
-            if (indentationLevel == 0)
+            if (indentationLevel == 0 && comment.likes != null)
               Row(
                 children: [
                   OrbIcon(
@@ -105,16 +105,17 @@ class CommunityPostCommentCard extends StatelessWidget {
                     type: OrbTextType.bodySmall,
                   ),
                   const SizedBox(width: 16),
-                  InkWell(
-                    onTap: () {
-                      // 답글 달기 동작 처리
-                    },
-                    child: OrbText(
-                      '답글달기',
-                      type: OrbTextType.bodySmall,
-                      fontWeight: OrbFontWeight.medium,
+                  if (indentationLevel == 0)
+                    InkWell(
+                      onTap: () {
+                        // 답글 달기 동작 처리
+                      },
+                      child: OrbText(
+                        '답글달기',
+                        type: OrbTextType.bodySmall,
+                        fontWeight: OrbFontWeight.medium,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ],

@@ -8,6 +8,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../core/services/router/router_service.gr.dart';
+import '../../../../../core/utils/app_exception.dart';
 import '../../../domain/models/volunteer_category.dart';
 import '../providers/volunteer_board_provider.dart';
 import '../providers/volunteer_guide_provider.dart';
@@ -22,6 +23,20 @@ class VolunteerScreen extends StatelessWidget {
     return Consumer(builder: (context, ref, child) {
       final volunteerBoard = ref.watch(volunteerBoardProvider);
       final volunteerGuide = ref.watch(volunteerGuideProvider);
+
+      ref.listen(
+        volunteerBoardProvider,
+        (_, next) {
+          if (!next.isLoading && next.hasError) {
+            final error = next.error;
+            if (error is! AppException) return;
+            context.showErrorSnackBar(
+              error: error,
+            );
+          }
+        },
+      );
+
       return HookBuilder(builder: (context) {
         const category = VolunteerCategoryModel.values;
         final categoryIndex = useState(0);
@@ -36,7 +51,7 @@ class VolunteerScreen extends StatelessWidget {
                     scrollController.position.maxScrollExtent - 100) {
               // 데이터를 가져오는 중임을 표시
               isFetchingNextPage = true;
-              await ref.read(volunteerBoardProvider.notifier).fetchNextBoard();
+              await ref.read(volunteerBoardProvider.notifier).fetchNext();
               // 데이터 로딩이 끝나면 다시 false로 설정
               isFetchingNextPage = false;
             }
@@ -48,20 +63,11 @@ class VolunteerScreen extends StatelessWidget {
           };
         }, []);
 
-        useEffect(() {
-          ref.read(volunteerBoardProvider.notifier).fetchBoard(
-                category: category[categoryIndex.value],
-              );
-          ref.invalidate(volunteerBoardProvider);
-          return null;
-        }, [categoryIndex.value]);
-
         return OrbScaffold(
           padding: EdgeInsets.zero,
           appBar: const OrbAppBar(
             title: '봉사활동',
             centerTitle: true,
-            trailing: OrbIcon(Icons.search),
           ),
           body: OrbRefreshIndicator(
             onRefresh: () async {
@@ -194,7 +200,9 @@ class VolunteerScreen extends StatelessWidget {
                                               ref
                                                   .read(routerServiceProvider)
                                                   .push(
-                                                    VolunteerDetailRoute(),
+                                                    VolunteerDetailRoute(
+                                                      postId: volunteerPost.id,
+                                                    ),
                                                   );
                                             },
                                           ),

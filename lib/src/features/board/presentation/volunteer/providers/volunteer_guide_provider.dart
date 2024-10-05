@@ -18,7 +18,7 @@ class VolunteerGuide extends _$VolunteerGuide {
     return volunteerGuide;
   }
 
-  Future<void> fetchGuide() async {
+  Future<void> fetch() async {
     state = await AsyncValue.guard(() async {
       return _fetch();
     });

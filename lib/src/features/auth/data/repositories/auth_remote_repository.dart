@@ -74,7 +74,7 @@ class AuthRemoteRepository extends RemoteRepository {
       path: '/user/signup',
       data: {
         'loginId': email,
-        "birthDate": "1990-01-01",
+        "birthDate": "1999-01-01",
         "gender": "MALE",
         'nickname': nickname,
         'email': email,

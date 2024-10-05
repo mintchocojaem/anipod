@@ -1,4 +1,4 @@
-part of 'add_crew_screen.dart';
+part of 'crew_add_screen.dart';
 
 class CrewJoinOptionsStep extends StatelessWidget {
   final PageController pageController;
@@ -11,8 +11,8 @@ class CrewJoinOptionsStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HookBuilder(builder: (context) {
-      final selectedOption = useState<int>(0);
       return Consumer(builder: (context, ref, child) {
+        final crewAdd = ref.watch(crewAddProvider);
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -36,9 +36,13 @@ class CrewJoinOptionsStep extends StatelessWidget {
                           child: OrbSelectableTile(
                             title: "바로 가입",
                             description: "크루 대표의 승인 없이 누구나 가입이 가능해요",
-                            isSelected: selectedOption.value == 0,
+                            isSelected: crewAdd.requireApproval == false,
                             onTap: () {
-                              selectedOption.value = 0;
+                              ref
+                                  .read(crewAddProvider.notifier)
+                                  .setRequireApproval(
+                                    false,
+                                  );
                             },
                           ),
                         ),
@@ -47,9 +51,13 @@ class CrewJoinOptionsStep extends StatelessWidget {
                           child: OrbSelectableTile(
                             title: "승인 후 가입",
                             description: "크루 대표의 승인 후 가입이 가능해요",
-                            isSelected: selectedOption.value == 1,
+                            isSelected: crewAdd.requireApproval == true,
                             onTap: () {
-                              selectedOption.value = 1;
+                              ref
+                                  .read(crewAddProvider.notifier)
+                                  .setRequireApproval(
+                                    true,
+                                  );
                             },
                           ),
                         ),
@@ -82,11 +90,16 @@ class CrewJoinOptionsStep extends StatelessWidget {
                 ),
                 Flexible(
                   child: OrbFilledButton(
-                    text: "다음으로",
-                    onPressed: () {
-                      ref
-                          .read(routerServiceProvider)
-                          .push(const AddCrewCompleteRoute());
+                    text: "크루 생성",
+                    onPressed: () async {
+                      final result =
+                          await ref.read(crewAddProvider.notifier).crewAdd();
+                      if (!context.mounted) return;
+                      if (result) {
+                        ref
+                            .read(routerServiceProvider)
+                            .replace(const CrewAddCompleteRoute());
+                      }
                     },
                   ),
                 ),

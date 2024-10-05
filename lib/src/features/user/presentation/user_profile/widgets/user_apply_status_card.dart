@@ -2,69 +2,43 @@ import 'package:anipod/src/core/utils/extensions.dart';
 import 'package:anipod/src/design_system/orb/orb.dart';
 import 'package:flutter/material.dart';
 
-enum UserApplyStatusStep {
-  reception, // 접수
-  approval, // 승인
-  visit, // 방문
-  completed // 완료
-}
+import '../../../../board/domain/models/volunteer_apply_board.dart';
 
-extension UserActivityStepExtension on UserApplyStatusStep {
-  String get label {
-    switch (this) {
-      case UserApplyStatusStep.reception:
-        return '접수';
-      case UserApplyStatusStep.approval:
-        return '승인';
-      case UserApplyStatusStep.visit:
-        return '방문';
-      case UserApplyStatusStep.completed:
-        return '완료';
-    }
-  }
-
-  String get statusMessage {
-    switch (this) {
-      case UserApplyStatusStep.reception:
-        return '현재 접수 상태입니다. 승인을 기다려주세요';
-      case UserApplyStatusStep.approval:
-        return '현재 승인 상태입니다. 방문 확정을 기다려주세요';
-      case UserApplyStatusStep.visit:
-        return '현재 방문 상태입니다. 방문을 진행하세요';
-      case UserApplyStatusStep.completed:
-        return '봉사활동이 완료되었습니다';
-    }
-  }
-}
-
-class UserApplyStatus {
+class UserApplyStatusCard extends StatelessWidget {
   final String title;
   final String organization;
   final String location;
   final String registeredDate;
-  final UserApplyStatusStep currentStep;
+  final VolunteerApplyStatusModel applyStatus;
+  final VoidCallback onTap;
 
-  UserApplyStatus({
+  const UserApplyStatusCard({
+    super.key,
     required this.title,
     required this.organization,
     required this.location,
     required this.registeredDate,
-    required this.currentStep,
-  });
-}
-
-class UserApplyStatusCard extends StatelessWidget {
-  const UserApplyStatusCard({
-    super.key,
     required this.applyStatus,
     required this.onTap,
   });
 
-  final UserApplyStatus applyStatus;
-  final VoidCallback onTap;
-
   @override
   Widget build(BuildContext context) {
+    String getStatusMessage(VolunteerApplyStatusModel status) {
+      switch (status) {
+        case VolunteerApplyStatusModel.waiting:
+          return '현재 접수 상태입니다. 승인을 기다려주세요';
+        case VolunteerApplyStatusModel.accepted:
+          return '현재 승인 상태입니다. 방문 확정을 기다려주세요';
+        case VolunteerApplyStatusModel.rejected:
+          return '승인이 거절되었습니다';
+        case VolunteerApplyStatusModel.visited:
+          return '방문이 완료되었습니다';
+        case VolunteerApplyStatusModel.completed:
+          return '봉사활동이 완료되었습니다';
+      }
+    }
+
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -77,11 +51,11 @@ class UserApplyStatusCard extends StatelessWidget {
         children: [
           _buildHeader(context),
           const SizedBox(height: 16),
-          _buildProgressBar(applyStatus.currentStep, context),
+          _buildProgressBar(applyStatus, context),
           const SizedBox(height: 16),
           Center(
             child: OrbText(
-              applyStatus.currentStep.statusMessage,
+              getStatusMessage(applyStatus),
               type: OrbTextType.bodySmall,
               color: context.palette.surfaceDim,
               textAlign: TextAlign.center,
@@ -120,14 +94,14 @@ class UserApplyStatusCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               OrbText(
-                applyStatus.title,
+                title,
                 type: OrbTextType.bodyLarge,
                 fontWeight: OrbFontWeight.medium,
               ),
               const SizedBox(height: 4),
-              _buildDetailRow('단체명', applyStatus.organization, context),
-              _buildDetailRow('지역', applyStatus.location, context),
-              _buildDetailRow('등록일', applyStatus.registeredDate, context),
+              _buildDetailRow('단체명', organization, context),
+              _buildDetailRow('지역', location, context),
+              _buildDetailRow('등록일', registeredDate, context),
             ],
           ),
         ),
@@ -159,7 +133,7 @@ class UserApplyStatusCard extends StatelessWidget {
   }
 
   Widget _buildProgressBar(
-      UserApplyStatusStep currentStep, BuildContext context) {
+      VolunteerApplyStatusModel status, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
@@ -178,11 +152,11 @@ class UserApplyStatusCard extends StatelessWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children:
-                    List.generate(UserApplyStatusStep.values.length, (index) {
+                children: List.generate(VolunteerApplyStatusModel.values.length,
+                    (index) {
                   return CircleAvatar(
                     radius: 8,
-                    backgroundColor: index <= currentStep.index
+                    backgroundColor: index <= status.index
                         ? context.palette.primary
                         : context.palette.secondary,
                   );
@@ -192,15 +166,16 @@ class UserApplyStatusCard extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: List.generate(UserApplyStatusStep.values.length, (index) {
-              final step = UserApplyStatusStep.values[index];
+            children:
+                List.generate(VolunteerApplyStatusModel.values.length, (index) {
+              final step = VolunteerApplyStatusModel.values[index];
               return Column(
                 children: [
                   const SizedBox(height: 4),
                   OrbText(
-                    step.label,
+                    step.displayName,
                     type: OrbTextType.bodySmall,
-                    color: step == currentStep
+                    color: step == status
                         ? context.palette.primary
                         : context.palette.surfaceDim,
                   ),

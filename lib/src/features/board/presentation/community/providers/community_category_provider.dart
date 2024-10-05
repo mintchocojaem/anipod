@@ -7,11 +7,11 @@ part 'community_category_provider.g.dart';
 @riverpod
 class CommunityCategory extends _$CommunityCategory {
   @override
-  CommunityCategoryModel build() {
-    return CommunityCategoryModel.all;
+  CommunityCategoryModel? build() {
+    return null;
   }
 
-  void selectCategory(CommunityCategoryModel category) {
+  void selectCategory(CommunityCategoryModel? category) {
     state = category;
   }
 }

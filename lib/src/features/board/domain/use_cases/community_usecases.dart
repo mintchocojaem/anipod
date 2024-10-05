@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/repositories/community_remote_repository.dart';
 import '../models/community_board.dart';
 import '../models/community_category.dart';
+import '../models/community_post_detail.dart';
 import '../models/crew.dart';
 
 part 'community_usecases.g.dart';
@@ -45,6 +46,82 @@ class CommunityUseCases {
     final result = await communityRemoteRepository.getCommunityCrewProfiles(
       page: page,
       size: size,
+      cancelToken: cancelToken,
+    );
+    return result;
+  }
+
+  Future<bool> addPost({
+    required String title,
+    required String body,
+    required CommunityCategoryModel category,
+    required List<String> imagesPath,
+    required List<String> tags,
+    CancelToken? cancelToken,
+  }) async {
+    final result = await communityRemoteRepository.addPost(
+      title: title,
+      body: body,
+      category: category,
+      imagesPath: imagesPath,
+      tags: tags,
+      cancelToken: cancelToken,
+    );
+    return result;
+  }
+
+  Future<CommunityPostDetailModel> getPostDetail({
+    required String postId,
+    CancelToken? cancelToken,
+  }) async {
+    final result = await communityRemoteRepository.getPostDetail(
+      postId: postId,
+      cancelToken: cancelToken,
+    );
+    return result;
+  }
+
+  Future<List<CommunityCommentModel>> getPostComments({
+    required String postId,
+    CancelToken? cancelToken,
+  }) async {
+    final result = await communityRemoteRepository.getPostComments(
+      postId: postId,
+      cancelToken: cancelToken,
+    );
+    return result;
+  }
+
+  Future<bool> addPostComment({
+    required String postId,
+    required String content,
+    CancelToken? cancelToken,
+  }) async {
+    final result = await communityRemoteRepository.addPostComment(
+      postId: postId,
+      content: content,
+      cancelToken: cancelToken,
+    );
+    return result;
+  }
+
+  Future<bool> likePost({
+    required String postId,
+    CancelToken? cancelToken,
+  }) async {
+    final result = await communityRemoteRepository.likePost(
+      postId: postId,
+      cancelToken: cancelToken,
+    );
+    return result;
+  }
+
+  Future<bool> unlikePost({
+    required String postId,
+    CancelToken? cancelToken,
+  }) async {
+    final result = await communityRemoteRepository.unlikePost(
+      postId: postId,
       cancelToken: cancelToken,
     );
     return result;

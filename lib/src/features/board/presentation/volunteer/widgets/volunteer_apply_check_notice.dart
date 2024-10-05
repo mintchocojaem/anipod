@@ -42,29 +42,19 @@ class _VolunteerApplyCheckNoticeState extends State<VolunteerApplyCheckNotice> {
               List<bool>.filled(noticesChecked.length, isAllChecked);
         });
       },
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: context.palette.surface,
-            width: 1,
+      child: Row(
+        children: [
+          Icon(
+            Icons.check_rounded,
+            color: isAllChecked ? context.palette.primary : Colors.grey,
           ),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              Icons.check_rounded,
-              color: isAllChecked ? context.palette.primary : Colors.grey,
-            ),
-            const SizedBox(width: 8),
-            const OrbText(
-              '전체 동의하기',
-              type: OrbTextType.bodyLarge,
-              fontWeight: OrbFontWeight.medium,
-            ),
-          ],
-        ),
+          const SizedBox(width: 8),
+          const OrbText(
+            '전체 동의하기',
+            type: OrbTextType.bodyLarge,
+            fontWeight: OrbFontWeight.medium,
+          ),
+        ],
       ),
     );
   }

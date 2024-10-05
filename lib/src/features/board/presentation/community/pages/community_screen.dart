@@ -7,12 +7,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../core/services/router/router_service.gr.dart';
+import '../../../../../core/utils/app_exception.dart';
 import '../../../domain/models/community_category.dart';
 import '../providers/community_board_provider.dart';
 import '../providers/community_category_provider.dart';
-import '../providers/crew_profile_provider.dart';
-import '../widgets/crew_board_card.dart';
-import '../widgets/crew_profile_item.dart';
+import '../providers/community_crews_provider.dart';
+import '../widgets/community_board_card.dart';
+import '../widgets/community_crew_profile.dart';
 
 @RoutePage()
 class CommunityScreen extends StatelessWidget {
@@ -22,10 +23,34 @@ class CommunityScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
       final crewProfiles =
-          ref.watch(crewProfileProvider); // CrewProfileProvider에서 데이터를 가져옴
-
+          ref.watch(communityCrewsProvider); // CrewProfileProvider에서 데이터를 가져옴
       final communityBoard = ref.watch(communityBoardProvider); // 게시판 데이터
-      const categories = CommunityCategoryModel.values; // 커뮤니티 카테고리
+      List<String> categories = [
+        '전체',
+        ...CommunityCategoryModel.values.map((e) {
+          return e.displayName;
+        }),
+      ];
+
+      ref.listen(communityCrewsProvider, (_, next) {
+        if (!next.isLoading && next.hasError) {
+          final error = next.error;
+          if (error is! AppException) return;
+          context.showErrorSnackBar(
+            error: error,
+          );
+        }
+      });
+
+      ref.listen(communityBoardProvider, (_, next) {
+        if (!next.isLoading && next.hasError) {
+          final error = next.error;
+          if (error is! AppException) return;
+          context.showErrorSnackBar(
+            error: error,
+          );
+        }
+      });
 
       return HookBuilder(builder: (context) {
         final categoryIndex = useState(0); // 카테고리 인덱스 관리
@@ -40,7 +65,7 @@ class CommunityScreen extends StatelessWidget {
                     scrollController.position.maxScrollExtent - 100) {
               // 데이터를 가져오는 중임을 표시
               isFetchingNextPage.value = true;
-              await ref.read(communityBoardProvider.notifier).fetchNextBoard();
+              await ref.read(communityBoardProvider.notifier).fetchNext();
               // 데이터 로딩이 끝나면 다시 false로 설정
               isFetchingNextPage.value = false;
             }
@@ -57,12 +82,13 @@ class CommunityScreen extends StatelessWidget {
           appBar: const OrbAppBar(
             title: '커뮤니티',
             centerTitle: true,
-            trailing: OrbIcon(Icons.search),
           ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: context.palette.primary,
             onPressed: () {
-              ref.read(routerServiceProvider).push(const PostCreateRoute());
+              ref
+                  .read(routerServiceProvider)
+                  .push(const CommunityPostAddRoute());
             },
             child: OrbIcon(
               Icons.edit,
@@ -71,6 +97,7 @@ class CommunityScreen extends StatelessWidget {
           ),
           body: OrbRefreshIndicator(
             onRefresh: () async {
+              ref.invalidate(communityCrewsProvider);
               ref.invalidate(communityBoardProvider);
             },
             child: SingleChildScrollView(
@@ -110,7 +137,7 @@ class CommunityScreen extends StatelessWidget {
                                     onTap: () {
                                       ref
                                           .read(routerServiceProvider)
-                                          .push(const FindCrewRoute());
+                                          .push(const CrewFindRoute());
                                     },
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
@@ -163,13 +190,14 @@ class CommunityScreen extends StatelessWidget {
                                       (profile) => Padding(
                                         padding:
                                             const EdgeInsets.only(right: 16),
-                                        child: CrewProfileItem(
-                                          imageUrl: null,
+                                        child: CommunityCrewProfile(
+                                          imageUrl: profile.profileImageUrl,
                                           title: profile.name,
                                           onTap: () {
                                             ref
                                                 .read(routerServiceProvider)
-                                                .push(CrewProfileRoute());
+                                                .push(CrewDetailRoute(
+                                                    crewId: profile.crewId));
                                           },
                                         ),
                                       ),
@@ -197,15 +225,18 @@ class CommunityScreen extends StatelessWidget {
                         // 커뮤니티 카테고리 바
                         OrbCategoryBar(
                           currentIndex: categoryIndex.value, // 현재 선택된 카테고리
-                          categoryList: categories
-                              .map((e) => e.displayName)
-                              .toList(), // 카테고리 이름 리스트
+                          categoryList:
+                              categories.map((e) => e).toList(), // 카테고리 이름 리스트
                           onIndexChanged: (index) {
-                            categoryIndex.value = index; // 카테고리 변경 시 인덱스 업데이트
+                            categoryIndex.value = index;
                             ref
                                 .read(communityCategoryProvider.notifier)
                                 .selectCategory(
-                                    categories[categoryIndex.value]);
+                                  index == 0
+                                      ? null
+                                      : CommunityCategoryModel
+                                          .values[index - 1],
+                                );
                           },
                         ),
                         const SizedBox(height: 24),
@@ -233,7 +264,7 @@ class CommunityScreen extends StatelessWidget {
                                       final post = board.content[index];
                                       return Column(
                                         children: [
-                                          CrewBoardCard(
+                                          CommunityBoardCard(
                                             name: post.author,
                                             title: post.title,
                                             content: post.body,
@@ -246,7 +277,9 @@ class CommunityScreen extends StatelessWidget {
                                               ref
                                                   .read(routerServiceProvider)
                                                   .push(
-                                                      const PostDetailRoute());
+                                                    CommunityPostDetailRoute(
+                                                        postId: post.id),
+                                                  );
                                             },
                                           ),
                                           const OrbDivider(),

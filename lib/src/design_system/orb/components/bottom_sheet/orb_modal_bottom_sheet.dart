@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../orb.dart';
 
-Future<void> showOrbModalBottomSheet(BuildContext context, Widget child) async {
-  await OrbModalBottomSheet._show(context, child);
+Future<dynamic> showOrbModalBottomSheet(
+    BuildContext context, Widget child) async {
+  return await OrbModalBottomSheet._show(context, child);
 }
 
 class OrbModalBottomSheet extends StatelessWidget {
@@ -26,9 +27,9 @@ class OrbModalBottomSheet extends StatelessWidget {
     this.centerTitle = false,
   });
 
-  static Future<void> _show(BuildContext context, Widget child) async {
+  static Future<dynamic> _show(BuildContext context, Widget child) async {
     final themeData = OrbThemeData.of(context);
-    await showModalBottomSheet(
+    return await showModalBottomSheet(
       context: context,
       showDragHandle: true,
       backgroundColor: themeData.palette.background,
@@ -40,15 +41,19 @@ class OrbModalBottomSheet extends StatelessWidget {
     );
   }
 
-  Future<void> show(BuildContext context) async {
-    await _show(context, this);
+  Future<dynamic> show(BuildContext context) async {
+    return await _show(context, this);
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
+        padding: EdgeInsets.only(
+          left: 24,
+          right: 24,
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(15),

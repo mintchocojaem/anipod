@@ -8,41 +8,41 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:anipod/src/core/services/router/main_screen.dart' as _i15;
+import 'package:anipod/src/core/services/router/main_screen.dart' as _i17;
 import 'package:anipod/src/features/auth/presentation/find/screens/find_id_complete_screen.dart'
-    as _i9;
-import 'package:anipod/src/features/auth/presentation/find/screens/find_id_screen.dart'
-    as _i10;
-import 'package:anipod/src/features/auth/presentation/find/screens/find_password_complete_screen.dart'
     as _i11;
-import 'package:anipod/src/features/auth/presentation/find/screens/find_password_screen.dart'
+import 'package:anipod/src/features/auth/presentation/find/screens/find_id_screen.dart'
     as _i12;
-import 'package:anipod/src/features/auth/presentation/login/screens/login_screen.dart'
+import 'package:anipod/src/features/auth/presentation/find/screens/find_password_complete_screen.dart'
+    as _i13;
+import 'package:anipod/src/features/auth/presentation/find/screens/find_password_screen.dart'
     as _i14;
+import 'package:anipod/src/features/auth/presentation/login/screens/login_screen.dart'
+    as _i16;
 import 'package:anipod/src/features/auth/presentation/sign_up/screens/sign_up_complete_screen.dart'
     as _i20;
 import 'package:anipod/src/features/auth/presentation/sign_up/screens/sign_up_screen.dart'
     as _i21;
 import 'package:anipod/src/features/board/presentation/backing/pages/backing_detail_screen.dart'
-    as _i3;
-import 'package:anipod/src/features/board/presentation/backing/pages/backing_screen.dart'
-    as _i4;
-import 'package:anipod/src/features/board/presentation/community/pages/add_crew_complete_screen.dart'
     as _i1;
-import 'package:anipod/src/features/board/presentation/community/pages/add_crew_screen.dart'
+import 'package:anipod/src/features/board/presentation/backing/pages/backing_screen.dart'
     as _i2;
+import 'package:anipod/src/features/board/presentation/community/pages/community_post_add_screen.dart'
+    as _i3;
+import 'package:anipod/src/features/board/presentation/community/pages/community_post_detail_screen.dart'
+    as _i4;
 import 'package:anipod/src/features/board/presentation/community/pages/community_screen.dart'
     as _i5;
-import 'package:anipod/src/features/board/presentation/community/pages/crew_edit_screen.dart'
+import 'package:anipod/src/features/board/presentation/crew/pages/crew_add_complete_screen.dart'
     as _i6;
-import 'package:anipod/src/features/board/presentation/community/pages/crew_profile_screen.dart'
+import 'package:anipod/src/features/board/presentation/crew/pages/crew_add_screen.dart'
     as _i7;
-import 'package:anipod/src/features/board/presentation/community/pages/find_crew_screen.dart'
+import 'package:anipod/src/features/board/presentation/crew/pages/crew_detail_screen.dart'
     as _i8;
-import 'package:anipod/src/features/board/presentation/community/pages/post_create_screen.dart'
-    as _i18;
-import 'package:anipod/src/features/board/presentation/community/pages/post_detail_screen.dart'
-    as _i19;
+import 'package:anipod/src/features/board/presentation/crew/pages/crew_find_screen.dart'
+    as _i9;
+import 'package:anipod/src/features/board/presentation/crew/pages/crew_wait_list_screen.dart'
+    as _i10;
 import 'package:anipod/src/features/board/presentation/volunteer/screens/volunteer_apply_complete_screen.dart'
     as _i28;
 import 'package:anipod/src/features/board/presentation/volunteer/screens/volunteer_apply_screen.dart'
@@ -52,11 +52,11 @@ import 'package:anipod/src/features/board/presentation/volunteer/screens/volunte
 import 'package:anipod/src/features/board/presentation/volunteer/screens/volunteer_screen.dart'
     as _i31;
 import 'package:anipod/src/features/dash_board/presentation/home/screens/home_screen.dart'
-    as _i13;
+    as _i15;
 import 'package:anipod/src/features/user/presentation/user_profile/screens/notice_screen.dart'
-    as _i16;
+    as _i18;
 import 'package:anipod/src/features/user/presentation/user_profile/screens/notification_screen.dart'
-    as _i17;
+    as _i19;
 import 'package:anipod/src/features/user/presentation/user_profile/screens/user_backing_screen.dart'
     as _i22;
 import 'package:anipod/src/features/user/presentation/user_profile/screens/user_profile_edit_screen.dart'
@@ -70,47 +70,10 @@ import 'package:anipod/src/features/user/presentation/user_profile/screens/user_
 import 'package:anipod/src/features/user/presentation/user_profile/screens/user_volunteer_screen.dart'
     as _i27;
 import 'package:auto_route/auto_route.dart' as _i32;
+import 'package:flutter/material.dart' as _i33;
 
 /// generated route for
-/// [_i1.AddCrewCompleteScreen]
-class AddCrewCompleteRoute extends _i32.PageRouteInfo<void> {
-  const AddCrewCompleteRoute({List<_i32.PageRouteInfo>? children})
-      : super(
-          AddCrewCompleteRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'AddCrewCompleteRoute';
-
-  static _i32.PageInfo page = _i32.PageInfo(
-    name,
-    builder: (data) {
-      return const _i1.AddCrewCompleteScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [_i2.AddCrewScreen]
-class AddCrewRoute extends _i32.PageRouteInfo<void> {
-  const AddCrewRoute({List<_i32.PageRouteInfo>? children})
-      : super(
-          AddCrewRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'AddCrewRoute';
-
-  static _i32.PageInfo page = _i32.PageInfo(
-    name,
-    builder: (data) {
-      return const _i2.AddCrewScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [_i3.BackingDetailScreen]
+/// [_i1.BackingDetailScreen]
 class BackingDetailRoute extends _i32.PageRouteInfo<void> {
   const BackingDetailRoute({List<_i32.PageRouteInfo>? children})
       : super(
@@ -123,13 +86,13 @@ class BackingDetailRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i3.BackingDetailScreen();
+      return const _i1.BackingDetailScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i4.BackingScreen]
+/// [_i2.BackingScreen]
 class BackingRoute extends _i32.PageRouteInfo<void> {
   const BackingRoute({List<_i32.PageRouteInfo>? children})
       : super(
@@ -142,9 +105,75 @@ class BackingRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i4.BackingScreen();
+      return const _i2.BackingScreen();
     },
   );
+}
+
+/// generated route for
+/// [_i3.CommunityPostAddScreen]
+class CommunityPostAddRoute extends _i32.PageRouteInfo<void> {
+  const CommunityPostAddRoute({List<_i32.PageRouteInfo>? children})
+      : super(
+          CommunityPostAddRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CommunityPostAddRoute';
+
+  static _i32.PageInfo page = _i32.PageInfo(
+    name,
+    builder: (data) {
+      return const _i3.CommunityPostAddScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [_i4.CommunityPostDetailScreen]
+class CommunityPostDetailRoute
+    extends _i32.PageRouteInfo<CommunityPostDetailRouteArgs> {
+  CommunityPostDetailRoute({
+    _i33.Key? key,
+    required String postId,
+    List<_i32.PageRouteInfo>? children,
+  }) : super(
+          CommunityPostDetailRoute.name,
+          args: CommunityPostDetailRouteArgs(
+            key: key,
+            postId: postId,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CommunityPostDetailRoute';
+
+  static _i32.PageInfo page = _i32.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<CommunityPostDetailRouteArgs>();
+      return _i4.CommunityPostDetailScreen(
+        key: args.key,
+        postId: args.postId,
+      );
+    },
+  );
+}
+
+class CommunityPostDetailRouteArgs {
+  const CommunityPostDetailRouteArgs({
+    this.key,
+    required this.postId,
+  });
+
+  final _i33.Key? key;
+
+  final String postId;
+
+  @override
+  String toString() {
+    return 'CommunityPostDetailRouteArgs{key: $key, postId: $postId}';
+  }
 }
 
 /// generated route for
@@ -167,64 +196,156 @@ class CommunityRoute extends _i32.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.CrewEditScreen]
-class CrewEditRoute extends _i32.PageRouteInfo<void> {
-  const CrewEditRoute({List<_i32.PageRouteInfo>? children})
+/// [_i6.CrewAddCompleteScreen]
+class CrewAddCompleteRoute extends _i32.PageRouteInfo<void> {
+  const CrewAddCompleteRoute({List<_i32.PageRouteInfo>? children})
       : super(
-          CrewEditRoute.name,
+          CrewAddCompleteRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'CrewEditRoute';
+  static const String name = 'CrewAddCompleteRoute';
 
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i6.CrewEditScreen();
+      return const _i6.CrewAddCompleteScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i7.CrewProfileScreen]
-class CrewProfileRoute extends _i32.PageRouteInfo<void> {
-  const CrewProfileRoute({List<_i32.PageRouteInfo>? children})
+/// [_i7.CrewAddScreen]
+class CrewAddRoute extends _i32.PageRouteInfo<void> {
+  const CrewAddRoute({List<_i32.PageRouteInfo>? children})
       : super(
-          CrewProfileRoute.name,
+          CrewAddRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'CrewProfileRoute';
+  static const String name = 'CrewAddRoute';
 
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i7.CrewProfileScreen();
+      return const _i7.CrewAddScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i8.FindCrewScreen]
-class FindCrewRoute extends _i32.PageRouteInfo<void> {
-  const FindCrewRoute({List<_i32.PageRouteInfo>? children})
-      : super(
-          FindCrewRoute.name,
+/// [_i8.CrewDetailScreen]
+class CrewDetailRoute extends _i32.PageRouteInfo<CrewDetailRouteArgs> {
+  CrewDetailRoute({
+    _i33.Key? key,
+    required String crewId,
+    List<_i32.PageRouteInfo>? children,
+  }) : super(
+          CrewDetailRoute.name,
+          args: CrewDetailRouteArgs(
+            key: key,
+            crewId: crewId,
+          ),
           initialChildren: children,
         );
 
-  static const String name = 'FindCrewRoute';
+  static const String name = 'CrewDetailRoute';
 
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i8.FindCrewScreen();
+      final args = data.argsAs<CrewDetailRouteArgs>();
+      return _i8.CrewDetailScreen(
+        key: args.key,
+        crewId: args.crewId,
+      );
+    },
+  );
+}
+
+class CrewDetailRouteArgs {
+  const CrewDetailRouteArgs({
+    this.key,
+    required this.crewId,
+  });
+
+  final _i33.Key? key;
+
+  final String crewId;
+
+  @override
+  String toString() {
+    return 'CrewDetailRouteArgs{key: $key, crewId: $crewId}';
+  }
+}
+
+/// generated route for
+/// [_i9.CrewFindScreen]
+class CrewFindRoute extends _i32.PageRouteInfo<void> {
+  const CrewFindRoute({List<_i32.PageRouteInfo>? children})
+      : super(
+          CrewFindRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CrewFindRoute';
+
+  static _i32.PageInfo page = _i32.PageInfo(
+    name,
+    builder: (data) {
+      return const _i9.CrewFindScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i9.FindIdCompleteScreen]
+/// [_i10.CrewWaitListScreen]
+class CrewWaitListRoute extends _i32.PageRouteInfo<CrewWaitListRouteArgs> {
+  CrewWaitListRoute({
+    _i33.Key? key,
+    required String crewId,
+    List<_i32.PageRouteInfo>? children,
+  }) : super(
+          CrewWaitListRoute.name,
+          args: CrewWaitListRouteArgs(
+            key: key,
+            crewId: crewId,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CrewWaitListRoute';
+
+  static _i32.PageInfo page = _i32.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<CrewWaitListRouteArgs>();
+      return _i10.CrewWaitListScreen(
+        key: args.key,
+        crewId: args.crewId,
+      );
+    },
+  );
+}
+
+class CrewWaitListRouteArgs {
+  const CrewWaitListRouteArgs({
+    this.key,
+    required this.crewId,
+  });
+
+  final _i33.Key? key;
+
+  final String crewId;
+
+  @override
+  String toString() {
+    return 'CrewWaitListRouteArgs{key: $key, crewId: $crewId}';
+  }
+}
+
+/// generated route for
+/// [_i11.FindIdCompleteScreen]
 class FindIdCompleteRoute extends _i32.PageRouteInfo<void> {
   const FindIdCompleteRoute({List<_i32.PageRouteInfo>? children})
       : super(
@@ -237,13 +358,13 @@ class FindIdCompleteRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i9.FindIdCompleteScreen();
+      return const _i11.FindIdCompleteScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i10.FindIdScreen]
+/// [_i12.FindIdScreen]
 class FindIdRoute extends _i32.PageRouteInfo<void> {
   const FindIdRoute({List<_i32.PageRouteInfo>? children})
       : super(
@@ -256,13 +377,13 @@ class FindIdRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i10.FindIdScreen();
+      return const _i12.FindIdScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i11.FindPasswordCompleteScreen]
+/// [_i13.FindPasswordCompleteScreen]
 class FindPasswordCompleteRoute extends _i32.PageRouteInfo<void> {
   const FindPasswordCompleteRoute({List<_i32.PageRouteInfo>? children})
       : super(
@@ -275,13 +396,13 @@ class FindPasswordCompleteRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i11.FindPasswordCompleteScreen();
+      return const _i13.FindPasswordCompleteScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i12.FindPasswordScreen]
+/// [_i14.FindPasswordScreen]
 class FindPasswordRoute extends _i32.PageRouteInfo<void> {
   const FindPasswordRoute({List<_i32.PageRouteInfo>? children})
       : super(
@@ -294,13 +415,13 @@ class FindPasswordRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i12.FindPasswordScreen();
+      return const _i14.FindPasswordScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i13.HomeScreen]
+/// [_i15.HomeScreen]
 class HomeRoute extends _i32.PageRouteInfo<void> {
   const HomeRoute({List<_i32.PageRouteInfo>? children})
       : super(
@@ -313,13 +434,13 @@ class HomeRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i13.HomeScreen();
+      return const _i15.HomeScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i14.LoginScreen]
+/// [_i16.LoginScreen]
 class LoginRoute extends _i32.PageRouteInfo<void> {
   const LoginRoute({List<_i32.PageRouteInfo>? children})
       : super(
@@ -332,13 +453,13 @@ class LoginRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i14.LoginScreen();
+      return const _i16.LoginScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i15.MainScreen]
+/// [_i17.MainScreen]
 class MainRoute extends _i32.PageRouteInfo<void> {
   const MainRoute({List<_i32.PageRouteInfo>? children})
       : super(
@@ -351,13 +472,13 @@ class MainRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i15.MainScreen();
+      return const _i17.MainScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i16.NoticeScreen]
+/// [_i18.NoticeScreen]
 class NoticeRoute extends _i32.PageRouteInfo<void> {
   const NoticeRoute({List<_i32.PageRouteInfo>? children})
       : super(
@@ -370,13 +491,13 @@ class NoticeRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i16.NoticeScreen();
+      return const _i18.NoticeScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i17.NotificationScreen]
+/// [_i19.NotificationScreen]
 class NotificationRoute extends _i32.PageRouteInfo<void> {
   const NotificationRoute({List<_i32.PageRouteInfo>? children})
       : super(
@@ -389,45 +510,7 @@ class NotificationRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i17.NotificationScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [_i18.PostCreateScreen]
-class PostCreateRoute extends _i32.PageRouteInfo<void> {
-  const PostCreateRoute({List<_i32.PageRouteInfo>? children})
-      : super(
-          PostCreateRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'PostCreateRoute';
-
-  static _i32.PageInfo page = _i32.PageInfo(
-    name,
-    builder: (data) {
-      return const _i18.PostCreateScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [_i19.PostDetailScreen]
-class PostDetailRoute extends _i32.PageRouteInfo<void> {
-  const PostDetailRoute({List<_i32.PageRouteInfo>? children})
-      : super(
-          PostDetailRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'PostDetailRoute';
-
-  static _i32.PageInfo page = _i32.PageInfo(
-    name,
-    builder: (data) {
-      return const _i19.PostDetailScreen();
+      return const _i19.NotificationScreen();
     },
   );
 }
@@ -605,10 +688,17 @@ class VolunteerApplyCompleteRoute extends _i32.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i29.VolunteerApplyScreen]
-class VolunteerApplyRoute extends _i32.PageRouteInfo<void> {
-  const VolunteerApplyRoute({List<_i32.PageRouteInfo>? children})
-      : super(
+class VolunteerApplyRoute extends _i32.PageRouteInfo<VolunteerApplyRouteArgs> {
+  VolunteerApplyRoute({
+    _i33.Key? key,
+    required String postId,
+    List<_i32.PageRouteInfo>? children,
+  }) : super(
           VolunteerApplyRoute.name,
+          args: VolunteerApplyRouteArgs(
+            key: key,
+            postId: postId,
+          ),
           initialChildren: children,
         );
 
@@ -617,17 +707,45 @@ class VolunteerApplyRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i29.VolunteerApplyScreen();
+      final args = data.argsAs<VolunteerApplyRouteArgs>();
+      return _i29.VolunteerApplyScreen(
+        key: args.key,
+        postId: args.postId,
+      );
     },
   );
 }
 
+class VolunteerApplyRouteArgs {
+  const VolunteerApplyRouteArgs({
+    this.key,
+    required this.postId,
+  });
+
+  final _i33.Key? key;
+
+  final String postId;
+
+  @override
+  String toString() {
+    return 'VolunteerApplyRouteArgs{key: $key, postId: $postId}';
+  }
+}
+
 /// generated route for
 /// [_i30.VolunteerDetailScreen]
-class VolunteerDetailRoute extends _i32.PageRouteInfo<void> {
-  const VolunteerDetailRoute({List<_i32.PageRouteInfo>? children})
-      : super(
+class VolunteerDetailRoute
+    extends _i32.PageRouteInfo<VolunteerDetailRouteArgs> {
+  VolunteerDetailRoute({
+    _i33.Key? key,
+    required String postId,
+    List<_i32.PageRouteInfo>? children,
+  }) : super(
           VolunteerDetailRoute.name,
+          args: VolunteerDetailRouteArgs(
+            key: key,
+            postId: postId,
+          ),
           initialChildren: children,
         );
 
@@ -636,9 +754,29 @@ class VolunteerDetailRoute extends _i32.PageRouteInfo<void> {
   static _i32.PageInfo page = _i32.PageInfo(
     name,
     builder: (data) {
-      return const _i30.VolunteerDetailScreen();
+      final args = data.argsAs<VolunteerDetailRouteArgs>();
+      return _i30.VolunteerDetailScreen(
+        key: args.key,
+        postId: args.postId,
+      );
     },
   );
+}
+
+class VolunteerDetailRouteArgs {
+  const VolunteerDetailRouteArgs({
+    this.key,
+    required this.postId,
+  });
+
+  final _i33.Key? key;
+
+  final String postId;
+
+  @override
+  String toString() {
+    return 'VolunteerDetailRouteArgs{key: $key, postId: $postId}';
+  }
 }
 
 /// generated route for

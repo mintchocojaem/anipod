@@ -6,7 +6,7 @@ part of 'volunteer_guide_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$volunteerGuideHash() => r'c6247091270ecc9c33c23628f52f73a1c2e78221';
+String _$volunteerGuideHash() => r'c750ed567b36f376e89433188c9d4a72ed7e7ddb';
 
 /// See also [VolunteerGuide].
 @ProviderFor(VolunteerGuide)

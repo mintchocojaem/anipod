@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'volunteer_post_provider.dart';
+part of 'crew_detail_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getVolunteerPostHash() => r'a98970aa0e0d969a654d4ab07a1ed39751112054';
+String _$crewDetailHash() => r'17d50a1dd9082905c4d4378bbefaa4a0d336e4b2';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,30 +29,39 @@ class _SystemHash {
   }
 }
 
-/// See also [getVolunteerPost].
-@ProviderFor(getVolunteerPost)
-const getVolunteerPostProvider = GetVolunteerPostFamily();
+abstract class _$CrewDetail
+    extends BuildlessAutoDisposeAsyncNotifier<CrewDetailModel> {
+  late final String id;
 
-/// See also [getVolunteerPost].
-class GetVolunteerPostFamily extends Family<AsyncValue<VolunteerPostModel>> {
-  /// See also [getVolunteerPost].
-  const GetVolunteerPostFamily();
+  FutureOr<CrewDetailModel> build(
+    String id,
+  );
+}
 
-  /// See also [getVolunteerPost].
-  GetVolunteerPostProvider call({
-    required String id,
-  }) {
-    return GetVolunteerPostProvider(
-      id: id,
+/// See also [CrewDetail].
+@ProviderFor(CrewDetail)
+const crewDetailProvider = CrewDetailFamily();
+
+/// See also [CrewDetail].
+class CrewDetailFamily extends Family<AsyncValue<CrewDetailModel>> {
+  /// See also [CrewDetail].
+  const CrewDetailFamily();
+
+  /// See also [CrewDetail].
+  CrewDetailProvider call(
+    String id,
+  ) {
+    return CrewDetailProvider(
+      id,
     );
   }
 
   @override
-  GetVolunteerPostProvider getProviderOverride(
-    covariant GetVolunteerPostProvider provider,
+  CrewDetailProvider getProviderOverride(
+    covariant CrewDetailProvider provider,
   ) {
     return call(
-      id: provider.id,
+      provider.id,
     );
   }
 
@@ -68,33 +77,30 @@ class GetVolunteerPostFamily extends Family<AsyncValue<VolunteerPostModel>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'getVolunteerPostProvider';
+  String? get name => r'crewDetailProvider';
 }
 
-/// See also [getVolunteerPost].
-class GetVolunteerPostProvider
-    extends AutoDisposeFutureProvider<VolunteerPostModel> {
-  /// See also [getVolunteerPost].
-  GetVolunteerPostProvider({
-    required String id,
-  }) : this._internal(
-          (ref) => getVolunteerPost(
-            ref as GetVolunteerPostRef,
-            id: id,
-          ),
-          from: getVolunteerPostProvider,
-          name: r'getVolunteerPostProvider',
+/// See also [CrewDetail].
+class CrewDetailProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<CrewDetail, CrewDetailModel> {
+  /// See also [CrewDetail].
+  CrewDetailProvider(
+    String id,
+  ) : this._internal(
+          () => CrewDetail()..id = id,
+          from: crewDetailProvider,
+          name: r'crewDetailProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$getVolunteerPostHash,
-          dependencies: GetVolunteerPostFamily._dependencies,
+                  : _$crewDetailHash,
+          dependencies: CrewDetailFamily._dependencies,
           allTransitiveDependencies:
-              GetVolunteerPostFamily._allTransitiveDependencies,
+              CrewDetailFamily._allTransitiveDependencies,
           id: id,
         );
 
-  GetVolunteerPostProvider._internal(
+  CrewDetailProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -107,13 +113,20 @@ class GetVolunteerPostProvider
   final String id;
 
   @override
-  Override overrideWith(
-    FutureOr<VolunteerPostModel> Function(GetVolunteerPostRef provider) create,
+  FutureOr<CrewDetailModel> runNotifierBuild(
+    covariant CrewDetail notifier,
   ) {
+    return notifier.build(
+      id,
+    );
+  }
+
+  @override
+  Override overrideWith(CrewDetail Function() create) {
     return ProviderOverride(
       origin: this,
-      override: GetVolunteerPostProvider._internal(
-        (ref) => create(ref as GetVolunteerPostRef),
+      override: CrewDetailProvider._internal(
+        () => create()..id = id,
         from: from,
         name: null,
         dependencies: null,
@@ -125,13 +138,14 @@ class GetVolunteerPostProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<VolunteerPostModel> createElement() {
-    return _GetVolunteerPostProviderElement(this);
+  AutoDisposeAsyncNotifierProviderElement<CrewDetail, CrewDetailModel>
+      createElement() {
+    return _CrewDetailProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is GetVolunteerPostProvider && other.id == id;
+    return other is CrewDetailProvider && other.id == id;
   }
 
   @override
@@ -143,18 +157,18 @@ class GetVolunteerPostProvider
   }
 }
 
-mixin GetVolunteerPostRef on AutoDisposeFutureProviderRef<VolunteerPostModel> {
+mixin CrewDetailRef on AutoDisposeAsyncNotifierProviderRef<CrewDetailModel> {
   /// The parameter `id` of this provider.
   String get id;
 }
 
-class _GetVolunteerPostProviderElement
-    extends AutoDisposeFutureProviderElement<VolunteerPostModel>
-    with GetVolunteerPostRef {
-  _GetVolunteerPostProviderElement(super.provider);
+class _CrewDetailProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<CrewDetail, CrewDetailModel>
+    with CrewDetailRef {
+  _CrewDetailProviderElement(super.provider);
 
   @override
-  String get id => (origin as GetVolunteerPostProvider).id;
+  String get id => (origin as CrewDetailProvider).id;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

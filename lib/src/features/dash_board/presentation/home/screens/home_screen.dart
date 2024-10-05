@@ -256,7 +256,7 @@ class HomeScreen extends ConsumerWidget {
                                   return Padding(
                                     padding: const EdgeInsets.only(bottom: 16),
                                     child: OrbInfoCard(
-                                      imageUrl: null,
+                                      imageUrl: crew.profileImageUrl,
                                       fallbackIcon: Icons.people,
                                       title: crew.name,
                                       description: crew.description,

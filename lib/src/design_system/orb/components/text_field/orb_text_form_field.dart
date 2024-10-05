@@ -52,7 +52,7 @@ class OrbTextField extends StatefulWidget {
     this.boarderColor,
     this.style = OrbTextType.bodyMedium,
     this.contentPadding = const EdgeInsets.symmetric(
-      horizontal: 24,
+      horizontal: 16,
       vertical: 16,
     ),
   });

@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 import '../../../../../design_system/orb/orb.dart';
 
-class CrewProfileItem extends StatelessWidget {
+class CommunityCrewProfile extends StatelessWidget {
   final String? imageUrl;
   final String title;
   final VoidCallback? onTap;
 
-  const CrewProfileItem({
+  const CommunityCrewProfile({
     super.key,
     this.imageUrl,
     required this.title,

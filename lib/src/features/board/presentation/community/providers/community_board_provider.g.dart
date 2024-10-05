@@ -6,7 +6,7 @@ part of 'community_board_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$communityBoardHash() => r'18dfa9e9f3935719ab93424852a6d453a281ef91';
+String _$communityBoardHash() => r'2c1a8345eb385c7ac73d620d8ddb0031f27cb718';
 
 /// See also [CommunityBoard].
 @ProviderFor(CommunityBoard)

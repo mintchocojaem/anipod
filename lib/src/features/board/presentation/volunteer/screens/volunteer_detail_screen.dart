@@ -5,23 +5,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../core/services/router/router_service.dart';
 import '../../../../../core/services/router/router_service.gr.dart';
+import '../../../../../core/utils/app_exception.dart';
 import '../../../../../design_system/orb/orb.dart';
+import '../../../domain/models/volunteer_post_detail.dart';
+import '../providers/volunteer_post_detail_provider.dart';
 
 @RoutePage()
 class VolunteerDetailScreen extends StatelessWidget {
-  const VolunteerDetailScreen({super.key});
+  final String postId;
+
+  const VolunteerDetailScreen({
+    super.key,
+    required this.postId,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final carouselItems = [
-      'https://picsum.photos/1024/1024',
-      'https://picsum.photos/1024/1024',
-      'https://picsum.photos/1024/1024',
-      'https://picsum.photos/1024/1024',
-    ];
-
-    Widget buildVolunteerDetailRow(
-        {required String label, required String value}) {
+    Widget buildVolunteerDetailRow({
+      required String label,
+      required String value,
+    }) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 16),
         child: Row(
@@ -45,129 +48,173 @@ class VolunteerDetailScreen extends StatelessWidget {
     }
 
     return Consumer(builder: (context, ref, child) {
+      final volunteerPostDetail =
+          ref.watch(volunteerPostDetailProvider(postId));
+
+      ref.listen(
+        volunteerPostDetailProvider(postId),
+        (_, next) {
+          if (!next.isLoading && next.hasError) {
+            final error = next.error;
+            if (error is! AppException) return;
+            context.showErrorSnackBar(
+              error: error,
+            );
+          }
+        },
+      );
+
       return OrbScaffold(
         padding: EdgeInsets.zero,
-        extendBodyBehindAppBar: true,
         appBar: OrbAppBar(
-          backgroundColor: Colors.transparent,
+          title: '봉사활동 정보',
+          centerTitle: true,
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Stack(
-                  children: [
-                    OrbBanner(
-                      height: MediaQuery.of(context).size.width,
-                      urls: carouselItems,
-                      onTap: (index) {},
-                      onPageChanged: (index) {},
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.width - 16),
-                      decoration: BoxDecoration(
-                        color: context.palette.background,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(16),
-                          topRight: Radius.circular(16),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 32,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 32),
-                            Row(
-                              children: [
-                                OrbText(
-                                  '정보',
-                                  type: OrbTextType.titleSmall,
-                                  fontWeight: OrbFontWeight.medium,
-                                ),
-                                const Spacer(),
-                                InkWell(
-                                  onTap: () {},
-                                  child: OrbIcon(
-                                    Icons.favorite_rounded,
-                                    color: context.palette.surface,
+        body: volunteerPostDetail.when(
+          skipLoadingOnReload: true,
+          skipError: true,
+          data: (data) {
+            return OrbRefreshIndicator(
+              onRefresh: () async {
+                ref.invalidate(volunteerPostDetailProvider(postId));
+              },
+              child: Column(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Stack(
+                        children: [
+                          data.images.isEmpty
+                              ? Container(
+                                  height: MediaQuery.of(context).size.width,
+                                  width: double.infinity,
+                                  color: context.palette.surfaceBright,
+                                  child: const Center(
+                                    child: OrbText(
+                                      '배경 이미지가 없습니다.',
+                                      type: OrbTextType.bodyMedium,
+                                    ),
                                   ),
+                                )
+                              : OrbBanner(
+                                  height: MediaQuery.of(context).size.width,
+                                  urls: data.images.map((e) => e.url).toList(),
+                                  onTap: (index) {},
+                                  onPageChanged: (index) {},
                                 ),
-                              ],
+                          Container(
+                            margin: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.width - 16),
+                            decoration: BoxDecoration(
+                              color: context.palette.background,
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(16),
+                                topRight: Radius.circular(16),
+                              ),
                             ),
-                            const SizedBox(height: 16),
-                            buildVolunteerDetailRow(
-                              label: '봉사기간',
-                              value: '2021.09.01 ~ 2021.09.30',
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 32,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 32),
+                                  Row(
+                                    children: [
+                                      OrbText(
+                                        '정보',
+                                        type: OrbTextType.titleSmall,
+                                        fontWeight: OrbFontWeight.medium,
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 16),
+                                  buildVolunteerDetailRow(
+                                    label: '봉사기간',
+                                    value: data.volunteerDuration,
+                                  ),
+                                  const OrbDivider(),
+                                  buildVolunteerDetailRow(
+                                    label: '모집기간',
+                                    value: data.recruitmentPeriod,
+                                  ),
+                                  const OrbDivider(),
+                                  buildVolunteerDetailRow(
+                                    label: '모집인원',
+                                    value: '${data.peopleCount}명',
+                                  ),
+                                  const OrbDivider(),
+                                  buildVolunteerDetailRow(
+                                    label: '신청인원',
+                                    value: '${data.applyCount}명',
+                                  ),
+                                  const OrbDivider(),
+                                  buildVolunteerDetailRow(
+                                    label: '모집기관',
+                                    value: data.recruitmentAgency,
+                                  ),
+                                  const OrbDivider(),
+                                  buildVolunteerDetailRow(
+                                    label: '봉사장소',
+                                    value: data.volunteerPlace,
+                                  ),
+                                  const OrbDivider(),
+                                  buildVolunteerDetailRow(
+                                    label: '봉사시간',
+                                    value: data.volunteerTime,
+                                  ),
+                                  const OrbDivider(),
+                                  buildVolunteerDetailRow(
+                                    label: '활동요일',
+                                    value: data.volunteerDays,
+                                  ),
+                                  const OrbDivider(),
+                                  buildVolunteerDetailRow(
+                                    label: '봉사자유형',
+                                    value: data.peopleType.displayName,
+                                  ),
+                                  const OrbDivider(),
+                                  const SizedBox(height: 16),
+                                ],
+                              ),
                             ),
-                            const OrbDivider(),
-                            buildVolunteerDetailRow(
-                              label: '모집기간',
-                              value: '2021.09.01 ~ 2021.09.30',
-                            ),
-                            const OrbDivider(),
-                            buildVolunteerDetailRow(
-                              label: '모집인원',
-                              value: '10명 / 일',
-                            ),
-                            const OrbDivider(),
-                            buildVolunteerDetailRow(
-                              label: '모집기관',
-                              value: '서울동물복지센터',
-                            ),
-                            const OrbDivider(),
-                            buildVolunteerDetailRow(
-                              label: '봉사장소',
-                              value: '서울특별시 강남구 역삼동 123-456',
-                            ),
-                            const OrbDivider(),
-                            buildVolunteerDetailRow(
-                              label: '봉사시간',
-                              value: '오전 10:00 ~ 오후 5:00',
-                            ),
-                            const OrbDivider(),
-                            buildVolunteerDetailRow(
-                              label: '활동요일',
-                              value: '월, 화, 수, 목, 금',
-                            ),
-                            const OrbDivider(),
-                            buildVolunteerDetailRow(
-                              label: '신청인원',
-                              value: '10명 / 100명',
-                            ),
-                            const OrbDivider(),
-                            buildVolunteerDetailRow(
-                              label: '봉사자유형',
-                              value: '성인',
-                            ),
-                            const OrbDivider(),
-                            const SizedBox(height: 16),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    child: OrbFilledButton(
+                      text: data.status == VolunteerStatusModel.inProgress
+                          ? '신청하기'
+                          : '모집 완료',
+                      disabled: data.status != VolunteerStatusModel.inProgress,
+                      onPressed: () {
+                        ref.read(routerServiceProvider).push(
+                              VolunteerApplyRoute(
+                                postId: postId,
+                              ),
+                            );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 8,
-              ),
-              child: OrbFilledButton(
-                onPressed: () {
-                  ref
-                      .read(routerServiceProvider)
-                      .push(const VolunteerApplyRoute());
-                },
-                text: '신청하러 가기',
-              ),
-            ),
-          ],
+            );
+          },
+          loading: () => const Center(
+            child: OrbCircularProgressIndicator(),
+          ),
+          error: (error, _) {
+            return const Center(
+              child: OrbCircularProgressIndicator(),
+            );
+          },
         ),
       );
     });

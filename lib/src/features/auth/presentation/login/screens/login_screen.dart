@@ -72,7 +72,9 @@ class LoginScreen extends StatelessWidget {
                   disabled: !isLoginButtonEnabled.value,
                   onPressed: () async {
                     await ref.read(loginTokenProvider.notifier).login(
-                        loginId: 'anipod@gmail.com', password: '*Lee865050*');
+                          loginId: idController.text,
+                          password: passwordController.text,
+                        );
                   },
                   text: "로그인",
                 ),
@@ -80,6 +82,7 @@ class LoginScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    /*
                     OrbTextButton(
                       onPressed: () {
                         ref
@@ -106,6 +109,8 @@ class LoginScreen extends StatelessWidget {
                       "|",
                     ),
                     const SizedBox(width: 8),
+
+                     */
                     OrbTextButton(
                       onPressed: () {
                         ref

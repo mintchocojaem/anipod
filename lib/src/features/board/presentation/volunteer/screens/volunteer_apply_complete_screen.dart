@@ -1,3 +1,4 @@
+import 'package:anipod/src/core/services/router/router_service.gr.dart';
 import 'package:anipod/src/core/utils/extensions.dart';
 import 'package:anipod/src/design_system/orb/orb.dart';
 import 'package:auto_route/annotations.dart';
@@ -53,7 +54,7 @@ class VolunteerApplyCompleteScreen extends StatelessWidget {
                 OrbTextButton(
                   text: '홈으로 돌아가기',
                   onPressed: () {
-                    ref.read(routerServiceProvider).back();
+                    ref.read(routerServiceProvider).navigate(VolunteerRoute());
                   },
                 ),
               ],

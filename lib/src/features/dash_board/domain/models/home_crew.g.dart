@@ -9,6 +9,7 @@ part of 'home_crew.dart';
 HomeCrewModel _$HomeCrewModelFromJson(Map<String, dynamic> json) =>
     HomeCrewModel(
       crewId: json['crewId'] as String,
+      profileImageUrl: json['profileImageUrl'] as String?,
       name: json['name'] as String,
       description: json['description'] as String,
       neighborhood: json['neighborhood'] as String,
@@ -18,6 +19,7 @@ HomeCrewModel _$HomeCrewModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$HomeCrewModelToJson(HomeCrewModel instance) =>
     <String, dynamic>{
       'crewId': instance.crewId,
+      'profileImageUrl': instance.profileImageUrl,
       'name': instance.name,
       'description': instance.description,
       'neighborhood': instance.neighborhood,

@@ -42,8 +42,8 @@ class OrbDialog extends StatelessWidget {
     final themeData = OrbThemeData.of(context);
     final palette = themeData.palette;
     return AlertDialog(
-      surfaceTintColor: palette.surfaceBright,
-      backgroundColor: palette.surfaceBright,
+      surfaceTintColor: palette.background,
+      backgroundColor: palette.background,
       insetPadding: const EdgeInsets.all(32),
       title: Text(
         title,

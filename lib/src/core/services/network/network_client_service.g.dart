@@ -7,7 +7,7 @@ part of 'network_client_service.dart';
 // **************************************************************************
 
 String _$networkClientServiceHash() =>
-    r'b95eabdf5d17ac81c0a81b42b715959620c630b5';
+    r'6ad904d1e5246cac1cf4f21dbb2ee727475471e6';
 
 /// See also [networkClientService].
 @ProviderFor(networkClientService)

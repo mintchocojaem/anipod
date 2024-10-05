@@ -3,10 +3,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../domain/models/crew.dart';
 import '../../../domain/use_cases/community_usecases.dart';
 
-part 'crew_profile_provider.g.dart';
+part 'community_crews_provider.g.dart';
 
 @riverpod
-class CrewProfile extends _$CrewProfile {
+class CommunityCrews extends _$CommunityCrews {
   @override
   Future<List<CrewModel>> build() async {
     return _fetch();
@@ -19,7 +19,7 @@ class CrewProfile extends _$CrewProfile {
     return crewProfiles;
   }
 
-  Future<void> fetchCrewProfiles() async {
+  Future<void> fetch() async {
     state = await AsyncValue.guard(() async {
       return _fetch();
     });

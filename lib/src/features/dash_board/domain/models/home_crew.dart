@@ -5,6 +5,7 @@ part 'home_crew.g.dart';
 @JsonSerializable()
 class HomeCrewModel {
   final String crewId;
+  final String? profileImageUrl;
   final String name;
   final String description;
   final String neighborhood;
@@ -12,6 +13,7 @@ class HomeCrewModel {
 
   HomeCrewModel({
     required this.crewId,
+    this.profileImageUrl,
     required this.name,
     required this.description,
     required this.neighborhood,

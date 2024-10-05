@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../../../design_system/orb/orb.dart';
-import '../widgets/user_apply_status_card.dart';
 
 @RoutePage()
 class UserVolunteerDetailScreen extends StatelessWidget {
@@ -12,17 +11,6 @@ class UserVolunteerDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<UserApplyStatus> applyStatusList = [
-      UserApplyStatus(
-        title: '산책 봉사활동 모집합니다',
-        organization: '서울 유기견 보호센터',
-        location: '강원 홍천',
-        registeredDate: '2024-02-28',
-        currentStep: UserApplyStatusStep.approval,
-      ),
-      // 다른 봉사활동 데이터 추가
-    ];
-
     return HookBuilder(builder: (context) {
       final selectedDate = useState<DateTime?>(DateTime.now());
       final selectedTime = useState<String?>("오전 10시");
@@ -63,10 +51,11 @@ class UserVolunteerDetailScreen extends StatelessWidget {
                               fontWeight: OrbFontWeight.medium,
                             ),
                           ),
+                          /*
                           UserApplyStatusCard(
                             applyStatus: applyStatusList[0],
                             onTap: () {},
-                          ),
+                           */
                         ],
                       ),
                     ),

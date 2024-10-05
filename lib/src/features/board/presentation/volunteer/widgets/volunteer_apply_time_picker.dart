@@ -5,8 +5,17 @@ import '../../../../../design_system/orb/orb.dart';
 
 class VolunteerApplyTimePicker extends StatefulWidget {
   final Function(String) onTimeSelected;
+  final TimeOfDay minimumTime;
+  final TimeOfDay maximumTime;
+  final Duration timeInterval;
 
-  const VolunteerApplyTimePicker({super.key, required this.onTimeSelected});
+  const VolunteerApplyTimePicker({
+    super.key,
+    required this.onTimeSelected,
+    this.minimumTime = const TimeOfDay(hour: 8, minute: 0), // 기본값: 오전 8시
+    this.maximumTime = const TimeOfDay(hour: 22, minute: 0), // 기본값: 오후 10시
+    this.timeInterval = const Duration(hours: 1), // 기본값: 1시간 간격
+  });
 
   @override
   State<VolunteerApplyTimePicker> createState() =>
@@ -18,13 +27,15 @@ class _VolunteerApplyTimePickerState extends State<VolunteerApplyTimePicker> {
 
   @override
   Widget build(BuildContext context) {
+    final timeOptions = _generateTimeOptions();
+
     return OrbModalBottomSheet(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildHeader(),
           const SizedBox(height: 16),
-          _buildTimeGrid(),
+          _buildTimeGrid(timeOptions),
           const SizedBox(height: 16),
           OrbDivider(),
           const SizedBox(height: 16),
@@ -44,6 +55,47 @@ class _VolunteerApplyTimePickerState extends State<VolunteerApplyTimePicker> {
     );
   }
 
+  List<String> _generateTimeOptions() {
+    List<String> timeOptions = [];
+    DateTime startDateTime = DateTime(
+      0,
+      1,
+      1,
+      widget.minimumTime.hour,
+      widget.minimumTime.minute,
+    );
+    DateTime endDateTime = DateTime(
+      0,
+      1,
+      1,
+      widget.maximumTime.hour,
+      widget.maximumTime.minute,
+    );
+
+    DateTime currentTime = startDateTime;
+
+    while (currentTime.isBefore(endDateTime) ||
+        currentTime.isAtSameMomentAs(endDateTime)) {
+      String formattedTime =
+          _formatTimeOfDay(TimeOfDay.fromDateTime(currentTime));
+      timeOptions.add(formattedTime);
+
+      currentTime = currentTime.add(widget.timeInterval);
+    }
+
+    return timeOptions;
+  }
+
+  String _formatTimeOfDay(TimeOfDay time) {
+    final hour = time.hour;
+    final minute = time.minute;
+    final period = hour < 12 ? '오전' : '오후';
+    final displayHour = hour % 12 == 0 ? 12 : hour % 12;
+    final formattedMinute = minute.toString().padLeft(2, '0');
+
+    return '$period $displayHour:$formattedMinute';
+  }
+
   Widget _buildHeader() {
     return OrbText(
       '봉사활동 시간을 선택해주세요',
@@ -52,19 +104,13 @@ class _VolunteerApplyTimePickerState extends State<VolunteerApplyTimePicker> {
     );
   }
 
-  Widget _buildTimeGrid() {
-    final timeOptions = [
-      '11:00~14:00',
-      '12:00~15:00',
-      '15:00~18:00',
-      '18:00~21:00',
-    ];
-
+  Widget _buildTimeGrid(List<String> timeOptions) {
     return GridView.builder(
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 3,
+        crossAxisCount: 3, // 한 줄에 3개의 시간 표시
+        childAspectRatio: 2.5,
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
       ),
@@ -117,14 +163,13 @@ class _VolunteerApplyTimePickerState extends State<VolunteerApplyTimePicker> {
         const SizedBox(width: 16),
         Flexible(
           child: OrbFilledButton(
-            text: '선택',
-            onPressed: selectedTime != null
-                ? () {
-                    widget.onTimeSelected(selectedTime!);
-                    Navigator.of(context).pop();
-                  }
-                : () {},
-          ),
+              text: '선택',
+              disabled: selectedTime == null,
+              onPressed: () {
+                if (selectedTime == null) return;
+                widget.onTimeSelected(selectedTime!);
+                Navigator.of(context).pop();
+              }),
         ),
       ],
     );

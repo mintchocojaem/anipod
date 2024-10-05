@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../domain/models/volunteer_board.dart';
@@ -25,7 +24,7 @@ class VolunteerBoard extends _$VolunteerBoard {
     return volunteerBoardData;
   }
 
-  Future<void> fetchBoard({
+  Future<void> fetch({
     VolunteerCategoryModel category = VolunteerCategoryModel.all,
   }) async {
     _page = 0; // 페이지 초기화
@@ -34,7 +33,7 @@ class VolunteerBoard extends _$VolunteerBoard {
     });
   }
 
-  Future<void> fetchNextBoard() async {
+  Future<void> fetchNext() async {
     if (state.value?.hasNext == true) {
       _page++; // 페이지 증가
       state = await AsyncValue.guard(() async {

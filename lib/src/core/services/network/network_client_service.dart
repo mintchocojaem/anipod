@@ -28,7 +28,7 @@ NetworkClientService networkClientService(NetworkClientServiceRef ref) =>
         await Future.delayed(const Duration(milliseconds: 100));
         if (exception.response?.statusCode == 500) {
           // Token Invalid
-          ref.read(loginTokenProvider.notifier).logout();
+          //ref.read(loginTokenProvider.notifier).logout();
         }
       },
     );
@@ -98,20 +98,19 @@ base class NetworkClientService {
             try {
               final List<dynamic>? response =
                   exception.response?.data['message'];
-              dynamic firstMessage = response?.firstOrNull;
+              dynamic message = response?.lastOrNull;
 
-              if (firstMessage != null &&
-                  firstMessage is Map<String, dynamic>) {
-                messages.add(firstMessage['error']);
-              } else if (firstMessage is String) {
-                messages.add(firstMessage);
+              if (message != null && message is Map<String, dynamic>) {
+                messages.add(message['error']);
+              } else if (message is String) {
+                messages.add(message);
               }
             } catch (e) {
               debugPrint('NetworkClientService > (Error) : $e');
             }
 
             exception = exception.copyWith(
-              message: messages.firstOrNull,
+              message: messages.lastOrNull,
             );
 
             final int statusCode = exception.response?.statusCode ?? 500;
