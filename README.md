@@ -1,16 +1,11 @@
-# anipod
+# Anipod
 
-Anipod
+## 개요
+유기된 반려동물의 새로운 입양자가 나타날 때 까지 임시 보호를 제공하고 이에 필요한 물품 및 플렛폼을 제공하는 사업
 
-## Getting Started
+## 기대 효과
+- 임시 보호를 통해 유기된 동물의 위생 및 건강을 호전시키고 안락사를 늦추거나 예방
+- 반려동물을 사고 파는 펫 시장의 규모를 상대적으로 줄여 비 윤리적인 문제를 감소
+- 플랫폼을 통해 사람들에게 잘 알려지지 않았던 유기된 동물들을 효과적으로 홍보하고 분양을 장려
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![anipod](https://github.com/user-attachments/assets/1b358e5d-9165-4164-8f3f-d852190246b4)
